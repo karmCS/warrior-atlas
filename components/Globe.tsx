@@ -366,15 +366,6 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
     }
   }, [selectedCountry, clusters, ready]);
 
-  // ── the dossier covers the right edge of the map, so tell the view about it.
-  //    Without this, `goTo` centres the pick in the full container and the panel
-  //    then slides over it — the art you just picked ends up half-hidden. ──
-  useEffect(() => {
-    const view = viewRef.current;
-    if (!view || !ready) return;
-    const right = paused ? Math.min(PANEL_W, window.innerWidth * 0.92) : 0;
-    view.padding = { ...view.padding, right };
-  }, [paused, ready]);
 
   // ── lineage arcs between country ANCHORS — endpoints share the node anchors so
   //    arcs stay attached to markers; intra-country descents collapse into the
@@ -417,13 +408,26 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
     }
   }, [selectedCountry, clusters, routes, ready]);
 
-  // ── fly the camera to the selected art (spec: view.goTo on select) ──
+  // ── fly the camera to the selected art, but ONLY when it isn't already on
+  //    screen. Recentring a marker the user just clicked slides the whole globe
+  //    sideways under them for no information gain — that lateral drag is the
+  //    "swipe". Picks made from the codex or lineage views, or an explicit
+  //    "centre on map", still fly, because there the target really can be on the
+  //    far side of the planet. ──
+  const flownFor = useRef(0);
   useEffect(() => {
     const view = viewRef.current;
     if (!view || !ready || !selectedId) return;
     const r = records.find((s) => s.id === selectedId);
     if (!r) return;
     setPop(null); popRef.current = null;
+
+    const forced = centerSignal !== flownFor.current;
+    flownFor.current = centerSignal;
+    // `paused` is already true on this commit when the dossier is opening, so the
+    // panel's footprint counts as off-screen.
+    if (!forced && onScreen(view, r.lng, r.lat, paused ? PANEL_W : 0)) return;
+
     spin.current.animating = true;
     // The camera is moving across the screen rather than entering it, so it wants
     // an in-out curve. `out-expo` decelerated so hard the last third read as a stall.
@@ -517,6 +521,19 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       </div>
     </div>
   );
+}
+
+// Whether a lng/lat is already comfortably in view: facing the camera, and inside
+// the viewport with a margin, excluding the strip the dossier panel covers. The
+// margin keeps targets that are technically visible but jammed against an edge
+// from counting, since those do deserve a flight.
+function onScreen(view: SceneView, lng: number, lat: number, rightPad: number): boolean {
+  if (!frontFacing(view, lng, lat)) return false;
+  const sp = view.toScreen(new Point({ longitude: lng, latitude: lat }));
+  const w = view.width, h = view.height;
+  if (!sp || !w || !h) return false;
+  const mx = w * 0.12, my = h * 0.12;
+  return sp.x > mx && sp.x < w - rightPad - mx && sp.y > my && sp.y < h - my;
 }
 
 // Whether a lng/lat sits on the camera-facing hemisphere (for popover culling).
