@@ -19,6 +19,18 @@ const browser = await chromium.launch({
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await page.goto(URL, { waitUntil: 'domcontentloaded' });
+
+// The hero gate covers the atlas on load and swallows pointer events, so dismiss
+// it before anything else. It is skipped rather than required, so this check still
+// runs against a build without the gate.
+const enter = page.locator('.hero__enter');
+if (await enter.count()) {
+  await enter.click();
+  // Generous: the gate's 900ms exit timer is starved by the SceneView booting
+  // underneath it on a software rasteriser, and can take tens of seconds here.
+  await page.locator('.hero').waitFor({ state: 'detached', timeout: 45000 });
+}
+
 await page.waitForSelector('.glabel', { timeout: 120000, state: 'attached' });
 await page.waitForTimeout(2500);
 
