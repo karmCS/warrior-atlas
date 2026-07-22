@@ -276,6 +276,149 @@ a:hover { color: var(--gold-300); }
 .ledger__edge:hover { border-color: var(--border-gold); color: var(--gold-300); }
 .ledger__none { font-size: 12px; color: var(--bone-700); font-style: italic; }
 
+/* ── hero gate (landing overlay) ── */
+.wa-under { height: 100vh; }
+
+.hero {
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-rush: cubic-bezier(0.32, 0.72, 0, 1);
+  --split: 3px;
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column;
+  padding: 22px 30px 24px;
+  overflow: hidden;
+}
+.hero:has(.hero__enter:hover) { --split: 7px; }
+.hero[data-state='leaving'] { --split: 18px; pointer-events: none; }
+
+/* backdrop lives on a pseudo so it can fade out on its own timing, after the
+   wordmark has already left — the atlas underneath is revealed, not cross-faded */
+.hero::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(120% 85% at 50% 6%, rgba(242,191,43,.08) 0%, rgba(194,32,38,.05) 38%, rgba(11,7,6,0) 72%),
+    var(--ink-950);
+  transition: opacity 620ms var(--ease-out-strong) 220ms;
+}
+.hero[data-state='leaving']::before { opacity: 0; }
+
+.hero__stage {
+  position: absolute; inset: 0; z-index: 0; opacity: .92;
+  animation: heroGlobeIn 1100ms var(--ease-out-strong) backwards;
+  transition: transform 900ms var(--ease-rush), opacity 900ms var(--ease-out-strong), filter 900ms var(--ease-out-strong);
+}
+.hero[data-state='leaving'] .hero__stage { transform: scale(2.6); opacity: 0; filter: blur(3px); }
+.hero__canvas { width: 100%; height: 100%; display: block; }
+
+.hero__grain {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .05;
+  box-shadow: inset 0 0 260px 40px rgba(11,7,6,.85);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero__bar, .hero__foot {
+  position: relative; z-index: 2; flex: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-family: var(--font-condensed); font-weight: 600; font-size: 11px;
+  letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--bone-700);
+}
+.hero__bar { padding-bottom: 14px; border-bottom: 1px solid var(--border-1); animation: heroRise 620ms var(--ease-out-strong) 340ms backwards; }
+.hero__foot { padding-top: 14px; border-top: 1px solid var(--border-1); animation: heroRise 620ms var(--ease-out-strong) 400ms backwards; }
+.hero__mark { display: inline-flex; align-items: center; gap: 9px; color: var(--bone-300); letter-spacing: .18em; }
+.hero__ver, .hero__foot-hint { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: none; }
+
+.hero__inner {
+  position: relative; z-index: 2; flex: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 22px; text-align: center;
+}
+
+.hero__kick {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  margin: 0; font-family: var(--font-condensed); font-weight: 600; font-size: 11.5px;
+  letter-spacing: var(--track-wide); text-transform: uppercase; color: var(--gold-500);
+  animation: heroRise 620ms var(--ease-out-strong) backwards;
+}
+.hero__kick::before, .hero__kick::after { content: ''; width: 44px; height: 1px; flex: none; }
+.hero__kick::before { background: linear-gradient(90deg, transparent, var(--border-gold)); }
+.hero__kick::after { background: linear-gradient(90deg, var(--border-gold), transparent); }
+
+.hero__title {
+  margin: 0; font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(2.9rem, 9.4vw, 9rem); line-height: .86; letter-spacing: -.005em;
+  text-transform: uppercase; color: var(--bone-100);
+  transition: transform 620ms var(--ease-rush), opacity 480ms var(--ease-out-strong) 100ms, filter 620ms var(--ease-out-strong);
+}
+.hero[data-state='leaving'] .hero__title { transform: scale(1.12); opacity: 0; filter: blur(10px); }
+
+/* chromatic split: two blend-mode copies of the same glyphs, offset either way.
+   Widens on hover of the entrance, and blows apart during the transition. */
+.hero__line { position: relative; display: block; animation: heroRise 700ms var(--ease-out-strong) 60ms backwards; }
+.hero__line + .hero__line { animation-delay: 110ms; }
+.hero__line::before, .hero__line::after {
+  content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%;
+  mix-blend-mode: screen; opacity: .8; pointer-events: none;
+  transition: transform 560ms var(--ease-out-strong);
+}
+.hero__line::before { color: var(--red-400); transform: translate3d(calc(var(--split) * -1), 0, 0); }
+.hero__line::after { color: var(--gold-500); transform: translate3d(var(--split), 0, 0); }
+
+.hero__sub {
+  margin: 0; max-width: 40rem; text-wrap: balance;
+  font-size: 15.5px; line-height: 1.62; color: var(--text-muted);
+  animation: heroRise 620ms var(--ease-out-strong) 190ms backwards;
+}
+
+.hero__enter {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-condensed); font-weight: 600; font-size: 13px;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-950); background: var(--gold-500); border: 0;
+  padding: 13px 22px; margin-top: 6px; cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  animation: heroRise 620ms var(--ease-out-strong) 250ms backwards;
+  transition: transform 160ms var(--ease-out-strong), background 160ms ease, box-shadow 200ms ease;
+}
+.hero__enter svg { transition: transform 200ms var(--ease-out-strong); }
+@media (hover: hover) and (pointer: fine) {
+  .hero__enter:hover { background: var(--gold-400); box-shadow: var(--glow-gold); }
+  .hero__enter:hover svg { transform: translateX(3px); }
+}
+.hero__enter:active { transform: scale(.97); }
+
+/* content clears out fast; the globe and backdrop carry the rest of the reveal */
+.hero__kick, .hero__sub, .hero__enter, .hero__bar, .hero__foot {
+  transition: opacity 240ms var(--ease-out-strong), transform 240ms var(--ease-out-strong),
+              background 160ms ease, box-shadow 200ms ease;
+}
+.hero[data-state='leaving'] .hero__kick,
+.hero[data-state='leaving'] .hero__sub,
+.hero[data-state='leaving'] .hero__enter,
+.hero[data-state='leaving'] .hero__bar,
+.hero[data-state='leaving'] .hero__foot { opacity: 0; transform: translate3d(0, -6px, 0); }
+
+@keyframes heroRise { from { opacity: 0; transform: translate3d(0, 12px, 0); } }
+@keyframes heroGlobeIn { from { opacity: 0; transform: scale(.94); } }
+
+@media (max-width: 900px) {
+  .hero { padding: 16px 18px 18px; }
+  .hero__kick::before, .hero__kick::after { width: 20px; }
+  .hero__sub { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero, .hero * { animation: none !important; }
+  .hero__stage, .hero__title { transition: opacity 240ms ease !important; }
+  .hero[data-state='leaving'] .hero__stage,
+  .hero[data-state='leaving'] .hero__title { transform: none; filter: none; }
+  .hero::before { transition: opacity 240ms ease; }
+  .hero[data-state='leaving'] .hero__kick,
+  .hero[data-state='leaving'] .hero__sub,
+  .hero[data-state='leaving'] .hero__enter,
+  .hero[data-state='leaving'] .hero__bar,
+  .hero[data-state='leaving'] .hero__foot { transform: none; }
+}
+
 /* ── mobile flag ── */
 .mobile-warn { display: none; }
 @media (max-width: 900px) {

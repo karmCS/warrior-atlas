@@ -1,5 +1,6 @@
 node_modules/
 .next/
+.next-*/
 out/
 dist/
 .env
@@ -8,3 +9,8 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
+tsconfig.tsbuildinfo
+
+# local verification artefacts
+shots*/
+dev.log
