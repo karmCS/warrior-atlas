@@ -295,7 +295,9 @@ a:hover { color: var(--gold-300); }
 .media-empty { display: flex; align-items: center; gap: 10px; padding: 14px; border: 1px dashed var(--border-2); color: var(--bone-600); font-size: 12.5px; }
 
 /* ── codex + lineage views ── */
-.sheet { position: absolute; inset: 0; overflow-y: auto; background: var(--bg-app); }
+/* The globe stays mounted under the codex/lineage sheets, so the sheet has to
+   paint above every globe overlay (legend, coord read, zoom, marker popup). */
+.sheet { position: absolute; inset: 0; overflow-y: auto; background: var(--bg-app); z-index: 50; }
 .codex { max-width: 1160px; margin: 0 auto; padding: 34px 28px 60px; }
 .codex__head { position: relative; padding: 26px 26px 22px; margin-bottom: 24px; background: var(--gradient-ember-radial), var(--ink-900); border: 1px solid var(--border-1); overflow: hidden; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%); }
 .codex__title { font-family: var(--font-display); font-size: 56px; line-height: .92; text-transform: uppercase; color: var(--gold-500); }
