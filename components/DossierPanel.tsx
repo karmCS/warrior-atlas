@@ -50,10 +50,14 @@ export function DossierPanel({ record, all, onClose, onSelect, onCenter }: {
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
   // Move focus into the dialog on open and restore it to the trigger on close.
+  // preventScroll matters: on mount the panel is still parked at translateX(100%)
+  // by its enter animation, i.e. entirely outside the stage. A plain focus() makes
+  // the browser scroll the stage sideways to reveal the button, so the whole map
+  // lurches 424px left and is then dragged back as the panel slides in.
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
-    closeRef.current?.focus();
-    return () => prev?.focus?.();
+    closeRef.current?.focus({ preventScroll: true });
+    return () => prev?.focus?.({ preventScroll: true });
   }, []);
 
   const byId = new Map(all.map((r) => [r.id, r]));

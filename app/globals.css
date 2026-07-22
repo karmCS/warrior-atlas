@@ -143,7 +143,10 @@ a:hover { color: var(--gold-300); }
 .iconbtn:hover { color: var(--gold-400); border-color: var(--border-gold); }
 
 .stage { flex: 1; display: flex; min-height: 0; position: relative; }
-.stage__main { position: relative; flex: 1; min-width: 0; display: flex; }
+/* `clip`, not `hidden`: an `overflow: hidden` box is still programmatically
+   scrollable, so a focus() inside the off-screen dossier could still drag the
+   stage sideways. `clip` makes the box non-scrollable outright. */
+.stage__main { position: relative; flex: 1; min-width: 0; display: flex; overflow: clip; }
 
 /* ── filter rail ── */
 .rail { width: 268px; flex: none; display: flex; flex-direction: column; gap: 20px; padding: 20px 16px; border-right: 1px solid var(--border-1); background: var(--ink-900); z-index: 10; overflow-y: auto; }
