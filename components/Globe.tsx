@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import esriConfig from '@arcgis/core/config';
 import { version as arcgisVersion } from '@arcgis/core/kernel';
 import EsriMap from '@arcgis/core/Map';
@@ -16,7 +16,6 @@ import Polygon from '@arcgis/core/geometry/Polygon';
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
-import TextSymbol from '@arcgis/core/symbols/TextSymbol';
 import { feature } from 'topojson-client';
 import { Icon } from './Icon';
 import type { ArtRecord } from '@/lib/types';
@@ -32,11 +31,18 @@ const ARCGIS_KEY = (process.env.NEXT_PUBLIC_ARCGIS_API_KEY ?? '').trim();
 if (ARCGIS_KEY) esriConfig.apiKey = ARCGIS_KEY;
 
 const GOLD = '#F2BF2B';
+const GOLD_HOT = '#FFD34D';
 const RED = '#C22026';
 const RED_HOT = '#E23B33';
 const BONE = '#E2D3B0';
 const LACQUER = '#0B0706';
 const LAND_BROWN = '#4A3418';
+
+const EARTH_R = 6378137;      // metres — drives the horizon cutoff that culls labels
+const SPIN_DEG_PER_SEC = 7.2; // was 0.12°/frame @60fps; now frame-rate independent
+const SPIN_RAMP = 6;          // 1/s — how fast the spin eases up to / down from speed
+const USER_IDLE_MS = 1400;    // how long the globe holds still after a zoom/drag
+const PANEL_W = 424;          // keep in sync with `.panel` width in globals.css
 
 // ── great-circle math (geodesic arc geometry, spec: elevated-vertex polylines) ──
 const RAD = Math.PI / 180;
@@ -90,22 +96,12 @@ function clusterByCountry(records: ArtRecord[]): Cluster[] {
   return out;
 }
 
-function nodeSymbol(selected: boolean) {
+function nodeSymbol(selected: boolean, hovered: boolean) {
   return new SimpleMarkerSymbol({
     style: 'diamond',
-    color: selected ? RED : GOLD,
-    size: selected ? 15 : 11,
-    outline: { color: selected ? RED_HOT : [11, 7, 6, 0.9], width: selected ? 1.6 : 1 },
-  });
-}
-function labelSymbol(text: string, selected: boolean) {
-  return new TextSymbol({
-    text,
-    color: selected ? '#FF9A82' : BONE,
-    haloColor: LACQUER,
-    haloSize: 1.4,
-    yoffset: 13,
-    font: { family: 'Oswald, sans-serif', size: 9, weight: 'bold' },
+    color: selected ? RED : hovered ? GOLD_HOT : GOLD,
+    size: selected ? 15 : hovered ? 14 : 11,
+    outline: { color: selected ? RED_HOT : hovered ? GOLD_HOT : [11, 7, 6, 0.9], width: selected ? 1.6 : 1 },
   });
 }
 
@@ -118,13 +114,14 @@ function routeSymbol(emph: boolean) {
   });
 }
 
-export function Globe({ records, selectedId, onSelect, routes, labels, autorotate, paused, centerSignal }: {
+export function Globe({ records, selectedId, onSelect, routes, labels, autorotate, onAutorotate, paused, centerSignal }: {
   records: ArtRecord[];
   selectedId: string | null;
   onSelect: (id: string) => void;
   routes: boolean;
   labels: boolean;
   autorotate: boolean;
+  onAutorotate: (on: boolean) => void;
   paused: boolean;
   centerSignal: number;
 }) {
@@ -132,18 +129,63 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
   const viewRef = useRef<SceneView | null>(null);
   const nodeLayerRef = useRef<GraphicsLayer | null>(null);
   const routeLayerRef = useRef<GraphicsLayer | null>(null);
-  const labelLayerRef = useRef<GraphicsLayer | null>(null);
   const coordRef = useRef<HTMLSpanElement>(null);
-  const spin = useRef({ paused: false, dragging: false, animating: false, raf: 0 });
+  const spin = useRef({ paused: false, dragging: false, animating: false, hovering: false, raf: 0, last: 0, idleUntil: 0, vel: 0 });
   const clustersRef = useRef<Map<string, Cluster>>(new Map());
   const routeMetaRef = useRef<{ graphic: Graphic; a: string; b: string }[]>([]);
   const handlers = useRef({ onSelect });
   handlers.current.onSelect = onSelect;
 
+  // DOM label overlay: one <button> per country, repositioned on every camera
+  // change by writing `transform` straight onto the node. Labels used to be Esri
+  // TextSymbols, which depth-sorted against the draped land polygons and against
+  // each other — that reshuffling is what made them flicker while the globe spun.
+  // In the DOM they have a stable paint order, and they get real :hover and
+  // :focus-visible affordances for free.
+  const labelElsRef = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const labelPtsRef = useRef<Map<string, Point>>(new Map());
+  const nodeGraphicsRef = useRef<Map<string, Graphic>>(new Map());
+  const hoverRef = useRef<string | null>(null);
+  const layoutRef = useRef<(() => void) | null>(null);
+
   const [ready, setReady] = useState(false);
   const [pop, setPop] = useState<{ cluster: Cluster; x: number; y: number } | null>(null);
   const popRef = useRef<Cluster | null>(null);
   const clusters = useMemo(() => clusterByCountry(records), [records]);
+  const selectedCountry = useMemo(
+    () => (selectedId ? records.find((r) => r.id === selectedId)?.country ?? null : null),
+    [records, selectedId],
+  );
+
+  const pick = useCallback((c: Cluster) => {
+    if (c.styles.length === 1) {
+      handlers.current.onSelect(c.styles[0].id);
+      setPop(null); popRef.current = null;
+      return;
+    }
+    popRef.current = c;
+    const sp = viewRef.current?.toScreen(new Point({ longitude: c.lng, latitude: c.lat }));
+    if (sp) setPop({ cluster: c, x: sp.x, y: sp.y });
+  }, []);
+
+  // Hover deliberately stays out of React state: pointer-move fires constantly and
+  // would re-render the whole overlay on every mouse twitch. Touch the two nodes
+  // that actually changed instead.
+  const setHover = useCallback((country: string | null) => {
+    if (hoverRef.current === country) return;
+    const prev = hoverRef.current;
+    hoverRef.current = country;
+    spin.current.hovering = country != null;
+    for (const key of [prev, country]) {
+      if (!key) continue;
+      const on = key === country;
+      labelElsRef.current.get(key)?.classList.toggle('is-hot', on);
+      const g = nodeGraphicsRef.current.get(key);
+      if (g) g.symbol = nodeSymbol(!!g.attributes?.selected, on);
+    }
+    const el = viewRef.current?.container as HTMLDivElement | undefined;
+    if (el) el.style.cursor = country ? 'pointer' : '';
+  }, []);
 
   // ── init the SceneView once ──
   useEffect(() => {
@@ -163,19 +205,20 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
 
       const landLayer = new GraphicsLayer({ id: 'land' });
       const routeLayer = new GraphicsLayer({ id: 'routes', elevationInfo: { mode: 'absolute-height' } });
-      const nodeLayer = new GraphicsLayer({ id: 'nodes' });
-      const labelLayer = new GraphicsLayer({ id: 'labels' });
-      routeLayerRef.current = routeLayer; nodeLayerRef.current = nodeLayer; labelLayerRef.current = labelLayer;
+      // Lifted off the surface so the diamonds never z-fight the basemap tiles (or the
+      // draped land rings of the keyless fallback).
+      const nodeLayer = new GraphicsLayer({ id: 'nodes', elevationInfo: { mode: 'relative-to-ground', offset: 60000 } });
+      routeLayerRef.current = routeLayer; nodeLayerRef.current = nodeLayer;
 
       // No elevation layers: the ground stays a flat sphere so the absolute-height arcs
-      // and their z-less node endpoints keep meeting. surfaceColor shows through wherever
-      // the basemap has no tiles (the poles) and everywhere in the keyless fallback.
-      // Basemaps always draw beneath operational layers, so route/node/label ordering and
-      // the nodeLayer hitTest filter are untouched either way.
+      // and their node endpoints keep meeting. surfaceColor shows through wherever the
+      // basemap has no tiles (the poles) and everywhere in the keyless fallback. Basemaps
+      // always draw beneath operational layers, so route/node ordering and the nodeLayer
+      // hitTest filter are untouched either way.
       const map = new EsriMap({
         ground: new Ground({ surfaceColor: [12, 8, 6] }),
         basemap: basemap ?? undefined,
-        layers: [landLayer, routeLayer, nodeLayer, labelLayer],
+        layers: [landLayer, routeLayer, nodeLayer],
       });
       const view = new SceneView({
         container: box,
@@ -183,7 +226,7 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
         viewingMode: 'global',
         qualityProfile: 'high',
         camera: { position: { longitude: 25, latitude: 12, z: 2.4e7 }, heading: 0, tilt: 0 },
-        constraints: { altitude: { min: 6e6, max: 6e7 }, clipDistance: { mode: 'auto' } },
+        constraints: { altitude: { min: 1.5e6, max: 6e7 }, clipDistance: { mode: 'auto' } },
         environment: {
           background: { type: 'color', color: [8, 5, 5, 1] },
           starsEnabled: false,
@@ -200,46 +243,102 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       reactiveUtils.whenOnce(() => view.ready).then(() => {
         if (view.destroyed) return;
         setReady(true);
-        spin.current.raf = requestAnimationFrame(frame);
         if (!basemap) loadLand(landLayer);
+        spin.current.last = performance.now();
+        spin.current.raf = requestAnimationFrame(frame);
       }).catch(() => {});
 
       const onClick = view.on('click', (e) => {
         view.hitTest(e, { include: nodeLayer }).then((res) => {
           const hit = res.results.find((r) => r.type === 'graphic' && r.graphic?.layer === nodeLayer);
           if (hit && hit.type === 'graphic') {
-            const country = hit.graphic.attributes?.country as string;
-            const c = clustersRef.current.get(country);
-            if (!c) return;
-            if (c.styles.length === 1) { handlers.current.onSelect(c.styles[0].id); setPop(null); popRef.current = null; }
-            else openPopover(c);
+            const c = clustersRef.current.get(hit.graphic.attributes?.country as string);
+            if (c) pick(c);
           } else { setPop(null); popRef.current = null; }
         }).catch(() => {});
       });
+
+      // Throttled to a single in-flight hitTest — pointer-move fires far faster than
+      // hitTest resolves, and queueing every move stalls the frame loop.
+      let hitPending = false;
+      const onMove = view.on('pointer-move', (e) => {
+        if (hitPending) return;
+        hitPending = true;
+        view.hitTest(e, { include: nodeLayer }).then((res) => {
+          hitPending = false;
+          const hit = res.results.find((r) => r.type === 'graphic' && r.graphic?.layer === nodeLayer);
+          setHover(hit && hit.type === 'graphic' ? (hit.graphic.attributes?.country as string) ?? null : null);
+        }).catch(() => { hitPending = false; });
+      });
+      const onLeave = view.on('pointer-leave', () => setHover(null));
+
       const onDrag = view.on('drag', (e) => {
         spin.current.dragging = e.action !== 'end';
+        spin.current.idleUntil = performance.now() + USER_IDLE_MS;
         if (e.action === 'start') { setPop(null); popRef.current = null; }
       });
-      const camWatch = view.watch('camera', () => {
+      // Wheel zoom is SceneView's own default. It was previously unusable because
+      // the frame loop reassigned `view.camera` every frame, which cancels the
+      // in-flight zoom animation. Don't preventDefault here — only hold the spin off.
+      const onWheel = view.on('mouse-wheel', () => { spin.current.idleUntil = performance.now() + USER_IDLE_MS; });
+
+      const camWatch = reactiveUtils.watch(() => view.camera, () => {
         const c = view.center;
         if (coordRef.current && c) coordRef.current.textContent = fmtCenter(c.latitude ?? 0, c.longitude ?? 0);
         repositionPopover();
       });
 
-      function frame() {
+      function frame(now: number) {
         const v = viewRef.current;
-        if (v && !spin.current.paused && !spin.current.animating && !spin.current.dragging && !v.interacting) {
-          const cam = v.camera.clone();
-          cam.position.longitude = normLng((cam.position.longitude ?? 0) + 0.12);
-          v.camera = cam;
+        const s = spin.current;
+        const dt = Math.min(0.1, (now - s.last) / 1000);
+        s.last = now;
+        // Two kinds of stop. A hard stop means something else owns the camera
+        // (a goTo flight, a drag) — writing to it would cancel that outright, so
+        // drop the velocity to zero at once. A soft stop is a decision the user
+        // made (paused, hovering a marker, just finished zooming); those ease out
+        // and back in, so the globe never jerks to a halt.
+        const hard = !v || s.animating || s.dragging || v.interacting || !!v.animation;
+        const soft = s.paused || s.hovering || now < s.idleUntil;
+        if (hard) s.vel = 0;
+        else {
+          s.vel += ((soft ? 0 : SPIN_DEG_PER_SEC) - s.vel) * Math.min(1, dt * SPIN_RAMP);
+          if (v && s.vel > 0.002) {
+            const cam = v.camera.clone();
+            cam.position.longitude = normLng((cam.position.longitude ?? 0) + s.vel * dt);
+            v.camera = cam;
+          }
         }
-        spin.current.raf = requestAnimationFrame(frame);
+        // Driven from the frame loop rather than a camera watcher so the labels stay
+        // glued to their anchors during Esri's own navigation (wheel zoom, goTo),
+        // not just during our own camera writes.
+        layoutLabels();
+        s.raf = requestAnimationFrame(frame);
       }
-      function openPopover(c: Cluster) {
-        popRef.current = c;
-        const sp = view.toScreen(new Point({ longitude: c.lng, latitude: c.lat }));
-        if (sp) setPop({ cluster: c, x: sp.x, y: sp.y });
+
+      function layoutLabels() {
+        const v = viewRef.current;
+        const cam = v?.camera?.position;
+        if (!v || !cam) return;
+        // Anything angularly closer to the camera than the horizon is visible; fade
+        // the last few degrees so labels don't pop on and off at the limb.
+        const cosHorizon = EARTH_R / (EARTH_R + Math.max(1, cam.z ?? 0));
+        const eye = toVec(cam.longitude ?? 0, cam.latitude ?? 0);
+        for (const [country, el] of labelElsRef.current) {
+          const pt = labelPtsRef.current.get(country);
+          if (!pt) { el.style.visibility = 'hidden'; continue; }
+          const p = toVec(pt.longitude ?? 0, pt.latitude ?? 0);
+          const fade = (p[0] * eye[0] + p[1] * eye[1] + p[2] * eye[2] - cosHorizon) / 0.08;
+          if (fade <= 0) { el.style.visibility = 'hidden'; continue; }
+          const sp = v.toScreen(pt);
+          if (!sp) { el.style.visibility = 'hidden'; continue; }
+          el.style.visibility = 'visible';
+          el.style.opacity = fade >= 1 ? '1' : fade.toFixed(2);
+          el.style.transform = `translate3d(${Math.round(sp.x)}px, ${Math.round(sp.y)}px, 0)`;
+        }
       }
+      layoutRef.current = layoutLabels;
+
       function repositionPopover() {
         const c = popRef.current;
         if (!c) return;
@@ -251,42 +350,60 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       teardown = () => {
         cancelAnimationFrame(spin.current.raf);
         camWatch.remove(); onClick.remove(); onDrag.remove();
+        onMove.remove(); onLeave.remove(); onWheel.remove();
         view.destroy();
         viewRef.current = null;
+        layoutRef.current = null;
       };
     })();
 
     // Unmount before the basemap fetch resolves → disposed short-circuits the IIFE and
     // teardown is still null; after → teardown tears the view down normally.
     return () => { disposed = true; teardown?.(); };
-  }, []);
+  }, [pick, setHover]);
 
   // keep spin paused state synced to props / popover
   useEffect(() => { spin.current.paused = paused || !autorotate || !!pop; }, [paused, autorotate, pop]);
 
-  // keep the click-handler's cluster lookup current
-  useEffect(() => { clustersRef.current = new Map(clusters.map((c) => [c.country, c])); }, [clusters]);
+  // keep the click-handler's cluster lookup and the label anchors current
+  useEffect(() => {
+    clustersRef.current = new Map(clusters.map((c) => [c.country, c]));
+    labelPtsRef.current = new Map(clusters.map((c) => [c.country, new Point({ longitude: c.lng, latitude: c.lat })]));
+  }, [clusters]);
 
-  // ── nodes + labels (cheap; restyled on selection) ──
+  // position freshly mounted labels before the next camera tick, so they don't
+  // flash at 0,0 on first paint
+  useEffect(() => { layoutRef.current?.(); }, [clusters, labels, ready]);
+
+  // ── nodes: built only when the data changes ──
   useEffect(() => {
     if (!ready) return;
-    const nodeLayer = nodeLayerRef.current!, labelLayer = labelLayerRef.current!;
-    nodeLayer.removeAll(); labelLayer.removeAll();
+    const nodeLayer = nodeLayerRef.current!;
+    nodeLayer.removeAll();
+    nodeGraphicsRef.current.clear();
     for (const c of clusters) {
-      const sel = selectedId != null && c.ids.includes(selectedId);
-      nodeLayer.add(new Graphic({
+      const g = new Graphic({
         geometry: new Point({ longitude: c.lng, latitude: c.lat }),
-        symbol: nodeSymbol(sel),
-        attributes: { country: c.country },
-      }));
-      if (labels) {
-        labelLayer.add(new Graphic({
-          geometry: new Point({ longitude: c.lng, latitude: c.lat }),
-          symbol: labelSymbol(`${c.country.toUpperCase()} ·${c.styles.length}`, sel),
-        }));
-      }
+        symbol: nodeSymbol(false, hoverRef.current === c.country),
+        attributes: { country: c.country, selected: false },
+      });
+      nodeLayer.add(g);
+      nodeGraphicsRef.current.set(c.country, g);
     }
-  }, [clusters, labels, selectedId, ready]);
+  }, [clusters, ready]);
+
+  // ── selection restyles the markers in place. Rebuilding the layer here (which
+  //    is what it used to do) made every diamond on the globe blink out and back
+  //    on each pick — the single biggest reason selecting a country felt broken. ──
+  useEffect(() => {
+    if (!ready) return;
+    for (const [country, g] of nodeGraphicsRef.current) {
+      const sel = country === selectedCountry;
+      g.attributes = { ...g.attributes, selected: sel };
+      g.symbol = nodeSymbol(sel, hoverRef.current === country);
+    }
+  }, [selectedCountry, clusters, ready]);
+
 
   // ── lineage arcs between country ANCHORS — endpoints share the node anchors so
   //    arcs stay attached to markers; intra-country descents collapse into the
@@ -324,32 +441,48 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
   // ── emphasize arcs touching the selected style's country (symbol swap only) ──
   useEffect(() => {
     if (!ready) return;
-    const selCountry = selectedId ? records.find((r) => r.id === selectedId)?.country ?? null : null;
     for (const rm of routeMetaRef.current) {
-      rm.graphic.symbol = routeSymbol(selCountry != null && (rm.a === selCountry || rm.b === selCountry));
+      rm.graphic.symbol = routeSymbol(selectedCountry != null && (rm.a === selectedCountry || rm.b === selectedCountry));
     }
-  }, [selectedId, clusters, routes, ready]);
+  }, [selectedCountry, clusters, routes, ready]);
 
-  // ── fly the camera to the selected art (spec: view.goTo on select) ──
+  // ── fly the camera to the selected art, but ONLY when it isn't already on
+  //    screen. Recentring a marker the user just clicked slides the whole globe
+  //    sideways under them for no information gain — that lateral drag is the
+  //    "swipe". Picks made from the codex or lineage views, or an explicit
+  //    "centre on map", still fly, because there the target really can be on the
+  //    far side of the planet. ──
+  const flownFor = useRef(0);
   useEffect(() => {
     const view = viewRef.current;
     if (!view || !ready || !selectedId) return;
     const r = records.find((s) => s.id === selectedId);
     if (!r) return;
     setPop(null); popRef.current = null;
+
+    const forced = centerSignal !== flownFor.current;
+    flownFor.current = centerSignal;
+    // `paused` is already true on this commit when the dossier is opening, so the
+    // panel's footprint counts as off-screen.
+    if (!forced && onScreen(view, r.lng, r.lat, paused ? PANEL_W : 0)) return;
+
     spin.current.animating = true;
-    view.goTo({ center: [r.lng, r.lat] }, { duration: 900, easing: 'out-expo' })
+    // The camera is moving across the screen rather than entering it, so it wants
+    // an in-out curve. `out-expo` decelerated so hard the last third read as a stall.
+    view.goTo({ center: [r.lng, r.lat] }, { duration: 800, easing: 'in-out-cubic' })
       .catch(() => {}).finally(() => { spin.current.animating = false; });
   }, [selectedId, centerSignal, ready]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function zoomBy(dir: number) {
     const view = viewRef.current; if (!view) return;
+    spin.current.idleUntil = performance.now() + USER_IDLE_MS;
     spin.current.animating = true;
     view.goTo({ zoom: view.zoom + dir }, { duration: 250 })
       .catch(() => {}).finally(() => { spin.current.animating = false; });
   }
   function resetView() {
     const view = viewRef.current; if (!view) return;
+    spin.current.idleUntil = performance.now() + USER_IDLE_MS;
     spin.current.animating = true;
     view.goTo({ position: { longitude: 25, latitude: 12, z: 2.4e7 }, heading: 0, tilt: 0 }, { duration: 500 })
       .catch(() => {}).finally(() => { spin.current.animating = false; });
@@ -360,6 +493,30 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       <div className="map__view" ref={boxRef} />
       <div className="map__atmo" />
       <div className="map__vignette" />
+
+      {ready && labels ? (
+        <div className="glabels">
+          {clusters.map((c) => (
+            <button
+              key={c.country}
+              type="button"
+              ref={(el) => { if (el) labelElsRef.current.set(c.country, el); else labelElsRef.current.delete(c.country); }}
+              className={'glabel' + (selectedCountry === c.country ? ' is-on' : '')}
+              style={{ visibility: 'hidden' }}
+              onPointerEnter={() => setHover(c.country)}
+              onPointerLeave={() => setHover(null)}
+              onFocus={() => setHover(c.country)}
+              onBlur={() => setHover(null)}
+              onClick={() => pick(c)}
+            >
+              <span className="glabel__box">
+                <span className="glabel__n">{c.country}</span>
+                <span className="glabel__c">{c.styles.length}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {!ready ? <div className="map-loading"><Icon name="compass" size={26} color="var(--bone-700)" /> Summoning the globe…</div> : null}
       {ready && records.length === 0 ? <div className="map-empty"><Icon name="compass" size={26} color="var(--bone-700)" /> No records match — the trail goes cold.</div> : null}
@@ -384,15 +541,37 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       </div>
 
       <div className="coordread"><Icon name="crosshair" size={12} color="var(--bone-600)" /> <span ref={coordRef}>—</span></div>
-      <div className="hint">Drag to rotate · scroll to zoom</div>
+      <div className="hint">Drag to rotate · scroll to zoom · click a country</div>
 
       <div className="zoom">
-        <button onClick={() => zoomBy(1)} aria-label="Zoom in"><Icon name="plus" size={15} /></button>
-        <button onClick={() => zoomBy(-1)} aria-label="Zoom out"><Icon name="minus" size={15} /></button>
-        <button onClick={resetView} aria-label="Reset view"><Icon name="compass" size={15} /></button>
+        <button
+          className={'zoom__spin' + (autorotate ? ' on' : '')}
+          onClick={() => onAutorotate(!autorotate)}
+          aria-pressed={autorotate}
+          title={autorotate ? 'Stop the globe' : 'Spin the globe'}
+          aria-label="Auto-rotate globe"
+        >
+          <Icon name={autorotate ? 'pause' : 'play'} size={15} />
+        </button>
+        <button onClick={() => zoomBy(1)} title="Zoom in" aria-label="Zoom in"><Icon name="plus" size={15} /></button>
+        <button onClick={() => zoomBy(-1)} title="Zoom out" aria-label="Zoom out"><Icon name="minus" size={15} /></button>
+        <button onClick={resetView} title="Reset view" aria-label="Reset view"><Icon name="compass" size={15} /></button>
       </div>
     </div>
   );
+}
+
+// Whether a lng/lat is already comfortably in view: facing the camera, and inside
+// the viewport with a margin, excluding the strip the dossier panel covers. The
+// margin keeps targets that are technically visible but jammed against an edge
+// from counting, since those do deserve a flight.
+function onScreen(view: SceneView, lng: number, lat: number, rightPad: number): boolean {
+  if (!frontFacing(view, lng, lat)) return false;
+  const sp = view.toScreen(new Point({ longitude: lng, latitude: lat }));
+  const w = view.width, h = view.height;
+  if (!sp || !w || !h) return false;
+  const mx = w * 0.12, my = h * 0.12;
+  return sp.x > mx && sp.x < w - rightPad - mx && sp.y > my && sp.y < h - my;
 }
 
 // Whether a lng/lat sits on the camera-facing hemisphere (for popover culling).
