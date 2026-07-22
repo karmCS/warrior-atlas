@@ -27,7 +27,9 @@ const RED_HOT = '#E23B33';
 
 const EARTH_R = 6378137;      // metres — drives the horizon cutoff that culls labels
 const SPIN_DEG_PER_SEC = 7.2; // was 0.12°/frame @60fps; now frame-rate independent
+const SPIN_RAMP = 6;          // 1/s — how fast the spin eases up to / down from speed
 const USER_IDLE_MS = 1400;    // how long the globe holds still after a zoom/drag
+const PANEL_W = 424;          // keep in sync with `.panel` width in globals.css
 
 // ── great-circle math (geodesic arc geometry, spec: elevated-vertex polylines) ──
 const RAD = Math.PI / 180;
@@ -115,7 +117,7 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
   const nodeLayerRef = useRef<GraphicsLayer | null>(null);
   const routeLayerRef = useRef<GraphicsLayer | null>(null);
   const coordRef = useRef<HTMLSpanElement>(null);
-  const spin = useRef({ paused: false, dragging: false, animating: false, hovering: false, raf: 0, last: 0, idleUntil: 0 });
+  const spin = useRef({ paused: false, dragging: false, animating: false, hovering: false, raf: 0, last: 0, idleUntil: 0, vel: 0 });
   const clustersRef = useRef<Map<string, Cluster>>(new Map());
   const routeMetaRef = useRef<{ graphic: Graphic; a: string; b: string }[]>([]);
   const handlers = useRef({ onSelect });
@@ -258,12 +260,21 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       const s = spin.current;
       const dt = Math.min(0.1, (now - s.last) / 1000);
       s.last = now;
-      const blocked = !v || s.paused || s.animating || s.dragging || s.hovering
-        || now < s.idleUntil || v.interacting || !!v.animation;
-      if (!blocked && v) {
-        const cam = v.camera.clone();
-        cam.position.longitude = normLng((cam.position.longitude ?? 0) + SPIN_DEG_PER_SEC * dt);
-        v.camera = cam;
+      // Two kinds of stop. A hard stop means something else owns the camera
+      // (a goTo flight, a drag) — writing to it would cancel that outright, so
+      // drop the velocity to zero at once. A soft stop is a decision the user
+      // made (paused, hovering a marker, just finished zooming); those ease out
+      // and back in, so the globe never jerks to a halt.
+      const hard = !v || s.animating || s.dragging || v.interacting || !!v.animation;
+      const soft = s.paused || s.hovering || now < s.idleUntil;
+      if (hard) s.vel = 0;
+      else {
+        s.vel += ((soft ? 0 : SPIN_DEG_PER_SEC) - s.vel) * Math.min(1, dt * SPIN_RAMP);
+        if (v && s.vel > 0.002) {
+          const cam = v.camera.clone();
+          cam.position.longitude = normLng((cam.position.longitude ?? 0) + s.vel * dt);
+          v.camera = cam;
+        }
       }
       // Driven from the frame loop rather than a camera watcher so the labels stay
       // glued to their anchors during Esri's own navigation (wheel zoom, goTo),
@@ -326,23 +337,44 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
   // flash at 0,0 on first paint
   useEffect(() => { layoutRef.current?.(); }, [clusters, labels, ready]);
 
-  // ── nodes (cheap; restyled on selection) ──
+  // ── nodes: built only when the data changes ──
   useEffect(() => {
     if (!ready) return;
     const nodeLayer = nodeLayerRef.current!;
     nodeLayer.removeAll();
     nodeGraphicsRef.current.clear();
     for (const c of clusters) {
-      const sel = selectedId != null && c.ids.includes(selectedId);
       const g = new Graphic({
         geometry: new Point({ longitude: c.lng, latitude: c.lat }),
-        symbol: nodeSymbol(sel, hoverRef.current === c.country),
-        attributes: { country: c.country, selected: sel },
+        symbol: nodeSymbol(false, hoverRef.current === c.country),
+        attributes: { country: c.country, selected: false },
       });
       nodeLayer.add(g);
       nodeGraphicsRef.current.set(c.country, g);
     }
-  }, [clusters, selectedId, ready]);
+  }, [clusters, ready]);
+
+  // ── selection restyles the markers in place. Rebuilding the layer here (which
+  //    is what it used to do) made every diamond on the globe blink out and back
+  //    on each pick — the single biggest reason selecting a country felt broken. ──
+  useEffect(() => {
+    if (!ready) return;
+    for (const [country, g] of nodeGraphicsRef.current) {
+      const sel = country === selectedCountry;
+      g.attributes = { ...g.attributes, selected: sel };
+      g.symbol = nodeSymbol(sel, hoverRef.current === country);
+    }
+  }, [selectedCountry, clusters, ready]);
+
+  // ── the dossier covers the right edge of the map, so tell the view about it.
+  //    Without this, `goTo` centres the pick in the full container and the panel
+  //    then slides over it — the art you just picked ends up half-hidden. ──
+  useEffect(() => {
+    const view = viewRef.current;
+    if (!view || !ready) return;
+    const right = paused ? Math.min(PANEL_W, window.innerWidth * 0.92) : 0;
+    view.padding = { ...view.padding, right };
+  }, [paused, ready]);
 
   // ── lineage arcs between country ANCHORS — endpoints share the node anchors so
   //    arcs stay attached to markers; intra-country descents collapse into the
@@ -393,7 +425,9 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
     if (!r) return;
     setPop(null); popRef.current = null;
     spin.current.animating = true;
-    view.goTo({ center: [r.lng, r.lat] }, { duration: 900, easing: 'out-expo' })
+    // The camera is moving across the screen rather than entering it, so it wants
+    // an in-out curve. `out-expo` decelerated so hard the last third read as a stall.
+    view.goTo({ center: [r.lng, r.lat] }, { duration: 800, easing: 'in-out-cubic' })
       .catch(() => {}).finally(() => { spin.current.animating = false; });
   }, [selectedId, centerSignal, ready]); // eslint-disable-line react-hooks/exhaustive-deps
 
