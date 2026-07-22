@@ -7,13 +7,19 @@ founded: 18th century (legendary; unconfirmed)
 lineage: [[shaolin-kung-fu]], [[nanquan]]
 influenced: [[jeet-kune-do]], [[german-jujutsu]]
 notable_media:
-  - title: Ip Man (film series, 2008-2019)
+  - title: Ip Man
+    type: film
+    origin_country: Hong Kong
+  - title: Ip Man 2
     type: film
     origin_country: Hong Kong
   - title: The Grandmaster (2013)
     type: film
     origin_country: Hong Kong / China
-  - title: "Ip Man: The Final Fight (2013)"
+  - title: "Ip Man 4: The Finale"
+    type: film
+    origin_country: Hong Kong
+  - title: Ip Man 3
     type: film
     origin_country: Hong Kong
   - title: Ip Man (2013 TV series)

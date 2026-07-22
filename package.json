@@ -8,7 +8,8 @@
     "build": "npm run graph && next build",
     "start": "next start",
     "lint": "next lint",
-    "graph": "tsx scripts/build-graph.ts"
+    "graph": "tsx scripts/build-graph.ts",
+    "covers": "tsx --env-file-if-exists=.env.local scripts/fetch-covers.ts"
   },
   "dependencies": {
     "@arcgis/core": "^4.31.6",

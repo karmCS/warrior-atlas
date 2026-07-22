@@ -4,6 +4,7 @@ export interface Media {
   title: string;
   type: string; // normalized: Film | Series | Anime | Manga | Documentary | Game
   country: string; // ISO2 for the flag swatch
+  cover?: string; // provider CDN poster URL, resolved at build (see content/covers.json)
 }
 
 export interface ArtRecord {

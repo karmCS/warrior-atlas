@@ -1,0 +1,342 @@
+{
+  "Choke": {
+    "url": "https://image.tmdb.org/t/p/w780/tkBv9AEe8QUMUrC8dolDvS57obV.jpg",
+    "src": "manual",
+    "match": "Choke (1999)"
+  },
+  "Fight Quest: Brazil (Brazilian Jiu-Jitsu)": {
+    "url": "https://image.tmdb.org/t/p/w780/wQPnFlUkXjvSWrPUrcYBndt0e2n.jpg",
+    "src": "tmdb",
+    "match": "Fight Quest (2007)"
+  },
+  "Kengan Ashura": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100891-vPfnfkzizYFe.jpg",
+    "src": "anilist",
+    "match": "KENGAN ASHURA Part I"
+  },
+  "Bra-Ju": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx205763-hwAoUOyNah46.jpg",
+    "src": "manual",
+    "match": "Braju~ / ブラジュ～ (2024, BJJ manga)"
+  },
+  "Rocky": {
+    "url": "https://image.tmdb.org/t/p/w780/aYtBYWqCdUqcnoodWJdcTG3pFev.jpg",
+    "src": "tmdb",
+    "match": "Rocky (1976)"
+  },
+  "Raging Bull": {
+    "url": "https://image.tmdb.org/t/p/w780/1WV7WlTS8LI1L5NkCgjWT9GSW3O.jpg",
+    "src": "tmdb",
+    "match": "Raging Bull (1980)"
+  },
+  "Creed": {
+    "url": "https://image.tmdb.org/t/p/w780/1BfTsk5VWuw8FCocAhCyqnRbEzq.jpg",
+    "src": "tmdb",
+    "match": "Creed (2015)"
+  },
+  "Million Dollar Baby": {
+    "url": "https://image.tmdb.org/t/p/w780/jcfEqKdWF1zeyvECPqp3mkWLct2.jpg",
+    "src": "tmdb",
+    "match": "Million Dollar Baby (2004)"
+  },
+  "Hajime no Ippo: The Fighting!": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx263-ivVyn9xAgwSZ.png",
+    "src": "anilist",
+    "match": "Hajime no Ippo: The Fighting!"
+  },
+  "Ashita no Joe": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx31303-l21HJn9AXl7w.jpg",
+    "src": "anilist",
+    "match": "Ashita no Joe: Fighting for Tomorrow"
+  },
+  "Only the Strong": {
+    "url": "https://image.tmdb.org/t/p/w780/pPWV5rBhCgzlzhwkpdRG7a7UZqt.jpg",
+    "src": "tmdb",
+    "match": "Only the Strong (1993)"
+  },
+  "Besouro": {
+    "url": "https://image.tmdb.org/t/p/w780/Gx36iu3gOhNFx2nxzEv1ffncmx.jpg",
+    "src": "tmdb",
+    "match": "The Assailant (2009)"
+  },
+  "Samurai Champloo": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx205-7tHVFu6dPBm9.png",
+    "src": "anilist",
+    "match": "Samurai Champloo"
+  },
+  "Tenjou Tenge": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30073-yWexDmfmuxrX.png",
+    "src": "anilist",
+    "match": "Tenjo Tenge"
+  },
+  "The Green Hornet": {
+    "url": "https://image.tmdb.org/t/p/w780/vz4L9y20g9nfM0eQSHQRGimGDKo.jpg",
+    "src": "tmdb",
+    "match": "The Green Hornet (1966)"
+  },
+  "Enter the Dragon": {
+    "url": "https://image.tmdb.org/t/p/w780/fyrh2ULEcmLpGTVLPQqFW45hqr5.jpg",
+    "src": "tmdb",
+    "match": "Enter the Dragon (1973)"
+  },
+  "Game of Death": {
+    "url": "https://image.tmdb.org/t/p/w780/c6jgLHaQpdIPH1rC94KkjAqgE7O.jpg",
+    "src": "tmdb",
+    "match": "Game of Death (1978)"
+  },
+  "Be Water": {
+    "url": "https://image.tmdb.org/t/p/w780/yUDtBBQEpmYptyk6wbYR54Sa2OD.jpg",
+    "src": "tmdb",
+    "match": "Be Water (2020)"
+  },
+  "Sanshiro Sugata": {
+    "url": "https://image.tmdb.org/t/p/w780/vmQV7lDO8hCaU6tuKhF3b9gFs4f.jpg",
+    "src": "manual",
+    "match": "Sanshiro Sugata (1943)"
+  },
+  "Throw Down": {
+    "url": "https://image.tmdb.org/t/p/w780/17pG3CUE1kAgKglQRB4qZYWGNsw.jpg",
+    "src": "tmdb",
+    "match": "Throw Down (2004)"
+  },
+  "My Annoying Brother": {
+    "url": "https://image.tmdb.org/t/p/w780/7Cxrt3gSH9VAKDvsuk6Tx1IShJy.jpg",
+    "src": "manual",
+    "match": "My Annoying Brother (2016, Korean original)"
+  },
+  "Yawara!": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30853-kif2buZKAOf0.jpg",
+    "src": "anilist",
+    "match": "Yawara!"
+  },
+  "Ippon! again": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx136435-LWGyXLdHE71D.jpg",
+    "src": "anilist",
+    "match": "Ippon! again"
+  },
+  "The Karate Kid": {
+    "url": "https://image.tmdb.org/t/p/w780/1mp4ViklKvA0WXXsNvNx0RBuiit.jpg",
+    "src": "manual",
+    "match": "The Karate Kid (1984)"
+  },
+  "Cobra Kai": {
+    "url": "https://image.tmdb.org/t/p/w780/6GDW4EsgsXlYrL1ASb5eCHQK4er.jpg",
+    "src": "tmdb",
+    "match": "Cobra Kai (2018)"
+  },
+  "Fighter in the Wind": {
+    "url": "https://image.tmdb.org/t/p/w780/tp4YiskOE7aciwfPomXuruGfxnY.jpg",
+    "src": "tmdb",
+    "match": "Fighter in the Wind (2004)"
+  },
+  "Champion of Death": {
+    "url": "https://image.tmdb.org/t/p/w780/qXl5qrodbgYuYIyzFH5ML7AOnWO.jpg",
+    "src": "manual",
+    "match": "Karate Bullfighter / Champion of Death (1975)"
+  },
+  "Karate Bearfighter": {
+    "url": "https://image.tmdb.org/t/p/w780/gHPEfgQr7buoYagBJ3esVYHZkUN.jpg",
+    "src": "tmdb",
+    "match": "Karate Bear Fighter (1975)"
+  },
+  "The Real Miyagi": {
+    "url": "https://image.tmdb.org/t/p/w780/pHjTftF3uXX941UBhuinhxfjocU.jpg",
+    "src": "tmdb",
+    "match": "The Real Miyagi (2015)"
+  },
+  "More Than Miyagi: The Pat Morita Story": {
+    "url": "https://image.tmdb.org/t/p/w780/redrsZOK1g4TIw9jg7iCGjugpjK.jpg",
+    "src": "tmdb",
+    "match": "More Than Miyagi: The Pat Morita Story (2021)"
+  },
+  "Karate Master (Karate Baka Ichidai)": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx7479-gHjGeIXbHYGS.jpg",
+    "src": "anilist",
+    "match": "Karate Master"
+  },
+  "Karate Kid: Legends": {
+    "url": "https://image.tmdb.org/t/p/w780/c90Lt7OQGsOmhv6x4JoFdoHzw5l.jpg",
+    "src": "tmdb",
+    "match": "Karate Kid: Legends (2025)"
+  },
+  "The Art of Self-Defense": {
+    "url": "https://image.tmdb.org/t/p/w780/bTq793Qwl3tCXb94zrDPAwppbsC.jpg",
+    "src": "tmdb",
+    "match": "The Art of Self-Defense (2019)"
+  },
+  "Karate Baka Ichidai (Karate Master)": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx7479-gHjGeIXbHYGS.jpg",
+    "src": "anilist",
+    "match": "Karate Master"
+  },
+  "Kick no Oni": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b139104-4yT7QV4IX3dm.jpg",
+    "src": "anilist",
+    "match": "Kick no Oni"
+  },
+  "K-1": {
+    "url": null,
+    "src": "skip",
+    "match": "promotion/event listing, not a title"
+  },
+  "American Kickboxer": {
+    "url": "https://image.tmdb.org/t/p/w780/s22Wz0QoLhFMDdnsmWRwMXitLDZ.jpg",
+    "src": "tmdb",
+    "match": "American Kickboxer (1991)"
+  },
+  "PKA World Championships": {
+    "url": null,
+    "src": "skip",
+    "match": "promotion/event listing, not a title"
+  },
+  "Ong-Bak": {
+    "url": "https://image.tmdb.org/t/p/w780/oagqAwp48dMPoCT94yDJUDOCVPi.jpg",
+    "src": "tmdb",
+    "match": "Ong-Bak (2003)"
+  },
+  "Ong Bak 2": {
+    "url": "https://image.tmdb.org/t/p/w780/l6bfgohUpmhQtlhL0qREEuTLxjA.jpg",
+    "src": "tmdb",
+    "match": "Ong Bak 2 (2008)"
+  },
+  "A Prayer Before Dawn": {
+    "url": "https://image.tmdb.org/t/p/w780/toYs3tZrHbSKJS1hmiTY1fJnPjm.jpg",
+    "src": "tmdb",
+    "match": "A Prayer Before Dawn (2018)"
+  },
+  "Beautiful Boxer": {
+    "url": "https://image.tmdb.org/t/p/w780/2qMi3DvtOBF38aiZy6nlUyBcxnp.jpg",
+    "src": "tmdb",
+    "match": "Beautiful Boxer (2003)"
+  },
+  "Kickboxer": {
+    "url": "https://image.tmdb.org/t/p/w780/tXSD8U5aVdGscQNcyY6C2ANVEuh.jpg",
+    "src": "tmdb",
+    "match": "Kickboxer (1989)"
+  },
+  "Hurts Like Hell": {
+    "url": "https://image.tmdb.org/t/p/w780/4bHFQlGnWdcWpNFc4gLHaMEywjT.jpg",
+    "src": "tmdb",
+    "match": "Hurts Like Hell (2022)"
+  },
+  "Legends of Sambo": {
+    "url": null,
+    "src": "skip",
+    "match": "Russian doc, not in TMDB/AniList catalogues"
+  },
+  "Human Weapon: Sambo": {
+    "url": "https://image.tmdb.org/t/p/w780/pqJJRJQZdHqoOZGK41oChzWD7YF.jpg",
+    "src": "tmdb",
+    "match": "Human Weapon (2007)"
+  },
+  "Baki the Grappler": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx41425-h4goOXcXI7yY.png",
+    "src": "anilist",
+    "match": "Baki the Grappler"
+  },
+  "Merantau": {
+    "url": "https://image.tmdb.org/t/p/w780/60Vd3zovl6XeRH8GQOsM9fwMHRO.jpg",
+    "src": "tmdb",
+    "match": "Merantau (2009)"
+  },
+  "The Raid": {
+    "url": "https://image.tmdb.org/t/p/w780/Abnm1Ws3JH0ReCfEhLMPwPcMcGO.jpg",
+    "src": "manual",
+    "match": "The Raid (2012)"
+  },
+  "The Night Comes for Us": {
+    "url": "https://image.tmdb.org/t/p/w780/8lI1p5cPqgXN2qrKZrmI3mhKBfs.jpg",
+    "src": "tmdb",
+    "match": "The Night Comes For Us (2018)"
+  },
+  "Puteri Gunung Ledang": {
+    "url": "https://image.tmdb.org/t/p/w780/sRGRbPJG9gcW9Gk3BcTlUSOeQZk.jpg",
+    "src": "tmdb",
+    "match": "Princess of Mount Ledang (2004)"
+  },
+  "Wira": {
+    "url": "https://image.tmdb.org/t/p/w780/xhlsZoKF4UWzZQEdWjxUatdzkK.jpg",
+    "src": "manual",
+    "match": "Wira (2019)"
+  },
+  "Geran (Silat Warriors: Deed of Death)": {
+    "url": "https://image.tmdb.org/t/p/w780/eAZYk90jnCN5tcr2wDB6In7mQy7.jpg",
+    "src": "tmdb",
+    "match": "Silat Warriors: Deed of Death (2019)"
+  },
+  "Best of the Best": {
+    "url": "https://image.tmdb.org/t/p/w780/jB1I9LihBFKzJlRhpOPzbEXdgKc.jpg",
+    "src": "tmdb",
+    "match": "Best of the Best (1989)"
+  },
+  "Miami Connection": {
+    "url": "https://image.tmdb.org/t/p/w780/pfysfJ8f1JcVVOeGQ5EZSxeSka8.jpg",
+    "src": "tmdb",
+    "match": "Miami Connection (1987)"
+  },
+  "Officer Black Belt": {
+    "url": "https://image.tmdb.org/t/p/w780/pWOiCearczq7zmWo4ASbUIF6HYS.jpg",
+    "src": "tmdb",
+    "match": "Officer Black Belt (2024)"
+  },
+  "Jade Jones: Fighting for Gold": {
+    "url": null,
+    "src": "skip",
+    "match": "BBC doc, not in TMDB/AniList catalogues"
+  },
+  "Ip Man": {
+    "url": "https://image.tmdb.org/t/p/w780/9bUIrDKnesNbBL1nAl1nt7gtocE.jpg",
+    "src": "tmdb",
+    "match": "Ip Man (2008)"
+  },
+  "Ip Man 2": {
+    "url": "https://image.tmdb.org/t/p/w780/wMcyFfKcJneVgcHxWYiQNUNHUsq.jpg",
+    "src": "tmdb",
+    "match": "Ip Man 2 (2010)"
+  },
+  "The Grandmaster (2013)": {
+    "url": "https://image.tmdb.org/t/p/w780/ydBVVIscL6TsX5hYztA5YpBCwJ3.jpg",
+    "src": "tmdb",
+    "match": "The Grandmaster (2013)"
+  },
+  "Ip Man 4: The Finale": {
+    "url": "https://image.tmdb.org/t/p/w780/b5cz6BoyHrgBnhfDHOW5hXRWbln.jpg",
+    "src": "tmdb",
+    "match": "Ip Man 4: The Finale (2019)"
+  },
+  "Ip Man 3": {
+    "url": "https://image.tmdb.org/t/p/w780/8PvinaGEqzf1rrfFAxiXujJnCtI.jpg",
+    "src": "tmdb",
+    "match": "Ip Man 3 (2015)"
+  },
+  "Ip Man (2013 TV series)": {
+    "url": "https://image.tmdb.org/t/p/w780/8HvMKgOOONpGW5HCDZKlvoTa2jS.jpg",
+    "src": "tmdb",
+    "match": "Ip Man (2013)"
+  },
+  "Dangal": {
+    "url": "https://image.tmdb.org/t/p/w780/cJRPOLEexI7qp2DKtFfCh7YaaUG.jpg",
+    "src": "tmdb",
+    "match": "Dangal (2016)"
+  },
+  "Foxcatcher": {
+    "url": "https://image.tmdb.org/t/p/w780/w6Sl079QtUcQ9dVQ2RP6aN9NBXx.jpg",
+    "src": "tmdb",
+    "match": "Foxcatcher (2014)"
+  },
+  "The Iron Claw": {
+    "url": "https://image.tmdb.org/t/p/w780/s2VLjcykJfwplJNGT5iEeCA0mRx.jpg",
+    "src": "tmdb",
+    "match": "The Iron Claw (2023)"
+  },
+  "Wrestle": {
+    "url": "https://image.tmdb.org/t/p/w780/soD26W4VOUViWLc1uuRLdFEoWAw.jpg",
+    "src": "tmdb",
+    "match": "Wrestle (2018)"
+  },
+  "Animal 1": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx139382-X0dGwV3s6sFJ.png",
+    "src": "anilist",
+    "match": "Animal 1"
+  }
+}

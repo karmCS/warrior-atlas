@@ -13,10 +13,13 @@ notable_media:
   - title: Throw Down
     type: film
     origin_country: Hong Kong
+  - title: My Annoying Brother
+    type: film
+    origin_country: South Korea
   - title: Yawara!
-    type: manga
+    type: anime
     origin_country: Japan
-  - title: Yawara!
+  - title: Ippon! again
     type: anime
     origin_country: Japan
 ---

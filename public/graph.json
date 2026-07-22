@@ -29,22 +29,26 @@
         {
           "title": "Choke",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/tkBv9AEe8QUMUrC8dolDvS57obV.jpg"
         },
         {
           "title": "Fight Quest: Brazil (Brazilian Jiu-Jitsu)",
           "type": "Series",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/wQPnFlUkXjvSWrPUrcYBndt0e2n.jpg"
         },
         {
           "title": "Kengan Ashura",
           "type": "Anime",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100891-vPfnfkzizYFe.jpg"
         },
         {
           "title": "Bra-Ju",
           "type": "Manga",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx205763-hwAoUOyNah46.jpg"
         }
       ]
     },
@@ -74,24 +78,40 @@
       "ghostTo": [],
       "media": [
         {
-          "title": "When We Were Kings",
+          "title": "Rocky",
           "type": "Film",
-          "country": "US"
-        },
-        {
-          "title": "Muhammad Ali",
-          "type": "Series",
-          "country": "US"
-        },
-        {
-          "title": "Ali",
-          "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/aYtBYWqCdUqcnoodWJdcTG3pFev.jpg"
         },
         {
           "title": "Raging Bull",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/1WV7WlTS8LI1L5NkCgjWT9GSW3O.jpg"
+        },
+        {
+          "title": "Creed",
+          "type": "Film",
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/1BfTsk5VWuw8FCocAhCyqnRbEzq.jpg"
+        },
+        {
+          "title": "Million Dollar Baby",
+          "type": "Film",
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/jcfEqKdWF1zeyvECPqp3mkWLct2.jpg"
+        },
+        {
+          "title": "Hajime no Ippo: The Fighting!",
+          "type": "Anime",
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx263-ivVyn9xAgwSZ.png"
+        },
+        {
+          "title": "Ashita no Joe",
+          "type": "Manga",
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx31303-l21HJn9AXl7w.jpg"
         }
       ]
     },
@@ -124,22 +144,26 @@
         {
           "title": "Only the Strong",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/pPWV5rBhCgzlzhwkpdRG7a7UZqt.jpg"
         },
         {
           "title": "Besouro",
           "type": "Film",
-          "country": "BR"
+          "country": "BR",
+          "cover": "https://image.tmdb.org/t/p/w780/Gx36iu3gOhNFx2nxzEv1ffncmx.jpg"
         },
         {
           "title": "Samurai Champloo",
           "type": "Anime",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx205-7tHVFu6dPBm9.png"
         },
         {
           "title": "Tenjou Tenge",
           "type": "Manga",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30073-yWexDmfmuxrX.png"
         }
       ]
     },
@@ -180,22 +204,26 @@
         {
           "title": "The Green Hornet",
           "type": "Series",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/vz4L9y20g9nfM0eQSHQRGimGDKo.jpg"
         },
         {
           "title": "Enter the Dragon",
           "type": "Film",
-          "country": ""
+          "country": "",
+          "cover": "https://image.tmdb.org/t/p/w780/fyrh2ULEcmLpGTVLPQqFW45hqr5.jpg"
         },
         {
           "title": "Game of Death",
           "type": "Film",
-          "country": "HK"
+          "country": "HK",
+          "cover": "https://image.tmdb.org/t/p/w780/c6jgLHaQpdIPH1rC94KkjAqgE7O.jpg"
         },
         {
           "title": "Be Water",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/yUDtBBQEpmYptyk6wbYR54Sa2OD.jpg"
         }
       ]
     },
@@ -230,22 +258,32 @@
         {
           "title": "Sanshiro Sugata",
           "type": "Film",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://image.tmdb.org/t/p/w780/vmQV7lDO8hCaU6tuKhF3b9gFs4f.jpg"
         },
         {
           "title": "Throw Down",
           "type": "Film",
-          "country": "HK"
+          "country": "HK",
+          "cover": "https://image.tmdb.org/t/p/w780/17pG3CUE1kAgKglQRB4qZYWGNsw.jpg"
         },
         {
-          "title": "Yawara!",
-          "type": "Manga",
-          "country": "JP"
+          "title": "My Annoying Brother",
+          "type": "Film",
+          "country": "KR",
+          "cover": "https://image.tmdb.org/t/p/w780/7Cxrt3gSH9VAKDvsuk6Tx1IShJy.jpg"
         },
         {
           "title": "Yawara!",
           "type": "Anime",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30853-kif2buZKAOf0.jpg"
+        },
+        {
+          "title": "Ippon! again",
+          "type": "Anime",
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx136435-LWGyXLdHE71D.jpg"
         }
       ]
     },
@@ -277,12 +315,14 @@
         {
           "title": "The Karate Kid",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/1mp4ViklKvA0WXXsNvNx0RBuiit.jpg"
         },
         {
           "title": "Cobra Kai",
           "type": "Series",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/6GDW4EsgsXlYrL1ASb5eCHQK4er.jpg"
         }
       ]
     },
@@ -317,17 +357,20 @@
         {
           "title": "Fighter in the Wind",
           "type": "Film",
-          "country": "KR"
+          "country": "KR",
+          "cover": "https://image.tmdb.org/t/p/w780/tp4YiskOE7aciwfPomXuruGfxnY.jpg"
         },
         {
           "title": "Champion of Death",
           "type": "Film",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://image.tmdb.org/t/p/w780/qXl5qrodbgYuYIyzFH5ML7AOnWO.jpg"
         },
         {
           "title": "Karate Bearfighter",
           "type": "Film",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://image.tmdb.org/t/p/w780/gHPEfgQr7buoYagBJ3esVYHZkUN.jpg"
         }
       ]
     },
@@ -357,12 +400,14 @@
         {
           "title": "The Real Miyagi",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/pHjTftF3uXX941UBhuinhxfjocU.jpg"
         },
         {
           "title": "More Than Miyagi: The Pat Morita Story",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/redrsZOK1g4TIw9jg7iCGjugpjK.jpg"
         }
       ]
     },
@@ -395,12 +440,14 @@
         {
           "title": "Cobra Kai",
           "type": "Series",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/6GDW4EsgsXlYrL1ASb5eCHQK4er.jpg"
         },
         {
           "title": "Karate Master (Karate Baka Ichidai)",
           "type": "Anime",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx7479-gHjGeIXbHYGS.jpg"
         }
       ]
     },
@@ -468,22 +515,32 @@
         {
           "title": "The Karate Kid",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/1mp4ViklKvA0WXXsNvNx0RBuiit.jpg"
         },
         {
           "title": "Cobra Kai",
           "type": "Series",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/6GDW4EsgsXlYrL1ASb5eCHQK4er.jpg"
+        },
+        {
+          "title": "Karate Kid: Legends",
+          "type": "Film",
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/c90Lt7OQGsOmhv6x4JoFdoHzw5l.jpg"
+        },
+        {
+          "title": "The Art of Self-Defense",
+          "type": "Film",
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/bTq793Qwl3tCXb94zrDPAwppbsC.jpg"
         },
         {
           "title": "Karate Baka Ichidai (Karate Master)",
           "type": "Anime",
-          "country": "JP"
-        },
-        {
-          "title": "Karate Baka Ichidai (Karate Master)",
-          "type": "Manga",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx7479-gHjGeIXbHYGS.jpg"
         }
       ]
     },
@@ -519,12 +576,14 @@
         {
           "title": "Kick no Oni",
           "type": "Manga",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b139104-4yT7QV4IX3dm.jpg"
         },
         {
           "title": "Kick no Oni",
           "type": "Anime",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b139104-4yT7QV4IX3dm.jpg"
         },
         {
           "title": "K-1",
@@ -563,7 +622,8 @@
         {
           "title": "American Kickboxer",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/s22Wz0QoLhFMDdnsmWRwMXitLDZ.jpg"
         },
         {
           "title": "PKA World Championships",
@@ -629,22 +689,38 @@
         {
           "title": "Ong-Bak",
           "type": "Film",
-          "country": "TH"
+          "country": "TH",
+          "cover": "https://image.tmdb.org/t/p/w780/oagqAwp48dMPoCT94yDJUDOCVPi.jpg"
+        },
+        {
+          "title": "Ong Bak 2",
+          "type": "Film",
+          "country": "TH",
+          "cover": "https://image.tmdb.org/t/p/w780/l6bfgohUpmhQtlhL0qREEuTLxjA.jpg"
+        },
+        {
+          "title": "A Prayer Before Dawn",
+          "type": "Film",
+          "country": "GB",
+          "cover": "https://image.tmdb.org/t/p/w780/toYs3tZrHbSKJS1hmiTY1fJnPjm.jpg"
+        },
+        {
+          "title": "Beautiful Boxer",
+          "type": "Film",
+          "country": "TH",
+          "cover": "https://image.tmdb.org/t/p/w780/2qMi3DvtOBF38aiZy6nlUyBcxnp.jpg"
         },
         {
           "title": "Kickboxer",
           "type": "Film",
-          "country": "US"
-        },
-        {
-          "title": "FightWorld",
-          "type": "Series",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/tXSD8U5aVdGscQNcyY6C2ANVEuh.jpg"
         },
         {
           "title": "Hurts Like Hell",
           "type": "Series",
-          "country": "TH"
+          "country": "TH",
+          "cover": "https://image.tmdb.org/t/p/w780/4bHFQlGnWdcWpNFc4gLHaMEywjT.jpg"
         }
       ]
     },
@@ -684,12 +760,14 @@
         {
           "title": "Human Weapon: Sambo",
           "type": "Series",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/pqJJRJQZdHqoOZGK41oChzWD7YF.jpg"
         },
         {
           "title": "Baki the Grappler",
           "type": "Manga",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx41425-h4goOXcXI7yY.png"
         }
       ]
     },
@@ -721,17 +799,20 @@
         {
           "title": "Merantau",
           "type": "Film",
-          "country": "ID"
+          "country": "ID",
+          "cover": "https://image.tmdb.org/t/p/w780/60Vd3zovl6XeRH8GQOsM9fwMHRO.jpg"
         },
         {
           "title": "The Raid",
           "type": "Film",
-          "country": "ID"
+          "country": "ID",
+          "cover": "https://image.tmdb.org/t/p/w780/Abnm1Ws3JH0ReCfEhLMPwPcMcGO.jpg"
         },
         {
           "title": "The Night Comes for Us",
           "type": "Film",
-          "country": "ID"
+          "country": "ID",
+          "cover": "https://image.tmdb.org/t/p/w780/8lI1p5cPqgXN2qrKZrmI3mhKBfs.jpg"
         }
       ]
     },
@@ -763,17 +844,20 @@
         {
           "title": "Puteri Gunung Ledang",
           "type": "Film",
-          "country": "MY"
+          "country": "MY",
+          "cover": "https://image.tmdb.org/t/p/w780/sRGRbPJG9gcW9Gk3BcTlUSOeQZk.jpg"
         },
         {
           "title": "Wira",
           "type": "Film",
-          "country": "MY"
+          "country": "MY",
+          "cover": "https://image.tmdb.org/t/p/w780/xhlsZoKF4UWzZQEdWjxUatdzkK.jpg"
         },
         {
           "title": "Geran (Silat Warriors: Deed of Death)",
           "type": "Film",
-          "country": "MY"
+          "country": "MY",
+          "cover": "https://image.tmdb.org/t/p/w780/eAZYk90jnCN5tcr2wDB6In7mQy7.jpg"
         }
       ]
     },
@@ -809,17 +893,20 @@
         {
           "title": "Best of the Best",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/jB1I9LihBFKzJlRhpOPzbEXdgKc.jpg"
         },
         {
           "title": "Miami Connection",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/pfysfJ8f1JcVVOeGQ5EZSxeSka8.jpg"
         },
         {
           "title": "Officer Black Belt",
           "type": "Film",
-          "country": "KR"
+          "country": "KR",
+          "cover": "https://image.tmdb.org/t/p/w780/pWOiCearczq7zmWo4ASbUIF6HYS.jpg"
         }
       ]
     },
@@ -860,7 +947,8 @@
         {
           "title": "Best of the Best",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/jB1I9LihBFKzJlRhpOPzbEXdgKc.jpg"
         }
       ]
     },
@@ -893,24 +981,40 @@
       ],
       "media": [
         {
-          "title": "Ip Man (film series, 2008-2019)",
+          "title": "Ip Man",
           "type": "Film",
-          "country": "HK"
+          "country": "HK",
+          "cover": "https://image.tmdb.org/t/p/w780/9bUIrDKnesNbBL1nAl1nt7gtocE.jpg"
+        },
+        {
+          "title": "Ip Man 2",
+          "type": "Film",
+          "country": "HK",
+          "cover": "https://image.tmdb.org/t/p/w780/wMcyFfKcJneVgcHxWYiQNUNHUsq.jpg"
         },
         {
           "title": "The Grandmaster (2013)",
           "type": "Film",
-          "country": ""
+          "country": "",
+          "cover": "https://image.tmdb.org/t/p/w780/ydBVVIscL6TsX5hYztA5YpBCwJ3.jpg"
         },
         {
-          "title": "Ip Man: The Final Fight (2013)",
+          "title": "Ip Man 4: The Finale",
           "type": "Film",
-          "country": "HK"
+          "country": "HK",
+          "cover": "https://image.tmdb.org/t/p/w780/b5cz6BoyHrgBnhfDHOW5hXRWbln.jpg"
+        },
+        {
+          "title": "Ip Man 3",
+          "type": "Film",
+          "country": "HK",
+          "cover": "https://image.tmdb.org/t/p/w780/8PvinaGEqzf1rrfFAxiXujJnCtI.jpg"
         },
         {
           "title": "Ip Man (2013 TV series)",
           "type": "Series",
-          "country": "CN"
+          "country": "CN",
+          "cover": "https://image.tmdb.org/t/p/w780/8HvMKgOOONpGW5HCDZKlvoTa2jS.jpg"
         }
       ]
     },
@@ -940,19 +1044,40 @@
       "ghostTo": [],
       "media": [
         {
+          "title": "Dangal",
+          "type": "Film",
+          "country": "IN",
+          "cover": "https://image.tmdb.org/t/p/w780/cJRPOLEexI7qp2DKtFfCh7YaaUG.jpg"
+        },
+        {
           "title": "Foxcatcher",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/w6Sl079QtUcQ9dVQ2RP6aN9NBXx.jpg"
+        },
+        {
+          "title": "The Iron Claw",
+          "type": "Film",
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/s2VLjcykJfwplJNGT5iEeCA0mRx.jpg"
         },
         {
           "title": "Wrestle",
           "type": "Film",
-          "country": "US"
+          "country": "US",
+          "cover": "https://image.tmdb.org/t/p/w780/soD26W4VOUViWLc1uuRLdFEoWAw.jpg"
+        },
+        {
+          "title": "Kengan Ashura",
+          "type": "Manga",
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100891-vPfnfkzizYFe.jpg"
         },
         {
           "title": "Animal 1",
           "type": "Manga",
-          "country": "JP"
+          "country": "JP",
+          "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx139382-X0dGwV3s6sFJ.png"
         }
       ]
     }

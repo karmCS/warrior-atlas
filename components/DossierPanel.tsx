@@ -31,6 +31,13 @@ function MediaCard({ m }: { m: Media }) {
       <div className="poster cut-1">
         <Icon name={mediaIcon(m.type)} size={22} color="var(--bone-700)" />
         <span className="poster__ph">POSTER</span>
+        {m.cover ? (
+          // Sits over the placeholder, which stays visible if the CDN drops the file.
+          <img
+            className="poster__img" src={m.cover} alt="" aria-hidden loading="lazy" decoding="async"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+          />
+        ) : null}
       </div>
       <div className="mcard__title">{m.title}</div>
       <div className="mcard__foot">
@@ -123,7 +130,13 @@ export function DossierPanel({ record, all, onClose, onSelect, onCenter }: {
           <div className="sec">
             <div className="sec__h"><span className="label">In Media</span><span className="n">· {record.media.length}</span></div>
             {record.media.length ? (
-              <div className="strip">{record.media.slice(0, 4).map((m, i) => <MediaCard key={i} m={m} />)}</div>
+              <>
+                <div className="strip">{record.media.slice(0, 6).map((m, i) => <MediaCard key={i} m={m} />)}</div>
+                {/* TMDB terms of use require this notice wherever their artwork appears. */}
+                {record.media.some((m) => m.cover) ? (
+                  <p className="media-credit">Cover art via TMDB &amp; AniList. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+                ) : null}
+              </>
             ) : (
               <div className="media-empty"><Icon name="film" size={16} color="var(--bone-700)" /> No screen appearances catalogued yet.</div>
             )}

@@ -7,12 +7,21 @@ founded: prehistoric, no single origin (earliest depictions c. 15,000-17,000 BCE
 lineage: unknown
 influenced: unknown
 notable_media:
+  - title: Dangal
+    type: film
+    origin_country: India
   - title: Foxcatcher
+    type: film
+    origin_country: United States
+  - title: The Iron Claw
     type: film
     origin_country: United States
   - title: Wrestle
     type: film
     origin_country: United States
+  - title: Kengan Ashura
+    type: manga
+    origin_country: Japan
   - title: Animal 1
     type: manga
     origin_country: Japan

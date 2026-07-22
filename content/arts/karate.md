@@ -13,11 +13,14 @@ notable_media:
   - title: Cobra Kai
     type: tv
     origin_country: United States
+  - title: "Karate Kid: Legends"
+    type: film
+    origin_country: United States
+  - title: The Art of Self-Defense
+    type: film
+    origin_country: United States
   - title: Karate Baka Ichidai (Karate Master)
     type: anime
-    origin_country: Japan
-  - title: Karate Baka Ichidai (Karate Master)
-    type: manga
     origin_country: Japan
 ---
 

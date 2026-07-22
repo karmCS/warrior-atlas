@@ -16,6 +16,7 @@ import {
 } from './meta';
 
 const ARTS_DIR = path.join(process.cwd(), 'content', 'arts');
+const COVERS_FILE = path.join(process.cwd(), 'content', 'covers.json');
 const REGION_ORDER = ['East Asia', 'SE Asia', 'S Asia', 'Europe', 'N America', 'S America', 'Africa', 'Oceania', 'Unknown'];
 
 // The wiki frontmatter is Obsidian-flavoured, not strict YAML: `lineage:
@@ -54,6 +55,16 @@ function normalizeSource(src: string): string {
     open + normalizeFrontmatterBlock(fm) + close);
 }
 
+// Cover URLs are resolved out-of-band by `npm run covers` and committed. Absent or
+// null-URL entries simply leave `cover` undefined, and the card keeps its placeholder.
+function readCovers(): Record<string, string> {
+  if (!fs.existsSync(COVERS_FILE)) return {};
+  const raw = JSON.parse(fs.readFileSync(COVERS_FILE, 'utf8')) as Record<string, { url?: string | null }>;
+  return Object.fromEntries(
+    Object.entries(raw).filter(([, v]) => typeof v?.url === 'string' && v.url).map(([k, v]) => [k, v.url as string]),
+  );
+}
+
 function asSlugArray(v: unknown): string[] {
   if (!Array.isArray(v)) return [];
   return v.map((x) => String(x).trim()).filter(Boolean);
@@ -73,6 +84,7 @@ interface RawArt {
 }
 
 function readRaw(): RawArt[] {
+  const covers = readCovers();
   const files = fs.readdirSync(ARTS_DIR).filter((f) => f.endsWith('.md')).sort();
   return files.map((file) => {
     const id = file.replace(/\.md$/, '');
@@ -85,6 +97,7 @@ function readRaw(): RawArt[] {
             title: String(m.title),
             type: normalizeMediaType(m.type || ''),
             country: countryToIso(m.origin_country || ''),
+            cover: covers[String(m.title)],
           }))
       : [];
     return {

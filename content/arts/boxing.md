@@ -7,18 +7,24 @@ founded: 1867 (Marquess of Queensberry Rules); earlier codified 1743 (Broughton'
 lineage: unknown
 influenced: [[jeet-kune-do]], [[kickboxing-usa]]
 notable_media:
-  - title: When We Were Kings
-    type: film
-    origin_country: United States
-  - title: Muhammad Ali
-    type: tv
-    origin_country: United States
-  - title: Ali
+  - title: Rocky
     type: film
     origin_country: United States
   - title: Raging Bull
     type: film
     origin_country: United States
+  - title: Creed
+    type: film
+    origin_country: United States
+  - title: Million Dollar Baby
+    type: film
+    origin_country: United States
+  - title: "Hajime no Ippo: The Fighting!"
+    type: anime
+    origin_country: Japan
+  - title: Ashita no Joe
+    type: manga
+    origin_country: Japan
 ---
 
 Boxing's origins split into two stories: an unarmed ancient sport, and a codified modern one from England. Reliefs from Sumer and paintings in Egyptian tombs show men fist-fighting as early as the third millennium BC. A few researchers push the practice back further, to roughly the sixth millennium BC in what is now Ethiopia, though evidence is thin and not widely accepted. Boxing entered the ancient Olympics in 688 BC, with Greek fighters wrapping their hands in leather thongs called himantes.

@@ -10,11 +10,17 @@ notable_media:
   - title: Ong-Bak
     type: film
     origin_country: Thailand
+  - title: Ong Bak 2
+    type: film
+    origin_country: Thailand
+  - title: A Prayer Before Dawn
+    type: film
+    origin_country: United Kingdom
+  - title: Beautiful Boxer
+    type: film
+    origin_country: Thailand
   - title: Kickboxer
     type: film
-    origin_country: United States
-  - title: FightWorld
-    type: tv
     origin_country: United States
   - title: Hurts Like Hell
     type: tv
