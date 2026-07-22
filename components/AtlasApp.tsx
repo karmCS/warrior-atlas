@@ -63,11 +63,19 @@ export function AtlasApp({ graph }: { graph: Graph }) {
   const select = useCallback((id: string) => { setSelectedId(id); setView('atlas'); }, []);
   const onCenter = useCallback((r: ArtRecord) => { setSelectedId(r.id); setView('atlas'); setCenterSignal((n) => n + 1); }, []);
   const clearFilters = useCallback(() => { setFilters(DEFAULT_FILTERS); setQuery(''); }, []);
+  const setAutorotate = useCallback((on: boolean) => setFilters((f) => ({ ...f, autorotate: on })), []);
   const shuffle = useCallback(() => {
     const pool = filtered.length ? filtered : all;
     const pick = pool[Math.floor(Math.random() * pool.length)];
     if (pick) { setSelectedId(pick.id); setView('atlas'); setCenterSignal((n) => n + 1); }
   }, [filtered, all]);
+
+  // A globe that never stops turning is exactly the kind of sustained motion
+  // reduced-motion users ask not to get. Start it off for them; the toggle on the
+  // globe still lets them opt back in.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setAutorotate(false);
+  }, [setAutorotate]);
 
   // keyboard: "/" focus search, Esc close panel
   useEffect(() => {
@@ -96,6 +104,7 @@ export function AtlasApp({ graph }: { graph: Graph }) {
             routes={filters.routes}
             labels={filters.labels}
             autorotate={filters.autorotate}
+            onAutorotate={setAutorotate}
             paused={panelOpen}
             centerSignal={centerSignal}
           />

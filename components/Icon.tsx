@@ -3,7 +3,7 @@
 import {
   Search, Shuffle, Info, X, ChevronDown, Check, Plus, Minus, Compass, Crosshair,
   CornerLeftUp, ArrowRight, Route, Film, Tv, BookOpen, Clapperboard, Gamepad2,
-  TriangleAlert, Map as MapIcon, ScrollText, GitBranch, MapPin,
+  TriangleAlert, Map as MapIcon, ScrollText, GitBranch, MapPin, Pause, Play,
   type LucideProps,
 } from 'lucide-react';
 
@@ -14,6 +14,7 @@ const GLYPHS: Record<string, React.ComponentType<LucideProps>> = {
   film: Film, tv: Tv, 'book-open': BookOpen, clapperboard: Clapperboard,
   'gamepad-2': Gamepad2, 'triangle-alert': TriangleAlert, map: MapIcon,
   'scroll-text': ScrollText, 'git-branch': GitBranch, 'map-pin': MapPin,
+  pause: Pause, play: Play,
 };
 
 export function Icon({ name, size = 16, color = 'currentColor', strokeWidth = 2 }: {

@@ -194,10 +194,58 @@ a:hover { color: var(--gold-300); }
 
 .coordread { position: absolute; left: 16px; bottom: 16px; z-index: 12; display: flex; align-items: center; gap: 7px; background: rgba(18,12,9,.74); backdrop-filter: blur(8px); border: 1px solid var(--border-1); padding: 7px 11px; font-family: var(--font-mono); font-size: 11px; color: var(--gold-500); }
 .hint { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 12; font-family: var(--font-condensed); font-weight: 600; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--bone-600); background: rgba(18,12,9,.7); backdrop-filter: blur(6px); border: 1px solid var(--border-1); padding: 6px 12px; pointer-events: none; }
-.zoom { position: absolute; right: 16px; bottom: 16px; z-index: 12; display: flex; flex-direction: column; background: var(--ink-900); border: 1px solid var(--border-2); }
-.zoom button { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-bottom: 1px solid var(--border-1); color: var(--bone-400); cursor: pointer; }
+.zoom { position: absolute; right: 16px; bottom: 16px; z-index: 12; display: flex; flex-direction: column; background: var(--ink-900); border: 1px solid var(--border-2); box-shadow: var(--shadow-1); }
+.zoom button { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-bottom: 1px solid var(--border-1); color: var(--bone-400); cursor: pointer; transition-property: color, background-color, transform; transition-duration: var(--dur-1); transition-timing-function: var(--ease-blade); }
 .zoom button:last-child { border-bottom: 0; }
-.zoom button:hover { color: var(--gold-400); }
+.zoom button:active { transform: scale(.94); }
+.zoom button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
+/* The spin toggle reads as state, not just an action: lit while the globe turns. */
+.zoom__spin.on { color: var(--gold-500); background: rgba(242,191,43,.09); }
+@media (hover: hover) and (pointer: fine) {
+  .zoom button:hover { color: var(--gold-400); background: var(--surface-raised); }
+}
+
+/* ── country labels ────────────────────────────────────────────────────────────
+   DOM overlay, not Esri TextSymbols — see Globe.tsx. The outer .glabel is a
+   zero-size anchor whose transform/opacity are rewritten every camera frame by
+   JS, so it carries NO transitions (they would smear while the globe spins).
+   All state motion lives on .glabel__box instead. */
+.glabels { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+.glabel { position: absolute; left: 0; top: 0; width: 0; height: 0; padding: 0; border: 0; background: none; pointer-events: auto; cursor: pointer; will-change: transform; }
+.glabel__box {
+  position: absolute; left: 0; top: 13px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  padding: 4px 8px;
+  font-family: var(--font-condensed); font-weight: 600; font-size: 11px;
+  letter-spacing: var(--track-caps); text-transform: uppercase;
+  color: var(--bone-300);
+  background: rgba(11, 7, 6, .58); border: 1px solid transparent;
+  text-shadow: 0 1px 2px rgba(11,7,6,.95);
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-duration: var(--dur-1);
+  transition-timing-function: var(--ease-blade);
+}
+.glabel__c { font-family: var(--font-mono); font-size: 10px; font-weight: 400; font-variant-numeric: tabular-nums; color: var(--bone-600); }
+.glabel__c::before { content: '·'; margin-right: 3px; }
+
+/* hover/focus is the "this is clickable" signal the labels were missing */
+.glabel.is-hot .glabel__box,
+.glabel:focus-visible .glabel__box {
+  color: var(--ink-950); background: var(--gold-500); border-color: var(--gold-300);
+  transform: translateX(-50%) translateY(-1px);
+  box-shadow: var(--glow-gold); text-shadow: none;
+}
+.glabel.is-hot .glabel__c,
+.glabel:focus-visible .glabel__c { color: rgba(11,7,6,.72); }
+.glabel:focus-visible { outline: none; }
+.glabel:active .glabel__box { transform: translateX(-50%) scale(.97); }
+
+.glabel.is-on .glabel__box { color: var(--bone-100); background: var(--red-500); border-color: var(--red-300); text-shadow: none; }
+.glabel.is-on .glabel__c { color: rgba(245,235,211,.75); }
+
+@media (prefers-reduced-motion: reduce) {
+  .glabel__box, .zoom button { transition-duration: 1ms; }
+}
 .map-loading, .map-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; z-index: 8; text-align: center; color: var(--bone-600); font-family: var(--font-condensed); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; pointer-events: none; }
 
 /* ── Dossier panel ── */
