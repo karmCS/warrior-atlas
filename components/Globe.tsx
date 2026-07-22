@@ -1,11 +1,14 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import esriConfig from '@arcgis/core/config';
+import { version as arcgisVersion } from '@arcgis/core/kernel';
 import EsriMap from '@arcgis/core/Map';
+import Basemap from '@arcgis/core/Basemap';
 import SceneView from '@arcgis/core/views/SceneView';
 import * as reactiveUtils from '@arcgis/core/core/reactiveUtils';
 import Ground from '@arcgis/core/Ground';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+import VectorTileLayer from '@arcgis/core/layers/VectorTileLayer';
 import Graphic from '@arcgis/core/Graphic';
 import Point from '@arcgis/core/geometry/Point';
 import Polyline from '@arcgis/core/geometry/Polyline';
@@ -18,12 +21,22 @@ import { feature } from 'topojson-client';
 import { Icon } from './Icon';
 import type { ArtRecord } from '@/lib/types';
 
-// Assets (icons, workers) load from the CDN — no local copy, no API key required.
-esriConfig.assetsPath = 'https://js.arcgis.com/4.31/@arcgis/core/assets';
+// Assets (icons, workers, vector-tile decoders) load from the CDN, version-pinned to
+// the installed @arcgis/core — a basemap pulls workers from here, so the two must agree.
+esriConfig.assetsPath = `https://js.arcgis.com/${arcgisVersion}/@arcgis/core/assets`;
+
+// Esri basemap auth. NEXT_PUBLIC_* is inlined into the client bundle at build time, so
+// this must be a referrer-restricted key. Absent or empty (fork, CI, open-source clone)
+// → the globe falls back to the keyless Natural Earth path in loadLand().
+const ARCGIS_KEY = (process.env.NEXT_PUBLIC_ARCGIS_API_KEY ?? '').trim();
+if (ARCGIS_KEY) esriConfig.apiKey = ARCGIS_KEY;
 
 const GOLD = '#F2BF2B';
 const RED = '#C22026';
 const RED_HOT = '#E23B33';
+const BONE = '#E2D3B0';
+const LACQUER = '#0B0706';
+const LAND_BROWN = '#4A3418';
 
 // ── great-circle math (geodesic arc geometry, spec: elevated-vertex polylines) ──
 const RAD = Math.PI / 180;
@@ -88,8 +101,8 @@ function nodeSymbol(selected: boolean) {
 function labelSymbol(text: string, selected: boolean) {
   return new TextSymbol({
     text,
-    color: selected ? '#FF9A82' : '#E2D3B0',
-    haloColor: '#0B0706',
+    color: selected ? '#FF9A82' : BONE,
+    haloColor: LACQUER,
     haloSize: 1.4,
     yoffset: 13,
     font: { family: 'Oswald, sans-serif', size: 9, weight: 'bold' },
@@ -135,93 +148,117 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
   // ── init the SceneView once ──
   useEffect(() => {
     if (!boxRef.current) return;
-    const landLayer = new GraphicsLayer({ id: 'land' });
-    const routeLayer = new GraphicsLayer({ id: 'routes', elevationInfo: { mode: 'absolute-height' } });
-    const nodeLayer = new GraphicsLayer({ id: 'nodes' });
-    const labelLayer = new GraphicsLayer({ id: 'labels' });
-    routeLayerRef.current = routeLayer; nodeLayerRef.current = nodeLayer; labelLayerRef.current = labelLayer;
+    const box = boxRef.current;
+    let disposed = false;
+    let teardown: (() => void) | null = null;
 
-    const map = new EsriMap({
-      ground: new Ground({ surfaceColor: [12, 8, 6] }),
-      layers: [landLayer, routeLayer, nodeLayer, labelLayer],
-    });
-    const view = new SceneView({
-      container: boxRef.current,
-      map,
-      viewingMode: 'global',
-      qualityProfile: 'high',
-      camera: { position: { longitude: 25, latitude: 12, z: 2.4e7 }, heading: 0, tilt: 0 },
-      constraints: { altitude: { min: 6e6, max: 6e7 }, clipDistance: { mode: 'auto' } },
-      environment: {
-        background: { type: 'color', color: [8, 5, 5, 1] },
-        starsEnabled: false,
-        atmosphereEnabled: false,
-        lighting: { type: 'virtual', directShadowsEnabled: false },
-      },
-      popupEnabled: false,
-      ui: { components: [] },
-    });
-    viewRef.current = view;
+    (async () => {
+      // A SceneView locks its spatial reference at CONSTRUCTION, and a VectorTileLayer
+      // draws only when its tiling scheme matches that SR — it does not reproject. Esri's
+      // vector basemaps are Web Mercator, so the basemap has to be on the Map before the
+      // view exists. Assigning it after view.ready leaves the view in 4326 and the tiles
+      // silently blank: loadStatus reports "loaded" while nothing renders.
+      const basemap = await loadEmberBasemap();
+      if (disposed) return;
 
-    // NB: view.when() proved unreliable here (never settled despite view.ready
-    // flipping true). Drive setup off the ready property directly instead.
-    reactiveUtils.whenOnce(() => view.ready).then(() => {
-      if (view.destroyed) return;
-      setReady(true);
-      loadLand(landLayer);
-      spin.current.raf = requestAnimationFrame(frame);
-    }).catch(() => {});
+      const landLayer = new GraphicsLayer({ id: 'land' });
+      const routeLayer = new GraphicsLayer({ id: 'routes', elevationInfo: { mode: 'absolute-height' } });
+      const nodeLayer = new GraphicsLayer({ id: 'nodes' });
+      const labelLayer = new GraphicsLayer({ id: 'labels' });
+      routeLayerRef.current = routeLayer; nodeLayerRef.current = nodeLayer; labelLayerRef.current = labelLayer;
 
-    const onClick = view.on('click', (e) => {
-      view.hitTest(e, { include: nodeLayer }).then((res) => {
-        const hit = res.results.find((r) => r.type === 'graphic' && r.graphic?.layer === nodeLayer);
-        if (hit && hit.type === 'graphic') {
-          const country = hit.graphic.attributes?.country as string;
-          const c = clustersRef.current.get(country);
-          if (!c) return;
-          if (c.styles.length === 1) { handlers.current.onSelect(c.styles[0].id); setPop(null); popRef.current = null; }
-          else openPopover(c);
-        } else { setPop(null); popRef.current = null; }
+      // No elevation layers: the ground stays a flat sphere so the absolute-height arcs
+      // and their z-less node endpoints keep meeting. surfaceColor shows through wherever
+      // the basemap has no tiles (the poles) and everywhere in the keyless fallback.
+      // Basemaps always draw beneath operational layers, so route/node/label ordering and
+      // the nodeLayer hitTest filter are untouched either way.
+      const map = new EsriMap({
+        ground: new Ground({ surfaceColor: [12, 8, 6] }),
+        basemap: basemap ?? undefined,
+        layers: [landLayer, routeLayer, nodeLayer, labelLayer],
+      });
+      const view = new SceneView({
+        container: box,
+        map,
+        viewingMode: 'global',
+        qualityProfile: 'high',
+        camera: { position: { longitude: 25, latitude: 12, z: 2.4e7 }, heading: 0, tilt: 0 },
+        constraints: { altitude: { min: 6e6, max: 6e7 }, clipDistance: { mode: 'auto' } },
+        environment: {
+          background: { type: 'color', color: [8, 5, 5, 1] },
+          starsEnabled: false,
+          atmosphereEnabled: false,
+          lighting: { type: 'virtual', directShadowsEnabled: false },
+        },
+        popupEnabled: false,
+        ui: { components: [] },
+      });
+      viewRef.current = view;
+
+      // NB: view.when() proved unreliable here (never settled despite view.ready
+      // flipping true). Drive setup off the ready property directly instead.
+      reactiveUtils.whenOnce(() => view.ready).then(() => {
+        if (view.destroyed) return;
+        setReady(true);
+        spin.current.raf = requestAnimationFrame(frame);
+        if (!basemap) loadLand(landLayer);
       }).catch(() => {});
-    });
-    const onDrag = view.on('drag', (e) => {
-      spin.current.dragging = e.action !== 'end';
-      if (e.action === 'start') { setPop(null); popRef.current = null; }
-    });
-    const camWatch = view.watch('camera', () => {
-      const c = view.center;
-      if (coordRef.current && c) coordRef.current.textContent = fmtCenter(c.latitude ?? 0, c.longitude ?? 0);
-      repositionPopover();
-    });
 
-    function frame() {
-      const v = viewRef.current;
-      if (v && !spin.current.paused && !spin.current.animating && !spin.current.dragging && !v.interacting) {
-        const cam = v.camera.clone();
-        cam.position.longitude = normLng((cam.position.longitude ?? 0) + 0.12);
-        v.camera = cam;
+      const onClick = view.on('click', (e) => {
+        view.hitTest(e, { include: nodeLayer }).then((res) => {
+          const hit = res.results.find((r) => r.type === 'graphic' && r.graphic?.layer === nodeLayer);
+          if (hit && hit.type === 'graphic') {
+            const country = hit.graphic.attributes?.country as string;
+            const c = clustersRef.current.get(country);
+            if (!c) return;
+            if (c.styles.length === 1) { handlers.current.onSelect(c.styles[0].id); setPop(null); popRef.current = null; }
+            else openPopover(c);
+          } else { setPop(null); popRef.current = null; }
+        }).catch(() => {});
+      });
+      const onDrag = view.on('drag', (e) => {
+        spin.current.dragging = e.action !== 'end';
+        if (e.action === 'start') { setPop(null); popRef.current = null; }
+      });
+      const camWatch = view.watch('camera', () => {
+        const c = view.center;
+        if (coordRef.current && c) coordRef.current.textContent = fmtCenter(c.latitude ?? 0, c.longitude ?? 0);
+        repositionPopover();
+      });
+
+      function frame() {
+        const v = viewRef.current;
+        if (v && !spin.current.paused && !spin.current.animating && !spin.current.dragging && !v.interacting) {
+          const cam = v.camera.clone();
+          cam.position.longitude = normLng((cam.position.longitude ?? 0) + 0.12);
+          v.camera = cam;
+        }
+        spin.current.raf = requestAnimationFrame(frame);
       }
-      spin.current.raf = requestAnimationFrame(frame);
-    }
-    function openPopover(c: Cluster) {
-      popRef.current = c;
-      const sp = view.toScreen(new Point({ longitude: c.lng, latitude: c.lat }));
-      if (sp) setPop({ cluster: c, x: sp.x, y: sp.y });
-    }
-    function repositionPopover() {
-      const c = popRef.current;
-      if (!c) return;
-      if (!frontFacing(view, c.lng, c.lat)) { setPop(null); popRef.current = null; return; }
-      const sp = view.toScreen(new Point({ longitude: c.lng, latitude: c.lat }));
-      if (sp) setPop({ cluster: c, x: sp.x, y: sp.y });
-    }
+      function openPopover(c: Cluster) {
+        popRef.current = c;
+        const sp = view.toScreen(new Point({ longitude: c.lng, latitude: c.lat }));
+        if (sp) setPop({ cluster: c, x: sp.x, y: sp.y });
+      }
+      function repositionPopover() {
+        const c = popRef.current;
+        if (!c) return;
+        if (!frontFacing(view, c.lng, c.lat)) { setPop(null); popRef.current = null; return; }
+        const sp = view.toScreen(new Point({ longitude: c.lng, latitude: c.lat }));
+        if (sp) setPop({ cluster: c, x: sp.x, y: sp.y });
+      }
 
-    return () => {
-      cancelAnimationFrame(spin.current.raf);
-      camWatch.remove(); onClick.remove(); onDrag.remove();
-      view.destroy();
-      viewRef.current = null;
-    };
+      teardown = () => {
+        cancelAnimationFrame(spin.current.raf);
+        camWatch.remove(); onClick.remove(); onDrag.remove();
+        view.destroy();
+        viewRef.current = null;
+      };
+    })();
+
+    // Unmount before the basemap fetch resolves → disposed short-circuits the IIFE and
+    // teardown is still null; after → teardown tears the view down normally.
+    return () => { disposed = true; teardown?.(); };
   }, []);
 
   // keep spin paused state synced to props / popover
@@ -367,10 +404,87 @@ function frontFacing(view: SceneView, lng: number, lat: number): boolean {
   return p[0] * c[0] + p[1] * c[1] + p[2] * c[2] > 0.12;
 }
 
+// ── Esri basemap: real vector tiles, recolored to the ember palette ──
+// Dark Gray Canvas is the closest stock Esri basemap to the palette, but stock is still
+// neutral grey, which would gut the design. So the style JSON is fetched, recolored, and
+// handed to the VectorTileLayer at CONSTRUCTION via its `style` property. Building the
+// style up front is the only restyling route documented as safe in a SceneView — the
+// live setters (setPaintProperties/deleteStyleLayer/setLayoutProperties) are documented
+// against 2D MapView, so they are deliberately not used here.
+type StyleLayer = { id: string; type: string; 'source-layer'?: string; paint?: Record<string, unknown> };
+type BasemapStyle = { layers: StyleLayer[] };
+
+const COLOR_PROPS = ['background-color', 'fill-color', 'line-color', 'fill-outline-color'] as const;
+const WATER_RE = /water|marine|bathymetry/;
+const BOUNDARY_RE = /boundary/;
+const CLUTTER_RE = /road|railroad|ferry|trail|tunnel|runway|building/;
+
+// Style sources, best first: the keyed v2 Basemap styles service, then the public style
+// resource for the same Dark Gray Canvas tiles (tile requests still carry the API key).
+function styleSources(key: string): string[] {
+  return [
+    `https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/styles/arcgis/dark-gray/base?token=${encodeURIComponent(key)}`,
+    'https://www.arcgis.com/sharing/rest/content/items/5e9b3685f4c24d8781073dd928ebda50/resources/styles/root.json',
+  ];
+}
+
+// The ember color a style layer paints with; null drops it from the style entirely.
+function emberColor(layer: StyleLayer): string | null {
+  const key = `${layer['source-layer'] ?? ''} ${layer.id}`.toLowerCase();
+  if (layer.type === 'background') return LACQUER;
+  if (WATER_RE.test(key)) return LACQUER;      // ocean and lakes = lacquer black
+  if (BOUNDARY_RE.test(key)) return GOLD;      // borders = lantern gold, like the old coastlines
+  if (CLUTTER_RE.test(key)) return null;       // no streets or buildings on a world atlas
+  return LAND_BROWN;                           // everything terrestrial = warm brown
+}
+
+// Esri paints with either a plain hex or a {stops:[[zoom,color],…]} zoom function.
+function recolor(value: unknown, next: string): unknown {
+  const stops = (value as { stops?: [number, string][] } | null)?.stops;
+  if (Array.isArray(stops)) return { ...(value as object), stops: stops.map(([zoom]) => [zoom, next]) };
+  return next;
+}
+
+// Immutably rewrite a fetched Esri style into the ember palette.
+function toEmberStyle(style: BasemapStyle): BasemapStyle {
+  const layers = style.layers.flatMap((layer) => {
+    const next = emberColor(layer);
+    if (next === null) return [];
+    const paint: Record<string, unknown> = { ...(layer.paint ?? {}) };
+    for (const prop of COLOR_PROPS) if (prop in paint) paint[prop] = recolor(paint[prop], next);
+    if ('text-color' in paint) paint['text-color'] = BONE;
+    if ('text-halo-color' in paint) paint['text-halo-color'] = LACQUER;
+    return [{ ...layer, paint }];
+  });
+  return { ...style, layers };
+}
+
+// Returns null when no key is configured or every style source fails, so the caller can
+// fall back to the keyless Natural Earth path rather than show a bare sphere.
+async function loadEmberBasemap(): Promise<Basemap | null> {
+  if (!ARCGIS_KEY) return null;
+  for (const url of styleSources(ARCGIS_KEY)) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const style = await res.json();
+      if (!Array.isArray(style?.layers)) continue;
+      return new Basemap({
+        id: 'ember',
+        title: 'Ember',
+        baseLayers: [new VectorTileLayer({ id: 'ember-base', style: toEmberStyle(style), apiKey: ARCGIS_KEY })],
+      });
+    } catch { /* try the next style source */ }
+  }
+  return null;
+}
+
 // Load Natural Earth country outlines (world-atlas topojson, public domain) into a
 // GraphicsLayer — warm-brown landmasses with a faint gold coastline draped on the
-// globe. Rings are REVERSED: GeoJSON winds exterior rings counter-clockwise, but
-// ArcGIS expects clockwise exterior / counter-clockwise holes, so a uniform reverse
+// globe. This is the KEYLESS fallback — it runs when NEXT_PUBLIC_ARCGIS_API_KEY is
+// absent or the Esri basemap could not be built, so a fork or CI build still gets a
+// readable globe. Rings are REVERSED: GeoJSON winds exterior rings counter-clockwise,
+// but ArcGIS expects clockwise exterior / counter-clockwise holes, so a uniform reverse
 // converts both correctly. Fails gracefully offline (ember globe still renders).
 async function loadLand(layer: GraphicsLayer) {
   try {
