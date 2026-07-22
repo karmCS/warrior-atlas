@@ -1,0 +1,1003 @@
+{
+  "records": [
+    {
+      "id": "bjj",
+      "name": "Brazilian Jiu-Jitsu",
+      "country": "Brazil",
+      "code": "BR",
+      "region": "S America",
+      "discipline": "grappling",
+      "status": "verified",
+      "origin": "Rio de Janeiro",
+      "lat": -22.911111,
+      "lng": -43.205556,
+      "founded": "1925",
+      "eraLabel": "EST. 1925",
+      "era": "1900s",
+      "tagline": "The ground is the great equalizer — Kodokan judo, reworked in Rio.",
+      "history": "Brazilian jiu-jitsu grew out of Kodokan judo, brought to Brazil by Mitsuyo Maeda, a judoka who settled in Belém, Pará, around 1914 after years touring the world in jiu-jitsu challenge matches. Carlos Gracie began training in Maeda's circle around 1917. The Gracie family has long said Maeda taught Carlos personally; historian Robert Drysdale argues Carlos learned mainly from Maeda's assistant, Jacyntho Ferro. Carlos's younger brother Hélio, too small for judo's standard throws, reworked the art around leverage and ground control. The family later moved to Rio de Janeiro, where Carlos and Hélio opened an academy in 1925, the date most cited as the sport's start; Wikidata records an earlier inception of 1910.\n\nA separate, non-Gracie lineage grew from the same root. Luiz França, who also trained under Maeda in Belém, passed the art to his student Oswaldo Fadda, who taught for free in Rio's Bento Ribeiro district and built a reputation for footlocks, a technique Hélio reportedly dismissed as \"suburban\" before Fadda's students beat several Gracie fighters. Wikipedia's infobox lists jujutsu, judo, and catch wrestling as the lineage; Wikidata classifies the art as a subclass of judo and jujutsu but has no such link to wrestling, and its \"derived from\" field is empty for all three. The art's later role in shaping mixed martial arts, especially through Royce Gracie's run at UFC 1 in 1993, appears throughout its histories, but Wikidata lists no martial art formally derived from it besides car-jitsu, a novelty grappling variant too marginal to list here.",
+      "lineageTo": [],
+      "lineageFrom": [
+        "judo",
+        "wrestling"
+      ],
+      "ghostFrom": [
+        "jujutsu"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Choke",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Fight Quest: Brazil (Brazilian Jiu-Jitsu)",
+          "type": "Series",
+          "country": "US"
+        },
+        {
+          "title": "Kengan Ashura",
+          "type": "Anime",
+          "country": "JP"
+        },
+        {
+          "title": "Bra-Ju",
+          "type": "Manga",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "boxing",
+      "name": "Boxing",
+      "country": "England",
+      "code": "GB",
+      "region": "Europe",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "London",
+      "lat": 51.5072,
+      "lng": -0.1275,
+      "founded": "1867 (Marquess of Queensberry Rules); earlier codified 1743 (Broughton's Rules); ancient roots undated",
+      "eraLabel": "EST. 1867",
+      "era": "1800s",
+      "tagline": "The codified science of the fist, gloved in Victorian England.",
+      "history": "Boxing's origins split into two stories: an unarmed ancient sport, and a codified modern one from England. Reliefs from Sumer and paintings in Egyptian tombs show men fist-fighting as early as the third millennium BC. A few researchers push the practice back further, to roughly the sixth millennium BC in what is now Ethiopia, though evidence is thin and not widely accepted. Boxing entered the ancient Olympics in 688 BC, with Greek fighters wrapping their hands in leather thongs called himantes.\n\nThe version that shaped the modern sport took hold in England. Jack Broughton, an undefeated champion, wrote the first formal rules in 1743 after an opponent died in a bout; the rules gave a downed fighter thirty seconds to rise and banned hitting a man while down. The London Prize Ring Rules replaced Broughton's code in 1838, revised in 1853, keeping fights bare-knuckle while banning head-butting, eye-gouging, and biting. In 1867, John Graham Chambers drafted the Marquess of Queensberry Rules, requiring padded gloves, three-minute rounds, and a ten-count. Named for the Marquess who backed them, the rules ended bare-knuckle prizefighting and spread to the United States.\n\nWikidata records no parent martial art for boxing, and Wikipedia's infobox has no lineage field either; this entry treats boxing as originating from ancient fist-fighting rather than any single named predecessor. It later shaped other arts: Bruce Lee listed boxing among Jeet Kune Do's influences, mainly for its footwork, and 1970s American kickboxing promoters, including Joe Lewis, paired boxing's punches with karate's kicks.",
+      "lineageTo": [
+        "jeet-kune-do",
+        "kickboxing-usa",
+        "sambo"
+      ],
+      "lineageFrom": [],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "When We Were Kings",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Muhammad Ali",
+          "type": "Series",
+          "country": "US"
+        },
+        {
+          "title": "Ali",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Raging Bull",
+          "type": "Film",
+          "country": "US"
+        }
+      ]
+    },
+    {
+      "id": "capoeira",
+      "name": "Capoeira",
+      "country": "Brazil",
+      "code": "BR",
+      "region": "S America",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Salvador, Bahia",
+      "lat": -12.9831,
+      "lng": -38.4928,
+      "founded": "16th-19th century (colonial era); first documented 1789, exact origin unknown",
+      "eraLabel": "16TH–19TH C.",
+      "era": "1600s",
+      "tagline": "A fight disguised as a dance, forged by the enslaved of Bahia.",
+      "history": "Capoeira developed among enslaved and free Africans and their descendants in colonial Brazil, most closely associated with Bahia, where its codified modern styles later took shape. Court records from Rio de Janeiro first name the practice \"capoeiragem\" in 1789, describing it as a criminal offense. The exact date of origin is unknown; Wikidata's own inception estimate of around 1600 is a rough approximation, not a documented founding year. Capoeira mestres and much of the oral tradition trace the art to Angola. Scholar T. J. Desch-Obi has argued for a specific ancestor, engolo, a kicking and evasion contest from the Cunene region of southern Angola. Other historians treat the engolo link as a later-adopted origin story, not settled genealogy, and capoeira's relationship to other proposed forerunners, batuque, and more tentatively moraingy from Madagascar and French savate, remains unresolved.\n\nBy the nineteenth century, street capoeira in Rio de Janeiro had become tied to gang violence, and an 1890 penal code banned it outright. The shift from outlawed street fighting to organized art came in the 1930s, when Manuel dos Reis Machado, known as Mestre Bimba, opened an academy in Salvador and created Capoeira Regional. Vicente Ferreira Pastinha followed in 1941, founding a school that preserved the older Angola style. Both began admitting women as students, breaking with earlier practice. Bira Almeida, known as Mestre Acordeon, helped bring capoeira to the United States in the 1970s, and UNESCO added it to its Intangible Cultural Heritage list in 2014.",
+      "lineageTo": [],
+      "lineageFrom": [],
+      "ghostFrom": [
+        "engolo",
+        "batuque"
+      ],
+      "ghostTo": [
+        "capoeira-carioca"
+      ],
+      "media": [
+        {
+          "title": "Only the Strong",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Besouro",
+          "type": "Film",
+          "country": "BR"
+        },
+        {
+          "title": "Samurai Champloo",
+          "type": "Anime",
+          "country": "JP"
+        },
+        {
+          "title": "Tenjou Tenge",
+          "type": "Manga",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "jeet-kune-do",
+      "name": "Jeet Kune Do",
+      "country": "United States",
+      "code": "US",
+      "region": "N America",
+      "discipline": "striking",
+      "status": "disputed",
+      "origin": "Los Angeles",
+      "lat": 34.0651,
+      "lng": -118.2409,
+      "founded": "1967",
+      "eraLabel": "EST. 1967",
+      "era": "1900s",
+      "tagline": "Absorb what is useful. Discard the rest.",
+      "history": "Jeet Kune Do is Bruce Lee's hybrid fighting philosophy, and its country of origin is still contested. Lee grew up in Hong Kong and trained in Wing Chun under Ip Man there, but he built and named Jeet Kune Do after moving to the United States. Wikidata's entry for the art (Q188923) has no country-of-origin property filled in, and Wikipedia's infobox lists \"Seattle, Washington\" in that field, though Seattle is only where Lee opened his first school in 1959, not where he coined the name.\n\nThat first school, the Jun Fan Gung Fu Institute, taught an evolving but still Wing-Chun-rooted system. Lee opened a second branch in Oakland with James Yimm Lee in 1964 and fought a private match that year against Wong Jack-man. Lee later said the fight, and how long it took him to end it, convinced him rigid, single-style training was too slow for real combat. He began layering in boxing footwork, fencing timing, and grappling drawn from judo and wrestling onto his Wing Chun base, sketched the ideas out in a 1965 Black Belt magazine interview, and settled on the name Jeet Kune Do in 1967 at a third school, at 628 College Street in Los Angeles's Chinatown. He closed that school around 1970, arguing a fixed curriculum would harden into the dead pattern he had rejected. Lee died in 1973. No martial art in Wikidata lists Jeet Kune Do as an ancestor, so influence is marked unknown here rather than guessed.",
+      "lineageTo": [],
+      "lineageFrom": [
+        "boxing",
+        "wing-chun",
+        "judo",
+        "wrestling",
+        "taekwondo-itf",
+        "taekwondo-wtf"
+      ],
+      "ghostFrom": [
+        "fencing",
+        "jujutsu",
+        "savate",
+        "arnis",
+        "tai-chi"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "The Green Hornet",
+          "type": "Series",
+          "country": "US"
+        },
+        {
+          "title": "Enter the Dragon",
+          "type": "Film",
+          "country": ""
+        },
+        {
+          "title": "Game of Death",
+          "type": "Film",
+          "country": "HK"
+        },
+        {
+          "title": "Be Water",
+          "type": "Film",
+          "country": "US"
+        }
+      ]
+    },
+    {
+      "id": "judo",
+      "name": "Judo",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "grappling",
+      "status": "verified",
+      "origin": "Tokyo",
+      "lat": 35.7076,
+      "lng": 139.7534,
+      "founded": "1882",
+      "eraLabel": "EST. 1882",
+      "era": "1800s",
+      "tagline": "Maximum efficiency, minimum effort.",
+      "history": "Jigoro Kano founded judo in 1882, opening a school with twelve mats at the Eisho-ji temple in Tokyo's Ueno district. Kano had trained in several jujutsu lines, including Tenjin Shin'yo-ryu under Fukuda Hachinosuke and Kito-ryu under Iikubo Tsunetoshi, and built judo from that base by dropping striking and weapons work and putting free sparring, or randori, at the center of practice. He framed the system around two ideas: seiryoku zenyo, the efficient use of energy, and jita kyoei, mutual welfare and benefit. The school became known as the Kodokan; its current headquarters is in Bunkyo, Tokyo, some distance from the original Ueno site, whose exact address isn't recorded in the sources checked here. Judo's reputation grew through tournaments against rival jujutsu schools organized by the Tokyo Metropolitan Police in the 1880s, and Kano chaired the committee that set formal contest rules in 1899. Judo entered the Olympics for men in 1964 in Tokyo, added a women's event in 1992, and has been part of the Paralympics since 1988. Its reach extended beyond Japan early on: Mitsuyo Maeda, a Kodokan black belt, began teaching judo in Brazil around 1914; sources differ on whether Carlos Gracie learned directly from Maeda or from Maeda's student Jacyntho Ferro, but Carlos passed the art to his brothers, and Helio Gracie's ground-fighting adaptation became Brazilian jiu-jitsu. Around the same time, Vasili Oshchepkov trained under Kano in Japan, earned a nidan black belt, and later combined judo with wrestling to help build sambo in the Soviet Union.",
+      "lineageTo": [
+        "bjj",
+        "jeet-kune-do",
+        "sambo",
+        "kudo"
+      ],
+      "lineageFrom": [],
+      "ghostFrom": [
+        "jujutsu"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Sanshiro Sugata",
+          "type": "Film",
+          "country": "JP"
+        },
+        {
+          "title": "Throw Down",
+          "type": "Film",
+          "country": "HK"
+        },
+        {
+          "title": "Yawara!",
+          "type": "Manga",
+          "country": "JP"
+        },
+        {
+          "title": "Yawara!",
+          "type": "Anime",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "karate-goju-ryu",
+      "name": "Karate (Goju-ryu)",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Naha, Okinawa",
+      "lat": 26.2122,
+      "lng": 127.6792,
+      "founded": "1929",
+      "eraLabel": "EST. 1929",
+      "era": "1900s",
+      "tagline": "Hard and soft — Naha-te breathing made into a school.",
+      "history": "Chōjun Miyagi (1888-1953) founded Goju-ryu in Naha, Okinawa, building on Naha-te, the style he learned under Kanryō Higaonna starting at age fourteen. Higaonna had trained in Fuzhou, China, during the 1870s, and Miyagi made his own trips to Fujian province in 1915 and 1917 to study local martial arts. He trained under Higaonna for fifteen years, until Higaonna's death in 1916, then spent the next decade shaping what he had learned into a distinct system.\n\nThe name came later, and almost by accident. In 1929, Miyagi's student Jin'an Shinzato demonstrated the art at a martial event and had no answer when asked its name, since Naha-te had never been a formal school title. Miyagi settled on \"Goju-ryu,\" hard-soft style, taking the words from a line in the Bubishi's \"Eight Poems of the Fist,\" roughly \"the way of inhaling and exhaling is hardness and softness\" (some sources put the formal naming in 1930 instead). The style pairs linear, closed-fist strikes with circular, open-hand redirection and close-range grappling, built around Sanchin kata and its controlled breathing method.\n\nMiyagi's influence reached past his own school. Mas Oyama, who later founded Kyokushin, trained for several years under So Nei Chu, a senior Goju-ryu student of Miyagi's, and also studied under Gōgen Yamaguchi, who led Miyagi's style on the Japanese mainland. Kenwa Mabuni, founder of Shito-ryu, studied under Higaonna too, introduced to him by Miyagi, making Goju-ryu and Shito-ryu siblings through a shared teacher rather than direct descent.",
+      "lineageTo": [
+        "karate-kyokushin"
+      ],
+      "lineageFrom": [
+        "karate"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "The Karate Kid",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Cobra Kai",
+          "type": "Series",
+          "country": "US"
+        }
+      ]
+    },
+    {
+      "id": "karate-kyokushin",
+      "name": "Karate (Kyokushin)",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Tokyo",
+      "lat": 35.7348,
+      "lng": 139.7075,
+      "founded": "1964",
+      "eraLabel": "EST. 1964",
+      "era": "1900s",
+      "tagline": "Full contact, no apology. Knockdown karate.",
+      "history": "Masutatsu Oyama, born Choi Yeong-eui in Japanese-occupied Korea in 1923, moved to Japan as a teenager and trained under Gichin Funakoshi at Takushoku University, studying Shotokan for about two years. He also spent several years under So Nei Chu, a fellow Korean and senior Goju-ryu student of founder Chojun Miyagi, and later trained with Gogen Yamaguchi of the Goju-kai. That combination of Shotokan's linear striking and Goju-ryu's closer-range power shaped the style Oyama began teaching from a dojo near Rikkyo University in 1953. He called it Kyokushinkai by 1957, and in April 1964 formally founded the International Karate Organization Kyokushin kaikan, with a headquarters dojo completed that June in Ikebukuro, Tokyo.\n\nKyokushin's signature is \"knockdown karate\": full-contact matches fought bare-fisted, with kicks and knees allowed to the head and full-power strikes to the body and legs, while punches to the head are barred. Oyama also built his name on legend. He claimed to have fought and killed dozens of bulls bare-handed and to have beaten 100 opponents in a single day's kumite; former students have called both claims staged or mathematically impossible, and most historians treat them as promotional myth rather than fact. The knockdown format he pioneered later shaped Kazuyoshi Ishii's Seidokaikan, which fed into the K-1 kickboxing circuit Ishii founded in 1993, and Azuma Takashi's Kudo, which started as a Kyokushin-judo hybrid before Azuma broke away in the early 1980s.",
+      "lineageTo": [
+        "kudo",
+        "kickboxing-japan"
+      ],
+      "lineageFrom": [
+        "karate-goju-ryu",
+        "karate-shotokan",
+        "karate"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Fighter in the Wind",
+          "type": "Film",
+          "country": "KR"
+        },
+        {
+          "title": "Champion of Death",
+          "type": "Film",
+          "country": "JP"
+        },
+        {
+          "title": "Karate Bearfighter",
+          "type": "Film",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "karate-shito-ryu",
+      "name": "Karate (Shito-ryu)",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Osaka",
+      "lat": 34.6937,
+      "lng": 135.5021,
+      "founded": "1931",
+      "eraLabel": "EST. 1931",
+      "era": "1900s",
+      "tagline": "Shuri speed and Naha power, kept in one syllabus.",
+      "history": "Kenwa Mabuni began training under Ankō Itosu in Shuri around age thirteen, absorbing the direct, powerful lines of Shuri-te. His friend Chōjun Miyagi later introduced him to Kanryō Higaonna, and Mabuni took up Naha-te's tighter, more circular methods as well. Most Okinawan karateka of his generation stuck to one lineage or the other; Mabuni trained seriously in both, and that dual grounding became the point of everything he built afterward.\n\nBy 1929 he had moved to Osaka to teach karate full-time on the mainland, calling his approach Hanko-ryu, \"half-hard style,\" a name meant to capture the mix of hard Shuri-te and softer Naha-te body mechanics. Around 1931 he settled on a permanent name, Shitō-ryū, built from the on'yomi readings of the first kanji in his two teachers' names: \"Shi\" from Itosu, \"Tō\" from Higaonna. The Dai Nippon Butoku Kai formally registered the style in 1939.\n\nBecause Shitō-ryū drew from two separate curricula rather than one, it kept an unusually large kata list; sources put the count anywhere from the fifties into the nineties depending on the branch, well beyond Shotokan or Gōjū-ryū. One of Mabuni's senior students, Chōjirō Tani, later split off his own line, Shūkōkai, in the late 1940s. Mabuni died in Tokyo in 1952; his son Kenei took over the school.",
+      "lineageTo": [],
+      "lineageFrom": [
+        "karate"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "The Real Miyagi",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "More Than Miyagi: The Pat Morita Story",
+          "type": "Film",
+          "country": "US"
+        }
+      ]
+    },
+    {
+      "id": "karate-shotokan",
+      "name": "Karate (Shotokan)",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Tokyo",
+      "lat": 35.6894,
+      "lng": 139.6917,
+      "founded": "1928",
+      "eraLabel": "EST. 1928",
+      "era": "1900s",
+      "tagline": "Long stances, straight lines — karate’s most-taught form.",
+      "history": "Gichin Funakoshi trained in Shuri, Okinawa, under Ankō Itosu and Ankō Asato, absorbing the Shuri-te tradition that later became known as Shorin-ryu. In 1922 the Japanese Ministry of Education invited him to Tokyo to demonstrate karate at the country's first national athletic exhibition. It went well enough that Jigoro Kano asked him to perform again at the Kodokan, and Funakoshi stayed on in Tokyo rather than return home, teaching first at a dormitory for Okinawan students and then at university clubs including Keio and Waseda.\n\nThe style that emerged was shaped as much by his son, Yoshitaka (Gigo) Funakoshi, who pushed the kata toward the longer, lower stances and more overtly athletic technique still associated with the style today. In 1936 Funakoshi's students built him a dedicated dojo in Mejiro and hung a sign over the entrance reading \"Shoto-kan,\" combining his pen name Shoto, meaning pine waves, with kan, meaning hall. Funakoshi did not choose the name himself; his students gave it to him. The building was destroyed in the 1945 Tokyo air raids.\n\nIn 1949 senior students, among them Masatoshi Nakayama and Hidetaka Nishiyama, founded the Japan Karate Association in Tokyo to standardize instruction and grading, with Funakoshi serving as honorary head. Two of Funakoshi's own students later founded their own styles: Hironori Otsuka, who received one of Funakoshi's first black belts in 1924, developed Wado-ryu, and Masutatsu Oyama, who trained under both Funakoshis before turning to Goju-ryu, founded Kyokushin.",
+      "lineageTo": [
+        "karate-kyokushin",
+        "karate-wado-ryu"
+      ],
+      "lineageFrom": [
+        "karate"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Cobra Kai",
+          "type": "Series",
+          "country": "US"
+        },
+        {
+          "title": "Karate Master (Karate Baka Ichidai)",
+          "type": "Anime",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "karate-wado-ryu",
+      "name": "Karate (Wado-ryu)",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Tokyo",
+      "lat": 35.6894,
+      "lng": 139.6917,
+      "founded": "1934",
+      "eraLabel": "EST. 1934",
+      "era": "1900s",
+      "tagline": "Karate softened by jujutsu evasion — the way of harmony.",
+      "history": "Hironori Otsuka came to karate already a master of something else. He started training in Shindo Yoshin-ryu jujutsu at thirteen under Tatsusaburo Nakayama, and by June 1921 he held menkyo kaiden, full mastery and a license to teach, in that jujutsu tradition. He didn't meet Gichin Funakoshi until the following year, when Funakoshi arrived in Tokyo teaching Okinawan karate to a mainland audience that barely knew the art existed. Otsuka trained under him and was among the first students Funakoshi promoted to black belt, in 1924, but he also studied with Kenwa Mabuni and Choki Motobu, picking up approaches to free sparring that Funakoshi's kata-centered curriculum didn't cover.\n\nWhat Otsuka built from these threads was not Funakoshi's karate with jujutsu bolted on. He kept the striking but reworked the footwork around his jujutsu's evasive body shifting, tai sabaki, and folded in joint locks and throws, so a defender slips an attack's line rather than meeting it head-on. He opened his own school in 1934, and the name Wado-ryu, \"way of harmony,\" stuck soon after. The Dai Nippon Butoku Kai registered his style in 1938, and when it required all schools to formally register their names the following year, other major lines, including Funakoshi's own Shotokan, went through the same process. Whether Wado-ryu was the first karate style recognized independently of its founder's organization, as some accounts claim, is harder to confirm than that framing suggests.",
+      "lineageTo": [],
+      "lineageFrom": [
+        "karate-shotokan",
+        "karate"
+      ],
+      "ghostFrom": [
+        "jujutsu"
+      ],
+      "ghostTo": [],
+      "media": []
+    },
+    {
+      "id": "karate",
+      "name": "Karate",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "disputed",
+      "origin": "Naha, Okinawa",
+      "lat": 26.2122,
+      "lng": 127.6792,
+      "founded": "early 20th century (Okinawan roots trace to 15th century)",
+      "eraLabel": "EARLY 20TH C.",
+      "era": "1900s",
+      "tagline": "Empty hand — Okinawa’s answer, half native te, half Chinese fist.",
+      "history": "Karate developed on Okinawa, then the independent Ryukyu Kingdom, from a native fighting tradition called te blended with Chinese martial arts brought back through trade and study trips to Fujian province, including elements of Fujian White Crane. By the 18th and 19th centuries the art took different shapes in different towns, known as Shuri-te, Naha-te, and Tomari-te. No single town is credited as karate's sole birthplace, so the coordinates here mark Naha, the Ryukyu capital and site of the Naha-te lineage, as a representative point rather than a confirmed founding location. The long-standing claim that karate arose because the Satsuma clan banned weapons after invading Okinawa in 1609 is disputed: researchers have found the 1613 order restricted carrying swords, not owning them, and was loosely enforced.\n\nMatsumura Sōkon, Ankō Itosu, and Higaonna Kanryō, who trained in Fuzhou, shaped the art through the 1800s. Itosu added karate to Shuri's school physical education classes in 1901, and his student Gichin Funakoshi brought it to mainland Japan in the 1920s, borrowing judo's uniforms and colored belt ranks from Jigoro Kano along the way. Japanese masters changed the character for \"kara\" from one meaning \"China\" to a homophone meaning \"empty\" in 1933, made official at a 1936 roundtable in Naha, partly to distance the art from China as relations between the two countries worsened. Karate reached the United States after World War II through returning servicemen and debuted as an Olympic sport at the 2020 Tokyo Games.",
+      "lineageTo": [
+        "karate-goju-ryu",
+        "karate-shito-ryu",
+        "karate-shotokan",
+        "karate-wado-ryu",
+        "karate-kyokushin",
+        "taekwondo-itf",
+        "taekwondo-wtf",
+        "kickboxing-japan",
+        "kickboxing-usa"
+      ],
+      "lineageFrom": [],
+      "ghostFrom": [
+        "okinawan-te",
+        "chinese-martial-arts"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "The Karate Kid",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Cobra Kai",
+          "type": "Series",
+          "country": "US"
+        },
+        {
+          "title": "Karate Baka Ichidai (Karate Master)",
+          "type": "Anime",
+          "country": "JP"
+        },
+        {
+          "title": "Karate Baka Ichidai (Karate Master)",
+          "type": "Manga",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "kickboxing-japan",
+      "name": "Kickboxing (Japan)",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Osaka",
+      "lat": 34.69375,
+      "lng": 135.502111,
+      "founded": "1966",
+      "eraLabel": "EST. 1966",
+      "era": "1900s",
+      "tagline": "Karate that stopped pulling its punches, cut with Muay Thai.",
+      "history": "Kickboxing's Japanese branch traces to karate instructor Tatsuo Yamada, who spent the 1950s testing full-contact rules because standard karate sparring barred direct strikes. Yamada, who trained under Chōki Motobu and ran his own school under the name Nihon Kempo Karate-do, floated the term \"karate-boxing\" for his idea in November 1959. A Muay Thai exhibition at Asakusa town hall in Tokyo on December 20, 1959, sharpened his thinking about a hybrid sport built for real contact. Boxing promoter Osamu Noguchi picked up the idea, studied Muay Thai, and fused it with karate into a new sport he named kickboxing. Noguchi founded the Kickboxing Association in 1966, and the first sanctioned bout was staged in Osaka on April 11 that year.\n\nTelevision carried the sport through the 1970s, with kickboxing airing on three Japanese channels a week by 1970. The boom ended abruptly around 1980 as ratings fell and coverage thinned out. Kazuyoshi Ishii revived the format in 1993 under the K-1 banner, and the promotion grew into the largest kickboxing organization in the world.\n\nAn American branch developed independently starting around 1970, when karate fighter Joe Lewis staged the first full-contact bout in the United States. Both branches trace back to karate, but the Japanese and American scenes built their ring-sport rules on separate continents roughly a decade apart, with no direct hand-off between them. This entry covers the Japanese line; see [[kickboxing-usa]] for the American one.",
+      "lineageTo": [
+        "kickboxing-usa",
+        "kudo"
+      ],
+      "lineageFrom": [
+        "karate-kyokushin",
+        "karate",
+        "muay-thai",
+        "kickboxing-usa"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Kick no Oni",
+          "type": "Manga",
+          "country": "JP"
+        },
+        {
+          "title": "Kick no Oni",
+          "type": "Anime",
+          "country": "JP"
+        },
+        {
+          "title": "K-1",
+          "type": "Series",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "kickboxing-usa",
+      "name": "Kickboxing (United States)",
+      "country": "United States",
+      "code": "US",
+      "region": "N America",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Long Beach, CA",
+      "lat": 33.7701,
+      "lng": -118.1937,
+      "founded": "1970",
+      "eraLabel": "EST. 1970",
+      "era": "1900s",
+      "tagline": "Point karate steps into a boxing ring, gloves on.",
+      "history": "On January 17, 1970, karate champion Joe Lewis stepped into a ring in Long Beach, California, wearing boxing gloves instead of fighting under point-karate rules. Lewis had trained in Shōbayashi and Matsubayashi Shōrin-ryū karate on Okinawa and trained privately under Bruce Lee in 1967 and 1968. At the 1st Pro Team Karate Championships, he knocked out Kenpo stylist Greg \"Om\" Baines in the second round. The ring announcer, short on a better word for it, called the fighters \"kickboxers,\" and the name stuck.\n\nFour years later, Don and Judy Quine and promoter Mike Anderson founded the Professional Karate Association in Los Angeles, after an earlier body had folded in 1972. The PKA's first World Championships ran at the Los Angeles Sports Arena that September, with Lewis winning the heavyweight title; ABC broadcast it that December on Wide World of Entertainment. The PKA later ran for years on ESPN. Its rules kept boxing gloves and timed rounds but required a minimum number of kicks above the waist each round. Howard Hanson and Arnold Urquidez set up a rival body, the World Kickboxing Association, in 1976.\n\nNone of this traces back to Japan, where a full-contact mix of karate and Muay Thai had already been running since the mid-1960s under different promoters. The two branches share a root in karate but were built independently, about a decade apart and an ocean apart. See [[kickboxing-japan]] for the other half of the split.",
+      "lineageTo": [
+        "kickboxing-japan"
+      ],
+      "lineageFrom": [
+        "boxing",
+        "kickboxing-japan",
+        "karate"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "American Kickboxer",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "PKA World Championships",
+          "type": "Series",
+          "country": "US"
+        }
+      ]
+    },
+    {
+      "id": "kudo",
+      "name": "Kudo",
+      "country": "Japan",
+      "code": "JP",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Sendai",
+      "lat": 38.268583,
+      "lng": 140.872028,
+      "founded": "1981",
+      "eraLabel": "EST. 1981",
+      "era": "1900s",
+      "tagline": "Karate, judo and the clinch in one full-contact art.",
+      "history": "Takashi Azuma was born May 22, 1949, in Kesennuma, Miyagi Prefecture. He joined his high school's judo club at 16, then, after military service, joined Kyokushinkaikan, Mas Oyama's karate organization, in 1971 while studying at Waseda University. He founded and captained Waseda's Kyokushin club in 1972, fighting in Kyokushin's All Japan tournaments through the decade: runner-up in 1974, third in 1976, and champion of the 9th All Japan Karate Championship in 1977, plus sixth at the first World Tournament in 1975 and fourth at the second in 1979. Fighters called him \"the human locomotive\" for his low kicks.\n\nAzuma retired from competition in 1979 and took over Kyokushin's Miyagi branch. Facing larger opponents abroad convinced him Kyokushin's rules, banning face punches and throws, left smaller fighters no way to close the gap; he wanted face strikes under headgear, groin strikes, and judo throws added. His autobiography also cites personal grievances, including a bout that left his nose bent. On February 17, 1981, he founded Karate-do Daido Juku in Sendai, Miyagi's capital, blending Kyokushin striking with judo grappling; boxing, Muay Thai, wrestling, and jujitsu technique entered through the 1980s and 1990s. Azuma renamed the system Kudo in 2001 and ran its first world championship that year; the Kudo International Federation now governs it. He held ninth dan in Kudo, eighth dan in Jon Bluming's Kyokushin Budokai, and third dan in judo. He died of stomach cancer on April 3, 2021; Kenichi Osada succeeded him as Daido Juku president.",
+      "lineageTo": [],
+      "lineageFrom": [
+        "judo",
+        "karate-kyokushin",
+        "kickboxing-japan",
+        "muay-thai"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": []
+    },
+    {
+      "id": "muay-thai",
+      "name": "Muay Thai",
+      "country": "Thailand",
+      "code": "TH",
+      "region": "SE Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Bangkok",
+      "lat": 13.75,
+      "lng": 100.516667,
+      "founded": "18th century (documented); disputed roots to 13th century; codified as ring sport 1920s to 1930s",
+      "eraLabel": "18TH C.",
+      "era": "1700s",
+      "tagline": "The art of eight limbs — fists, elbows, knees, shins.",
+      "history": "Muay Thai, called the \"art of eight limbs\" for its use of fists, elbows, knees, and shins, grew out of older Siamese fighting traditions grouped under the name muay boran, alongside the armed style krabi krabong. Wikipedia's infobox dates documented practice in Thailand to the 18th century, though some accounts point to unarmed combat training in a 13th-century military manual attributed to King Ram Khamhaeng, a claim historians treat with caution given how few records survive from that period. By 1455, under King Borommatrailokkanat, the Ayutthaya court had built hand-to-hand training into the King's Guard Department. The often-repeated story of Nai Khanom Tom, a captured fighter said to have beaten ten Burmese opponents to win his freedom, shows up in Thai sources only starting in the 20th century; most scholars now read it as a nation-building legend rather than a recorded event.\n\nThe sport took its modern ring form in Bangkok. A permanent ring went up at Suan Kulap College in 1921, Suan Sanuk Stadium followed in 1923, and King Rama VII's government set down formal rules, weight classes, and gloved competition between 1925 and 1935. Rajadamnern Stadium (1945) and Lumpinee Stadium (1956) later became the sport's two main venues. In the 1950s, Japanese karateka Tatsuo Yamada combined Muay Thai with karate to create kickboxing, and the hybrid style Kudo, developed by Takashi Azuma's Daido Juku school, later folded in Muay Thai techniques of its own.",
+      "lineageTo": [
+        "kickboxing-japan",
+        "kudo"
+      ],
+      "lineageFrom": [],
+      "ghostFrom": [
+        "muay-boran",
+        "krabi-krabong"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Ong-Bak",
+          "type": "Film",
+          "country": "TH"
+        },
+        {
+          "title": "Kickboxer",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "FightWorld",
+          "type": "Series",
+          "country": "US"
+        },
+        {
+          "title": "Hurts Like Hell",
+          "type": "Series",
+          "country": "TH"
+        }
+      ]
+    },
+    {
+      "id": "sambo",
+      "name": "Sambo",
+      "country": "Soviet Union (present-day Russia)",
+      "code": "RU",
+      "region": "Europe",
+      "discipline": "grappling",
+      "status": "verified",
+      "origin": "Moscow",
+      "lat": 55.7506,
+      "lng": 37.6175,
+      "founded": "1938 (official recognition); development began early 1920s",
+      "eraLabel": "EST. 1938",
+      "era": "1900s",
+      "tagline": "The Red Army’s grappling, drilled from judo and folk wrestling.",
+      "history": "Sambo took shape in the Soviet Union in the early 1920s, when the Red Army wanted better hand-to-hand combat training for its soldiers. Two men built it along separate, sometimes rival lines. Vasili Oshchepkov studied judo in Japan under Kano Jigoro, earning a nidan black belt in 1917, and had already opened Russia's first judo school in Vladivostok in 1914. By the late 1920s he coached judo at the Red Army's sports club and the Moscow Physical Education Institute, blending it with Soviet folk wrestling. Viktor Spiridonov worked separately at the Dynamo sports society in Moscow, building a softer system shaped partly by a war injury to his arm. Oshchepkov was arrested during the Great Purge in 1937 on a fabricated spying charge and died in custody. He did not live to see the USSR All-Union Committee for Physical Culture and Sport recognize the discipline on November 16, 1938, credited largely to his student Anatoly Kharlampiev. The name \"sambo,\" short for samozashchita bez oruzhiya (self-defense without weapons), only came into common use in the 1940s. Wikidata lists no coordinates for sambo; Moscow is used here since both founders worked there and the recognizing authority was based there. FILA accepted sambo as a third international wrestling style in 1968, and the IOC granted it provisional recognition in 2018. No martial art in the sources checked lists sambo as an ancestor. Sambo has visibly shaped modern MMA grappling, but no documented lineage ties it to Brazilian jiu-jitsu or any other named art.",
+      "lineageTo": [],
+      "lineageFrom": [
+        "judo",
+        "boxing",
+        "wrestling"
+      ],
+      "ghostFrom": [
+        "jujutsu",
+        "kurash"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Legends of Sambo",
+          "type": "Film",
+          "country": "RU"
+        },
+        {
+          "title": "Human Weapon: Sambo",
+          "type": "Series",
+          "country": "US"
+        },
+        {
+          "title": "Baki the Grappler",
+          "type": "Manga",
+          "country": "JP"
+        }
+      ]
+    },
+    {
+      "id": "silat-indonesia",
+      "name": "Silat (Indonesia)",
+      "country": "Indonesia",
+      "code": "ID",
+      "region": "SE Asia",
+      "discipline": "striking",
+      "status": "disputed",
+      "origin": "West Sumatra",
+      "lat": -2.9972,
+      "lng": 104.7256,
+      "founded": "unknown (Minangkabau tradition traces origins to the 6th century)",
+      "eraLabel": "6TH C. (TRAD.)",
+      "era": "ancient",
+      "tagline": "Low stances, sudden angles, hidden blades.",
+      "history": "Pencak silat has no single founder or founding date. Its early development passed down orally across Sumatra and Java, and Indonesian tradition places its beginnings among the Minangkabau of West Sumatra, where hulubalang bodyguards practiced structured fighting by the 6th century. A parallel legend ties the art's origins to the Srivijaya-era kingdom centered on Bukit Siguntang, a hill near Palembang tied in the Malay Annals to the ancestor-king Sang Sapurba. Wikidata records Indonesia as pencak silat's country of origin but lists no earlier parent art, so its lineage before these accounts is unknown.\n\nRegional variation produced dozens of named styles: Cimande, a close-quarters system from West Java first taught publicly around 1760; Silek Harimau, a tiger style IPSI ranks among the oldest still practiced; and Merpati Putih, developed in 17th-century royal courts and now the standard unarmed system of Indonesia's armed forces. IPSI, the Ikatan Pencak Silat Indonesia founded in 1948, unified these traditions and is the oldest national silat organization in the world.\n\nOn December 12, 2019, UNESCO added Indonesia's \"Traditions of Pencak Silat\" to its list of intangible cultural heritage, the same day it inscribed Malaysia's \"Silat\" nomination. Which country the art originated in is genuinely contested: the two nations' fighting traditions share deep, overlapping roots rather than one descending from the other. That is why this entry cross-links to [[silat-malaysia]] as a sibling tradition, not a technical derivation. Indonesian silat reached international audiences through Merantau, The Raid, and The Night Comes for Us.",
+      "lineageTo": [
+        "silat-malaysia"
+      ],
+      "lineageFrom": [
+        "silat-malaysia"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Merantau",
+          "type": "Film",
+          "country": "ID"
+        },
+        {
+          "title": "The Raid",
+          "type": "Film",
+          "country": "ID"
+        },
+        {
+          "title": "The Night Comes for Us",
+          "type": "Film",
+          "country": "ID"
+        }
+      ]
+    },
+    {
+      "id": "silat-malaysia",
+      "name": "Silat (Malaysia)",
+      "country": "Malaysia",
+      "code": "MY",
+      "region": "SE Asia",
+      "discipline": "striking",
+      "status": "disputed",
+      "origin": "Kuala Lumpur",
+      "lat": 3.139,
+      "lng": 101.6869,
+      "founded": "ancient/legendary (Langkasuka era, ~2,000 years by tradition); PESAKA national federation founded 1983",
+      "eraLabel": "ANCIENT (LEGEND)",
+      "era": "ancient",
+      "tagline": "The Malay art of the blade, bound to custom and dance.",
+      "history": "Malaysian silat has no agreed founder or founding date. UNESCO's 2019 listing of Malaysia's \"Silat\" traces it to the Langkasuka kingdom on the northern Malay Peninsula, with animal-derived movements said to date back roughly 2,000 years. Wikidata has no coordinates for either Langkasuka or the Silat Melayu entry, so the location marked here is Kuala Lumpur, Malaysia's capital, not a confirmed birthplace. The art took clearer shape under the 15th-century Melaka Sultanate, when Sufi teachers folded Islamic philosophy into training and Hang Tuah became its best-known folk hero; the Hikayat Hang Tuah's kris duel between Hang Tuah and his sworn brother Hang Jebat is cited as silat's most famous literary fight.\n\nNamed regional styles solidified later. Silat Cekak formed in the Kedah royal court, reportedly to counter Siamese fighters' tomoi (muay Thai), and Silat Seni Gayong was registered in 1963 by Meor Abdul Rahman. The national federation PESAKA formed in 1983 to unite these bodies, and a standardized \"Seni Silat Malaysia\" school curriculum followed in 2002.\n\nWhether silat began in Malaysia or Indonesia remains unsettled, and Wikidata's own \"Silat Melayu\" entry lists Indonesia, not Malaysia, as its country of origin, despite describing Malay Peninsula styles. UNESCO avoided ruling on the question by inscribing Indonesia's pencak silat and Malaysia's silat as separate listings on the same day in December 2019. This entry treats Indonesian pencak silat, [[silat-indonesia]], as a parallel sibling tradition, not a technical ancestor: the two share deep, contested roots rather than one demonstrably descending from the other.",
+      "lineageTo": [
+        "silat-indonesia"
+      ],
+      "lineageFrom": [
+        "silat-indonesia"
+      ],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Puteri Gunung Ledang",
+          "type": "Film",
+          "country": "MY"
+        },
+        {
+          "title": "Wira",
+          "type": "Film",
+          "country": "MY"
+        },
+        {
+          "title": "Geran (Silat Warriors: Deed of Death)",
+          "type": "Film",
+          "country": "MY"
+        }
+      ]
+    },
+    {
+      "id": "taekwondo-itf",
+      "name": "Taekwondo (ITF)",
+      "country": "South Korea",
+      "code": "KR",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Seoul",
+      "lat": 37.5665,
+      "lng": 126.978,
+      "founded": "1966",
+      "eraLabel": "EST. 1966",
+      "era": "1900s",
+      "tagline": "The way of the fist and the foot — Korea’s high kick.",
+      "history": "Taekwondo took its name and shape between 1955 and 1959, as leaders of Korea's postwar kwans, schools rooted largely in Japanese-era karate, agreed to unify under one name and curriculum. Choi Hong Hi, an army general who rose from lieutenant to major general within a decade, pushed hardest for the merger; the name landed on April 11, 1955. How much of this was indigenous versus adapted karate stays disputed: the government's traditionalist account and newer revisionist scholarship disagree, a debate predating the split here. The Korea Taekwondo Association formalized the merger in 1959, but Choi broke away in 1966 to found the International Taekwon-Do Federation in Seoul, keeping control of a curriculum built around 24 named patterns, or tul.\n\nAround 1980 Choi added sine wave, a knee-driven down-up-down motion meant to generate power differently than the snap-based style of the Seoul-based mainstream, a technical break still argued over inside ITF schools. In 1972, after Seoul blocked the ITF from teaching in North Korea, Choi went into exile and moved headquarters to Toronto; the ITF relocated again to Vienna in 1985, neutral ground that let Choi build ties on both sides of the Cold War, North Korea included. Choi died in Pyongyang in 2002, and rival ITF factions have competed since. Wikidata now lists Austria as the ITF's country, reflecting Vienna's registration rather than where the art or the organization began. Seoul's mainstream body, [[taekwondo-wtf]], is a sibling of the same 1955-59 unification, not a descendant of the ITF.",
+      "lineageTo": [
+        "jeet-kune-do",
+        "taekwondo-wtf"
+      ],
+      "lineageFrom": [
+        "karate",
+        "taekwondo-wtf"
+      ],
+      "ghostFrom": [
+        "taekkyeon"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Best of the Best",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Miami Connection",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Officer Black Belt",
+          "type": "Film",
+          "country": "KR"
+        }
+      ]
+    },
+    {
+      "id": "taekwondo-wtf",
+      "name": "Taekwondo (WT/Kukkiwon)",
+      "country": "South Korea",
+      "code": "KR",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "verified",
+      "origin": "Seoul",
+      "lat": 37.5618,
+      "lng": 126.975,
+      "founded": "1973",
+      "eraLabel": "EST. 1973",
+      "era": "1900s",
+      "tagline": "Olympic taekwondo — sport kicking, refined at the Kukkiwon.",
+      "history": "Choi Hong-hi broke from the Korea Taekwondo Association in 1966 to found the International Taekwon-Do Federation, leaving the WT/Kukkiwon branch behind. Both trace to 1955, when kwan leaders debated a unified name for Korea's postwar kwans and Choi's own proposal, \"Taekwondo,\" beat out rivals like Tang Soo Do. The Korea Tae Soo Do Association, soon renamed the Korea Taekwondo Association, formed in 1959 to carry that through. Because the 1966 split came after that shared founding, WT/Kukkiwon and ITF are siblings from one unification, not parent and child.\n\nAfter Choi's departure, the KTA built a new central dojang in Seoul's Gangnam district, officially named Kukkiwon in February 1973 as the new training and dan-certification hub. The World Taekwondo Federation followed in May 1973, founded at Kukkiwon by 35 delegates to govern the sport. Its ruleset scores full-contact kicks to the trunk and head, and since the early 2010s much of that scoring runs through sensors built into the hogu and headgear rather than a referee's eye, unlike ITF's more continuous, hand-inclusive sparring. The IOC recognized the WTF in 1980, taekwondo debuted as a demonstration sport in 1988, and it became a full medal event at Sydney in 2000. Unlike ITF, which relocated its headquarters abroad after Choi went into exile in 1972, WT and Kukkiwon stayed in Seoul, matching taekwondo's origin. Historians still dispute how much the pre-split art owed to Japanese karate versus the older Korean kicking game taekkyeon, a debate that predates and applies equally to both branches.",
+      "lineageTo": [
+        "jeet-kune-do",
+        "taekwondo-itf"
+      ],
+      "lineageFrom": [
+        "karate",
+        "taekwondo-itf"
+      ],
+      "ghostFrom": [
+        "taekkyeon"
+      ],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Jade Jones: Fighting for Gold",
+          "type": "Series",
+          "country": "GB"
+        },
+        {
+          "title": "Best of the Best",
+          "type": "Film",
+          "country": "US"
+        }
+      ]
+    },
+    {
+      "id": "wing-chun",
+      "name": "Wing Chun",
+      "country": "China",
+      "code": "CN",
+      "region": "East Asia",
+      "discipline": "striking",
+      "status": "disputed",
+      "origin": "Foshan, Guangdong",
+      "lat": 23.0292,
+      "lng": 113.1056,
+      "founded": "18th century (legendary; unconfirmed)",
+      "eraLabel": "18TH C. (LEGEND)",
+      "era": "1700s",
+      "tagline": "Close-range southern kung fu built on centerline control.",
+      "history": "Wing Chun is a close-quarters Southern Chinese martial art built around centerline theory, simultaneous attack and defense, and trapping hand techniques. Its origin is unresolved: Wikipedia's own entry notes that no definitive founder has been identified, and at least eight lineages tell different versions of how the style began. The most repeated account holds that a Shaolin nun, Ng Mui, taught the style to a young woman named Yim Wing-chun in the late Ming or early Qing period, but Wikipedia calls Yim Wing-chun the mythical originator of the art, and the story is generally treated as legend rather than documented history.\n\nThe earliest well-documented practitioner is Leung Jan (1821-1901), a Dit Da herbalist who ran a clinic in Foshan and began teaching Wing Chun privately around 1870, after building a reputation through challenge matches. His student Chan Wah-shun later taught a young Ip Man, who by most accounts started training around age 9 or 13 (sources disagree). Ip Man was born in Foshan in 1893 and moved his family to Hong Kong in 1949 or 1950, depending on the source, where he taught openly for the first time. His students included Bruce Lee, who built Jeet Kune Do on Wing Chun's trapping and centerline concepts. Wing Chun techniques were later added to the German Jujutsu curriculum in 2000.",
+      "lineageTo": [
+        "jeet-kune-do"
+      ],
+      "lineageFrom": [],
+      "ghostFrom": [
+        "shaolin-kung-fu",
+        "nanquan"
+      ],
+      "ghostTo": [
+        "german-jujutsu"
+      ],
+      "media": [
+        {
+          "title": "Ip Man (film series, 2008-2019)",
+          "type": "Film",
+          "country": "HK"
+        },
+        {
+          "title": "The Grandmaster (2013)",
+          "type": "Film",
+          "country": ""
+        },
+        {
+          "title": "Ip Man: The Final Fight (2013)",
+          "type": "Film",
+          "country": "HK"
+        },
+        {
+          "title": "Ip Man (2013 TV series)",
+          "type": "Series",
+          "country": "CN"
+        }
+      ]
+    },
+    {
+      "id": "wrestling",
+      "name": "Wrestling",
+      "country": "Georgia, Russia, Iran, Turkey",
+      "code": "RU",
+      "region": "Europe",
+      "discipline": "grappling",
+      "status": "verified",
+      "origin": "Caucasus",
+      "lat": 42.9666,
+      "lng": 47.5126,
+      "founded": "prehistoric, no single origin (earliest depictions c. 15,000-17,000 BCE)",
+      "eraLabel": "PREHISTORIC",
+      "era": "ancient",
+      "tagline": "No founder, no homeland — humanity’s oldest contest.",
+      "history": "Wrestling has no founder and no single homeland. Cave art in France from roughly 15,000 to 17,000 years ago shows grappling, and wrestling appears in Egyptian and Mesopotamian art from around 2000 BCE. It entered the ancient Olympics in 708 BCE, and Plato, Aristotle, and Socrates all wrote about it. Since no country can claim the sport, this entry anchors on documented dominance rather than legend.\n\nGeorgia's chidaoba, an indigenous style with roughly 200 named holds, trained combatants into the late Middle Ages before becoming sport; UNESCO listed it as heritage in 2018. Wrestling is Georgia's most successful Olympic sport, with 21 medals since independence in 1994, striking for a country of under four million. The Soviet Union's state sports-school system made it wrestling's most decorated 20th-century power, with 116 Olympic medals and 62 golds, mostly Greco-Roman. That legacy is sharpest in Russia's Dagestan republic, population roughly 3.1 million, producing over twenty Olympic golds since 1992, three at the 2024 Paris Games alone. That density is why this entry's coordinates sit at Makhachkala, Dagestan's capital, not a national one. Iran's koshti pahlavani, tied to the zurkhaneh tradition, still supplies most of Iran's Olympic medals. Turkey's oiled yağlı güreş has run at Kırkpınar since 1362, reportedly the oldest continuously held sporting competition on record. Mongolia's bökh runs just as deep culturally but has produced far fewer Olympic medals. Sumo, sometimes folded into \"wrestling,\" is catalogued separately on Wikidata with its own country of origin and no formal link to this sport.",
+      "lineageTo": [
+        "bjj",
+        "jeet-kune-do",
+        "sambo"
+      ],
+      "lineageFrom": [],
+      "ghostFrom": [],
+      "ghostTo": [],
+      "media": [
+        {
+          "title": "Foxcatcher",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Wrestle",
+          "type": "Film",
+          "country": "US"
+        },
+        {
+          "title": "Animal 1",
+          "type": "Manga",
+          "country": "JP"
+        }
+      ]
+    }
+  ],
+  "regions": [
+    "East Asia",
+    "SE Asia",
+    "Europe",
+    "N America",
+    "S America"
+  ],
+  "disciplines": [
+    {
+      "value": "striking",
+      "label": "Striking"
+    },
+    {
+      "value": "grappling",
+      "label": "Grappling"
+    }
+  ],
+  "eras": [
+    {
+      "value": "all",
+      "label": "All eras"
+    },
+    {
+      "value": "ancient",
+      "label": "Ancient — pre-1400"
+    },
+    {
+      "value": "1600s",
+      "label": "1600s"
+    },
+    {
+      "value": "1700s",
+      "label": "1700s"
+    },
+    {
+      "value": "1800s",
+      "label": "1800s"
+    },
+    {
+      "value": "1900s",
+      "label": "1900s — modern"
+    }
+  ]
+}
