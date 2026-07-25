@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { HeroGlobe, type HeroGlobePoint } from './HeroGlobe';
 import { Icon } from './Icon';
+import { Mark } from './Mark';
 
 // Enter transition: the wire-globe rushes forward while the wordmark splits and
 // blurs out, uncovering the atlas that has been booting underneath the whole time.
@@ -25,11 +26,10 @@ function useReducedMotion(): boolean {
 interface HeroGateProps {
   points: HeroGlobePoint[];
   styleCount: number;
-  regionCount: number;
   children: React.ReactNode;
 }
 
-export function HeroGate({ points, styleCount, regionCount, children }: HeroGateProps) {
+export function HeroGate({ points, styleCount, children }: HeroGateProps) {
   const [state, setState] = useState<GateState>('idle');
   const reduced = useReducedMotion();
 
@@ -62,10 +62,9 @@ export function HeroGate({ points, styleCount, regionCount, children }: HeroGate
 
           <header className="hero__bar">
             <span className="hero__mark">
-              <Icon name="crosshair" size={15} color="var(--gold-500)" />
+              <Mark size={20} />
               Warrior Atlas
             </span>
-            <span className="hero__ver">Vol. I · MMXXVI</span>
           </header>
 
           <div className="hero__inner">
@@ -88,10 +87,7 @@ export function HeroGate({ points, styleCount, regionCount, children }: HeroGate
           </div>
 
           <footer className="hero__foot">
-            <span>
-              {styleCount} styles mapped · {regionCount} regions
-            </span>
-            <span className="hero__foot-hint">Built for desktop</span>
+            <span>{styleCount} styles mapped</span>
           </footer>
         </section>
       ) : null}

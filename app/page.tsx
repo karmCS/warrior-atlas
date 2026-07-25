@@ -8,7 +8,7 @@ export default function Page() {
   const graph = buildGraph();
   const points = graph.records.map((r) => ({ lat: r.lat, lng: r.lng }));
   return (
-    <HeroGate points={points} styleCount={graph.records.length} regionCount={graph.regions.length}>
+    <HeroGate points={points} styleCount={graph.records.length}>
       <AtlasApp graph={graph} />
     </HeroGate>
   );

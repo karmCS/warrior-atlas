@@ -3,7 +3,7 @@
 export function Mark({ size = 30 }: { size?: number }) {
   const maskId = 'wa-mark-bands';
   return (
-    <svg width={size} height={(size * 262) / 240} viewBox="0 0 240 262" className="topbar__logo" aria-label="The Warrior Atlas" role="img">
+    <svg width={size} height={(size * 262) / 240} viewBox="0 0 240 262" className="wa-logo" aria-label="The Warrior Atlas" role="img">
       <defs>
         <mask id={maskId}>
           <rect x="0" y="0" width="240" height="262" fill="#fff" />

@@ -126,7 +126,7 @@ a:hover { color: var(--gold-300); }
 /* ── app shell ── */
 .wa-app { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 .topbar { height: var(--topbar-h); flex: none; display: flex; align-items: center; gap: 18px; padding: 0 18px; border-bottom: 1px solid var(--border-1); background: var(--ink-900); z-index: 20; }
-.topbar__logo { display: inline-flex; flex: none; color: var(--gold-500); }
+.wa-logo { display: inline-flex; flex: none; color: var(--gold-500); }
 .topbar__name { font-family: var(--font-condensed); font-weight: 600; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-display); }
 .topbar__count { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: .08em; }
 .topbar__nav { display: flex; gap: 2px; margin-left: 8px; }
@@ -382,7 +382,6 @@ a:hover { color: var(--gold-300); }
 .hero__bar { padding-bottom: 14px; border-bottom: 1px solid var(--border-1); animation: heroRise 620ms var(--ease-out-strong) 340ms backwards; }
 .hero__foot { padding-top: 14px; border-top: 1px solid var(--border-1); animation: heroRise 620ms var(--ease-out-strong) 400ms backwards; }
 .hero__mark { display: inline-flex; align-items: center; gap: 9px; color: var(--bone-300); letter-spacing: .18em; }
-.hero__ver, .hero__foot-hint { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: none; }
 
 .hero__inner {
   position: relative; z-index: 2; flex: 1; min-height: 0;
