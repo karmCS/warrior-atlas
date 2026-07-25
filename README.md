@@ -47,6 +47,38 @@ Because the variable is `NEXT_PUBLIC_*`, Next inlines it into the client bundle
 referrer, and set it at build time on your host (Vercel etc.), not at runtime. A
 build with no key succeeds silently — it just produces the keyless globe.
 
+#### Diagnosing a rejected key
+
+Verify the key with:
+
+```bash
+npm run check:basemap                      # is the key accepted by the v2 service?
+node scripts/check-basemap.mjs --runtime   # ...and did the running app actually use it?
+```
+
+This check exists because the failure is **invisible**. Both style sources
+describe the same Dark Gray Canvas tiles and the app recolors whichever one it
+gets, so a rejected key produces a globe that looks perfect while quietly running
+on the public legacy style item. Only the network shows the difference.
+
+When it fails, read the Esri error **code**, not the HTTP status. Esri answers all
+three of these with `401`, but they are different problems with different fixes:
+
+| Esri code | Meaning | Fix |
+|---|---|---|
+| `499` Token Required | nothing was sent | set `NEXT_PUBLIC_ARCGIS_API_KEY` |
+| `498` Token Invalid | sent, but not recognised — wrong, revoked or expired | generate a fresh key |
+| `403` | recognised, but not entitled to this service | enable **Basemap styles** on the key |
+
+`check:basemap` derives which one it is rather than guessing, by comparing your
+key against a deliberately fake one: if both come back `498` while sending nothing
+comes back `499`, ArcGIS does not recognise your key at all.
+
+**Do not try to infer key validity from a `200` on `basemaps.arcgis.com`.** That
+tile service is anonymously readable and returns `200` with no token whatsoever,
+so a success there is not evidence the key works — it cannot tell you anything
+about the key either way.
+
 **No key? The globe still works.** With the variable absent or empty — a fork, a
 CI build, an open-source clone — it falls back to the original keyless path: a
 dark ember sphere draped with public-domain Natural Earth country outlines
@@ -149,6 +181,17 @@ bone labels), drops the road/rail/building layers a world atlas doesn't need, an
 hands the finished style to a `VectorTileLayer` at construction. The tiles are
 genuinely Esri's; only the paint is ours.
 
+The style is fetched from two sources, best first: the keyed **Basemap Styles v2**
+service, then the public Dark Gray Canvas style item as a fallback. The fallback
+is fetched and rendered **with no key at all** — deliberately. That item, its
+tiles and its sprite sheet are all anonymously readable, and sending a token to
+them is an error rather than a nicety: `cdn.arcgis.com` answers a tokened sprite
+request with `498 Token Invalid` while the identical URL without a token returns
+`200`. For the same reason the key is never assigned to the global
+`esriConfig.apiKey` — that would append `?token=` to every arcgis.com request,
+including those public ones. Whichever source wins sets the key, or doesn't, for
+itself.
+
 Recoloring up front is deliberate: `VectorTileLayer`'s live restyling setters
 (`setPaintProperties`, `deleteStyleLayer`, `setLayoutProperties`) are documented
 against 2D `MapView`, and this is a 3D `SceneView`. Materializing the style
@@ -196,6 +239,24 @@ markdown pipeline. Where they conflicted, the spec won:
   narrow screens.
 - `region` / `discipline` / `status` / birthplace city are curated in
   `lib/meta.ts`, not derived from the frontmatter facts.
-- An invalid or unprivileged ArcGIS key degrades *silently* to the keyless
-  Natural Earth globe — the build stays green either way, so confirm the basemap
-  in a browser after changing keys.
+- An invalid or unprivileged ArcGIS key still degrades to a fallback rather than
+  failing, but no longer *silently*: the app warns in the console naming the
+  source and the likely privilege, and `npm run check:basemap` fails on it.
+
+### The SDK ships no CSS
+
+`@arcgis/core` provides no stylesheet by default; its themes are a separate
+import. Without one, `.esri-view-root` and `.esri-view-surface` get no height,
+the WebGL `<canvas>`'s `height: 100%` has nothing to resolve against, and it
+falls back to a canvas element's intrinsic `300×150` — so the globe renders at
+exactly **half its container's width in height**, leaving a dead band beneath it
+at every viewport size. It still tracks window resizes; it is simply wrong at all
+of them, which is why it survived unnoticed.
+
+`app/globals.css` carries the four view box-model rules verbatim from the SDK's
+own `themes/base/_View.scss` instead of importing a theme, because
+`themes/dark/main.css` is 340 kB (48 kB gzipped) of skins for widgets this app
+never mounts — it draws all its own chrome. That would have consumed the whole
+CSS budget for nothing. The trade is a dependency on Esri-internal class names,
+so `scripts/check-globe-fit.mjs` asserts the canvas still fills its container at
+three viewport sizes and fails loudly if an SDK upgrade renames them.

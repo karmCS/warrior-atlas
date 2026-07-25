@@ -176,6 +176,28 @@ a:hover { color: var(--gold-300); }
 .map__view canvas { outline: none; }
 .map__atmo { position: absolute; inset: 0; background: var(--gradient-ember-radial); pointer-events: none; z-index: 2; mix-blend-mode: screen; opacity: .5; }
 .map__vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 220px rgba(0,0,0,.6); z-index: 3; }
+/* ── ArcGIS view box model ──
+   The SDK ships no CSS of its own; its stylesheet is a separate import. Without it
+   .esri-view-root and .esri-view-surface get no height, so the surface has no resolved
+   height for the WebGL <canvas>'s height:100% to resolve against — and an unresolved
+   canvas height falls back to the element's intrinsic 300x150. The globe then renders
+   at exactly half its container's width in height (1172 wide -> 586 tall), leaving a
+   dead band underneath, at every viewport size.
+
+   These four rules are lifted verbatim from the SDK's own themes/base/_View.scss. They
+   are here rather than as `import '@arcgis/core/assets/esri/themes/dark/main.css'`
+   because that file is 340 kB (48 kB gzipped) of widget skins for widgets this app does
+   not mount — it draws all of its own chrome. That import alone would have consumed the
+   project's entire CSS budget.
+
+   The trade is a dependency on Esri-internal class names, so scripts/check-globe-fit.mjs
+   asserts the canvas still fills its container. If an SDK upgrade renames these, that
+   check fails rather than the globe silently shrinking again. */
+.esri-view { display: flex; margin: 0; padding: 0; }
+.esri-view .esri-view-root { position: relative; flex: 1 1 100%; margin: 0; border: none; padding: 0; }
+.esri-view .esri-view-surface { position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: none; outline: 0; overflow: clip; }
+.esri-view .esri-view-user-storage { overflow: hidden; }
+
 .esri-view .esri-view-surface { background: transparent !important; }
 
 /* multi-style country popover (positioned imperatively via view.toScreen) */

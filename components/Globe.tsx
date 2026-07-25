@@ -27,8 +27,13 @@ esriConfig.assetsPath = `https://js.arcgis.com/${arcgisVersion}/@arcgis/core/ass
 // Esri basemap auth. NEXT_PUBLIC_* is inlined into the client bundle at build time, so
 // this must be a referrer-restricted key. Absent or empty (fork, CI, open-source clone)
 // → the globe falls back to the keyless Natural Earth path in loadLand().
+//
+// The key is deliberately NOT assigned to esriConfig.apiKey here. That is a global: it
+// makes the SDK append ?token= to every arcgis.com request, including the public style
+// item and its sprite sheet on cdn.arcgis.com, which reject a token with 498 Token
+// Invalid. Whichever style source actually wins sets the key (or leaves it unset) for
+// itself — see loadEmberBasemap.
 const ARCGIS_KEY = (process.env.NEXT_PUBLIC_ARCGIS_API_KEY ?? '').trim();
-if (ARCGIS_KEY) esriConfig.apiKey = ARCGIS_KEY;
 
 const GOLD = '#F2BF2B';
 const GOLD_HOT = '#FFD34D';
@@ -598,13 +603,37 @@ const WATER_RE = /water|marine|bathymetry/;
 const BOUNDARY_RE = /boundary/;
 const CLUTTER_RE = /road|railroad|ferry|trail|tunnel|runway|building/;
 
-// Style sources, best first: the keyed v2 Basemap styles service, then the public style
-// resource for the same Dark Gray Canvas tiles (tile requests still carry the API key).
-function styleSources(key: string): string[] {
+interface StyleSource { label: string; url: string; keyed: boolean }
+
+// Style sources, best first.
+//
+// 1. The keyed Basemap Styles v2 service — the one the project is built to use.
+// 2. The public style resource describing the same Dark Gray Canvas tiles. This item,
+//    its tiles and its sprite sheet are ALL anonymously readable, and sending a token
+//    to them is an error, not a nicety: cdn.arcgis.com answers a tokened sprite request
+//    with 498 Token Invalid while the same URL without a token returns 200. So this
+//    source is fetched and rendered with no key at all.
+function styleSources(key: string): StyleSource[] {
   return [
-    `https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/styles/arcgis/dark-gray/base?token=${encodeURIComponent(key)}`,
-    'https://www.arcgis.com/sharing/rest/content/items/5e9b3685f4c24d8781073dd928ebda50/resources/styles/root.json',
+    {
+      label: 'Basemap Styles v2 (arcgis/dark-gray)',
+      url: `https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/styles/arcgis/dark-gray/base?token=${encodeURIComponent(key)}`,
+      keyed: true,
+    },
+    {
+      label: 'public Dark Gray Canvas style item (keyless)',
+      url: 'https://www.arcgis.com/sharing/rest/content/items/5e9b3685f4c24d8781073dd928ebda50/resources/styles/root.json',
+      keyed: false,
+    },
   ];
+}
+
+// Which source the running app actually drew with. Exposed on window so a browser check
+// can assert it, because the two sources are visually identical once recoloured — the
+// failure this catches is invisible by construction.
+export type BasemapSourceState = { label: string; keyed: boolean; degraded: boolean };
+function recordBasemapSource(state: BasemapSourceState) {
+  (window as unknown as { __waBasemap?: BasemapSourceState }).__waBasemap = state;
 }
 
 // The ember color a style layer paints with; null drops it from the style entirely.
@@ -642,19 +671,50 @@ function toEmberStyle(style: BasemapStyle): BasemapStyle {
 // fall back to the keyless Natural Earth path rather than show a bare sphere.
 async function loadEmberBasemap(): Promise<Basemap | null> {
   if (!ARCGIS_KEY) return null;
-  for (const url of styleSources(ARCGIS_KEY)) {
+  const sources = styleSources(ARCGIS_KEY);
+  for (const source of sources) {
+    let res: Response;
     try {
-      const res = await fetch(url);
-      if (!res.ok) continue;
-      const style = await res.json();
-      if (!Array.isArray(style?.layers)) continue;
-      return new Basemap({
-        id: 'ember',
-        title: 'Ember',
-        baseLayers: [new VectorTileLayer({ id: 'ember-base', style: toEmberStyle(style), apiKey: ARCGIS_KEY })],
-      });
-    } catch { /* try the next style source */ }
+      res = await fetch(source.url);
+    } catch (err) {
+      console.warn(`[warrior-atlas] basemap style source unreachable: ${source.label}`, err);
+      continue;
+    }
+    if (!res.ok) {
+      // Esri answers an under-privileged key with 401/498 "Token Invalid" rather than a
+      // 403, so this reads as a bad key when the key is fine and simply lacks the
+      // Basemap Styles privilege. Say so, because the next source looks identical.
+      console.warn(
+        `[warrior-atlas] basemap style source "${source.label}" returned ${res.status}. ` +
+        (source.keyed
+          ? 'The API key is being rejected by the Basemap Styles v2 service. Run ' +
+            '`npm run check:basemap` — it separates an unrecognised key (498, needs regenerating) ' +
+            'from an under-privileged one (403, needs the "Basemap styles" privilege). ' +
+            'Falling back to the public style; the globe will look the same but is NOT using v2.'
+          : 'Falling back to the keyless Natural Earth land layer.'),
+      );
+      continue;
+    }
+    const style = await res.json().catch(() => null);
+    if (!Array.isArray(style?.layers)) {
+      console.warn(`[warrior-atlas] basemap style source "${source.label}" returned no layers.`);
+      continue;
+    }
+    // Only a keyed source gets the key. Handing one to the public item's sprite sheet is
+    // what produced the 498s — see styleSources.
+    if (source.keyed) esriConfig.apiKey = ARCGIS_KEY;
+    recordBasemapSource({ label: source.label, keyed: source.keyed, degraded: source !== sources[0] });
+    return new Basemap({
+      id: 'ember',
+      title: 'Ember',
+      baseLayers: [new VectorTileLayer({
+        id: 'ember-base',
+        style: toEmberStyle(style),
+        ...(source.keyed ? { apiKey: ARCGIS_KEY } : {}),
+      })],
+    });
   }
+  recordBasemapSource({ label: 'none — keyless Natural Earth', keyed: false, degraded: true });
   return null;
 }
 

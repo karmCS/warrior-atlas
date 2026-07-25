@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "graph": "tsx scripts/build-graph.ts",
-    "covers": "tsx --env-file-if-exists=.env.local scripts/fetch-covers.ts"
+    "covers": "tsx --env-file-if-exists=.env.local scripts/fetch-covers.ts",
+    "check:basemap": "node scripts/check-basemap.mjs",
+    "check:browser": "node scripts/check-globe-fit.mjs && node scripts/check-panel-open.mjs && node scripts/check-random.mjs"
   },
   "dependencies": {
     "@arcgis/core": "^4.31.6",
