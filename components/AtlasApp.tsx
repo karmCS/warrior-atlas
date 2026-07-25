@@ -64,11 +64,21 @@ export function AtlasApp({ graph }: { graph: Graph }) {
   const onCenter = useCallback((r: ArtRecord) => { setSelectedId(r.id); setView('atlas'); setCenterSignal((n) => n + 1); }, []);
   const clearFilters = useCallback(() => { setFilters(DEFAULT_FILTERS); setQuery(''); }, []);
   const setAutorotate = useCallback((on: boolean) => setFilters((f) => ({ ...f, autorotate: on })), []);
+  // Random draws from what the globe is actually showing, minus whatever is
+  // already open. Two things were wrong before:
+  //   - it fell back to `all` when nothing was filtered in, so a search with no
+  //     matches opened a dossier for a style with no node on the globe, and the
+  //     camera never moved (Globe's fly-to looks the record up in `filtered`);
+  //   - drawing with replacement meant it could re-pick the open style, which is
+  //     indistinguishable from a dead button — and certain under a filter that
+  //     leaves one match.
+  // With nothing left to draw, the button reports that by going disabled rather
+  // than silently doing nothing.
+  const shufflePool = useMemo(() => filtered.filter((r) => r.id !== selectedId), [filtered, selectedId]);
   const shuffle = useCallback(() => {
-    const pool = filtered.length ? filtered : all;
-    const pick = pool[Math.floor(Math.random() * pool.length)];
+    const pick = shufflePool[Math.floor(Math.random() * shufflePool.length)];
     if (pick) { setSelectedId(pick.id); setView('atlas'); setCenterSignal((n) => n + 1); }
-  }, [filtered, all]);
+  }, [shufflePool]);
 
   // A globe that never stops turning is exactly the kind of sustained motion
   // reduced-motion users ask not to get. Start it off for them; the toggle on the
@@ -89,7 +99,7 @@ export function AtlasApp({ graph }: { graph: Graph }) {
 
   return (
     <div className="wa-app">
-      <TopBar view={view} onView={setView} query={query} onQuery={setQuery} count={all.length} searchRef={searchRef} onShuffle={shuffle} />
+      <TopBar view={view} onView={setView} query={query} onQuery={setQuery} count={all.length} searchRef={searchRef} onShuffle={shuffle} canShuffle={shufflePool.length > 0} />
       <div className="stage">
         <FilterRail
           filters={filters} setFilters={setFilters}

@@ -140,7 +140,8 @@ a:hover { color: var(--gold-300); }
 .topsearch input::placeholder { color: var(--bone-600); }
 .topsearch kbd { font-family: var(--font-mono); font-size: 10px; color: var(--bone-700); border: 1px solid var(--border-1); padding: 1px 5px; }
 .iconbtn { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--border-2); color: var(--bone-400); cursor: pointer; transition: all var(--dur-1) var(--ease-blade); }
-.iconbtn:hover { color: var(--gold-400); border-color: var(--border-gold); }
+.iconbtn:hover:not(:disabled) { color: var(--gold-400); border-color: var(--border-gold); }
+.iconbtn:disabled { opacity: .5; cursor: default; }
 
 .stage { flex: 1; display: flex; min-height: 0; position: relative; }
 /* `clip`, not `hidden`: an `overflow: hidden` box is still programmatically

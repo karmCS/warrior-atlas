@@ -6,7 +6,7 @@ import { Mark } from './Mark';
 const VIEWS = ['atlas', 'codex', 'lineage'] as const;
 export type View = (typeof VIEWS)[number];
 
-export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuffle }: {
+export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuffle, canShuffle }: {
   view: View;
   onView: (v: View) => void;
   query: string;
@@ -14,6 +14,7 @@ export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuff
   count: number;
   searchRef: RefObject<HTMLInputElement | null>;
   onShuffle: () => void;
+  canShuffle: boolean;
 }) {
   return (
     <header className="topbar">
@@ -39,7 +40,13 @@ export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuff
             <button className="iconbtn" style={{ width: 20, height: 20, border: 0 }} onClick={() => onQuery('')} aria-label="Clear search"><Icon name="x" size={13} /></button>
           ) : <kbd>/</kbd>}
         </div>
-        <button className="iconbtn" title="Random style" aria-label="Random style" onClick={onShuffle}><Icon name="shuffle" size={16} /></button>
+        <button
+          className="iconbtn"
+          title={canShuffle ? 'Random style' : 'No other style to jump to'}
+          aria-label="Random style"
+          onClick={onShuffle}
+          disabled={!canShuffle}
+        ><Icon name="shuffle" size={16} /></button>
         <button className="iconbtn" title="About" aria-label="About"><Icon name="info" size={16} /></button>
       </div>
     </header>
