@@ -1,9 +1,17 @@
 // The Warrior Atlas wordmark glyph — crossed swords with rising bands.
 // Original geometry from the design (no third-party logo). Renders in currentColor.
+//
+// The viewBox y-origin is 14.5 on purpose. The painted ink runs y 42 -> 249 (blade
+// tips down to the round linecaps on the 22-wide handle strokes), so it centres at
+// 145.5, not at the 131 midpoint of a 0-origin 262-tall box. Every lockup centres
+// this svg's *box* (`align-items: center`), so a 0-origin box hangs the glyph ~5.5%
+// of its height low beside the wordmark. Offsetting the box to 14.5 -> 276.5 puts
+// the box centre on the ink centre, at any `size`. Note getBBox({stroke:true}) will
+// not show this — Chromium returns the geometry box there and drops the linecaps.
 export function Mark({ size = 30 }: { size?: number }) {
   const maskId = 'wa-mark-bands';
   return (
-    <svg width={size} height={(size * 262) / 240} viewBox="0 0 240 262" className="wa-logo" aria-label="The Warrior Atlas" role="img">
+    <svg width={size} height={(size * 262) / 240} viewBox="0 14.5 240 262" className="wa-logo" aria-label="The Warrior Atlas" role="img">
       <defs>
         <mask id={maskId}>
           <rect x="0" y="0" width="240" height="262" fill="#fff" />
