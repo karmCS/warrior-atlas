@@ -29,10 +29,12 @@ esriConfig.assetsPath = `https://js.arcgis.com/${arcgisVersion}/@arcgis/core/ass
 // → the globe falls back to the keyless Natural Earth path in loadLand().
 //
 // The key is deliberately NOT assigned to esriConfig.apiKey here. That is a global: it
-// makes the SDK append ?token= to every arcgis.com request, including the public style
-// item and its sprite sheet on cdn.arcgis.com, which reject a token with 498 Token
-// Invalid. Whichever style source actually wins sets the key (or leaves it unset) for
-// itself — see loadEmberBasemap.
+// appends ?token= to every arcgis.com request, including the ones on the keyless fallback
+// path. A fallback that advertises itself as keyless should not be sending credentials,
+// and staying anonymous there keeps it working when the key is the very thing that is
+// broken — an INVALID token makes an otherwise-public request fail (498), where sending
+// none at all succeeds. Whichever style source actually wins sets the key, or leaves it
+// unset, for itself — see loadEmberBasemap.
 const ARCGIS_KEY = (process.env.NEXT_PUBLIC_ARCGIS_API_KEY ?? '').trim();
 
 const GOLD = '#F2BF2B';
@@ -608,11 +610,16 @@ interface StyleSource { label: string; url: string; keyed: boolean }
 // Style sources, best first.
 //
 // 1. The keyed Basemap Styles v2 service — the one the project is built to use.
-// 2. The public style resource describing the same Dark Gray Canvas tiles. This item,
-//    its tiles and its sprite sheet are ALL anonymously readable, and sending a token
-//    to them is an error, not a nicety: cdn.arcgis.com answers a tokened sprite request
-//    with 498 Token Invalid while the same URL without a token returns 200. So this
-//    source is fetched and rendered with no key at all.
+// 2. The public style resource describing the same Dark Gray Canvas tiles. This item, its
+//    tiles and its sprite sheet are ALL anonymously readable, so this source is fetched
+//    and rendered with no key at all. That is not just tidiness: an invalid token makes
+//    these otherwise-public requests fail with 498, so a fallback that stays anonymous
+//    still works in exactly the case that sent us to the fallback — a broken key.
+//
+// The two styles are equivalent: 121 layers, identical layer ids, same underlying
+// World_Basemap_v2 tile service, same sprite sheet. Recoloured, they render the same. So
+// the ONLY way to tell which one is live is the network — hence recordBasemapSource below
+// and scripts/check-basemap.mjs.
 function styleSources(key: string): StyleSource[] {
   return [
     {

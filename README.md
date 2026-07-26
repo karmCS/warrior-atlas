@@ -88,7 +88,8 @@ and the ember sphere still renders.
 ## Content pipeline
 
 Each martial art is one markdown file under `content/arts/` with Obsidian-style
-frontmatter — the exact convention Mark's wiki uses:
+frontmatter — the exact convention Mark's wiki uses. See
+[`docs/ADDING-ARTS.md`](docs/ADDING-ARTS.md) for the full step-by-step process.
 
 ```yaml
 ---
@@ -184,13 +185,19 @@ genuinely Esri's; only the paint is ours.
 The style is fetched from two sources, best first: the keyed **Basemap Styles v2**
 service, then the public Dark Gray Canvas style item as a fallback. The fallback
 is fetched and rendered **with no key at all** — deliberately. That item, its
-tiles and its sprite sheet are all anonymously readable, and sending a token to
-them is an error rather than a nicety: `cdn.arcgis.com` answers a tokened sprite
-request with `498 Token Invalid` while the identical URL without a token returns
-`200`. For the same reason the key is never assigned to the global
-`esriConfig.apiKey` — that would append `?token=` to every arcgis.com request,
-including those public ones. Whichever source wins sets the key, or doesn't, for
-itself.
+tiles and its sprite sheet are all anonymously readable, and staying anonymous
+there means the fallback still works in precisely the situation that sent us to
+it: a broken key. An *invalid* token does not degrade to anonymous access, it
+fails the request outright with `498`, so a fallback that forwarded the key would
+break exactly when it was needed. For the same reason the key is never assigned to
+the global `esriConfig.apiKey` — that appends `?token=` to every arcgis.com
+request, including the ones on the keyless path. Whichever source wins sets the
+key, or doesn't, for itself.
+
+Note the two styles are *equivalent*: 121 layers, identical layer ids, the same
+underlying `World_Basemap_v2` tile service and the same sprite sheet. Once
+recolored they render identically — which is why a failed key is invisible on
+screen and has to be caught on the network.
 
 Recoloring up front is deliberate: `VectorTileLayer`'s live restyling setters
 (`setPaintProperties`, `deleteStyleLayer`, `setLayoutProperties`) are documented
