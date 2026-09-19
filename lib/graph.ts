@@ -151,6 +151,8 @@ export function buildGraph(): Graph {
       eraLabel: meta.eraLabel,
       era: meta.era,
       tagline: meta.tagline,
+      video: meta.video || '',
+      videoStart: meta.videoStart || 0,
       history: r.history,
       lineageTo,
       lineageFrom,

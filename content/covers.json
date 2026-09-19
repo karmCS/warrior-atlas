@@ -1,13 +1,23 @@
 {
-  "Choke": {
-    "url": "https://image.tmdb.org/t/p/w780/tkBv9AEe8QUMUrC8dolDvS57obV.jpg",
-    "src": "manual",
-    "match": "Choke (1999)"
-  },
-  "Fight Quest: Brazil (Brazilian Jiu-Jitsu)": {
-    "url": "https://image.tmdb.org/t/p/w780/wQPnFlUkXjvSWrPUrcYBndt0e2n.jpg",
+  "Daredevil (2015)": {
+    "url": "https://image.tmdb.org/t/p/w780/QWbPaDxiB6LW2LjASknzYBvjMj.jpg",
     "src": "tmdb",
-    "match": "Fight Quest (2007)"
+    "match": "Marvel's Daredevil (2015)"
+  },
+  "Game of Death": {
+    "url": "https://image.tmdb.org/t/p/w780/c6jgLHaQpdIPH1rC94KkjAqgE7O.jpg",
+    "src": "tmdb",
+    "match": "Game of Death (1978)"
+  },
+  "The Bourne Ultimatum": {
+    "url": "https://image.tmdb.org/t/p/w780/15rMz5MRXFp7CP4VxhjYw4y0FUn.jpg",
+    "src": "tmdb",
+    "match": "The Bourne Ultimatum (2007)"
+  },
+  "John Wick": {
+    "url": "https://image.tmdb.org/t/p/w780/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg",
+    "src": "tmdb",
+    "match": "John Wick (2014)"
   },
   "Kengan Ashura": {
     "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100891-vPfnfkzizYFe.jpg",
@@ -24,30 +34,20 @@
     "src": "tmdb",
     "match": "Rocky (1976)"
   },
-  "Raging Bull": {
-    "url": "https://image.tmdb.org/t/p/w780/1WV7WlTS8LI1L5NkCgjWT9GSW3O.jpg",
-    "src": "tmdb",
-    "match": "Raging Bull (1980)"
-  },
   "Creed": {
     "url": "https://image.tmdb.org/t/p/w780/1BfTsk5VWuw8FCocAhCyqnRbEzq.jpg",
     "src": "tmdb",
     "match": "Creed (2015)"
-  },
-  "Million Dollar Baby": {
-    "url": "https://image.tmdb.org/t/p/w780/jcfEqKdWF1zeyvECPqp3mkWLct2.jpg",
-    "src": "tmdb",
-    "match": "Million Dollar Baby (2004)"
   },
   "Hajime no Ippo: The Fighting!": {
     "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx263-ivVyn9xAgwSZ.png",
     "src": "anilist",
     "match": "Hajime no Ippo: The Fighting!"
   },
-  "Ashita no Joe": {
-    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx31303-l21HJn9AXl7w.jpg",
-    "src": "anilist",
-    "match": "Ashita no Joe: Fighting for Tomorrow"
+  "Southpaw": {
+    "url": "https://image.tmdb.org/t/p/w780/kSQ49Fi3NVTqGGXILmxV2T2pdkG.jpg",
+    "src": "tmdb",
+    "match": "Southpaw (2015)"
   },
   "Only the Strong": {
     "url": "https://image.tmdb.org/t/p/w780/pPWV5rBhCgzlzhwkpdRG7a7UZqt.jpg",
@@ -69,25 +69,45 @@
     "src": "anilist",
     "match": "Tenjo Tenge"
   },
-  "The Green Hornet": {
-    "url": "https://image.tmdb.org/t/p/w780/vz4L9y20g9nfM0eQSHQRGimGDKo.jpg",
+  "The Furious (2026)": {
+    "url": "https://image.tmdb.org/t/p/w780/zP19YO60jwEsfKd5Qf1UvA5uJu8.jpg",
+    "src": "manual",
+    "match": "The Furious / 火遮眼 (2026, HK-CN, tmdb 1280738) — NOT the Malaysian The Furious: Pertaruhan Maruah (2026, tmdb 1510055)"
+  },
+  "Once Upon a Time in China (1991)": {
+    "url": "https://image.tmdb.org/t/p/w780/dkBQC0jmkmTOJJMgwsBdgkzZ6Ry.jpg",
     "src": "tmdb",
-    "match": "The Green Hornet (1966)"
+    "match": "Once Upon a Time in China (1991)"
+  },
+  "Kung Fu Hustle (2004)": {
+    "url": "https://image.tmdb.org/t/p/w780/exbyTbrvRUDKN2mcNEuVor4VFQW.jpg",
+    "src": "tmdb",
+    "match": "Kung Fu Hustle (2004)"
+  },
+  "Crouching Tiger, Hidden Dragon (2000)": {
+    "url": "https://image.tmdb.org/t/p/w780/iNDVBFNz4XyYzM9Lwip6atSTFqf.jpg",
+    "src": "tmdb",
+    "match": "Crouching Tiger, Hidden Dragon (2000)"
+  },
+  "Kenji (1987 manga)": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx45426-HQuUz15oZgvn.png",
+    "src": "anilist",
+    "match": "Kenji"
   },
   "Enter the Dragon": {
     "url": "https://image.tmdb.org/t/p/w780/fyrh2ULEcmLpGTVLPQqFW45hqr5.jpg",
     "src": "tmdb",
     "match": "Enter the Dragon (1973)"
   },
-  "Game of Death": {
-    "url": "https://image.tmdb.org/t/p/w780/c6jgLHaQpdIPH1rC94KkjAqgE7O.jpg",
-    "src": "tmdb",
-    "match": "Game of Death (1978)"
+  "Cowboy Bebop": {
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png",
+    "src": "anilist",
+    "match": "Cowboy Bebop"
   },
-  "Be Water": {
-    "url": "https://image.tmdb.org/t/p/w780/yUDtBBQEpmYptyk6wbYR54Sa2OD.jpg",
+  "The Green Hornet": {
+    "url": "https://image.tmdb.org/t/p/w780/vz4L9y20g9nfM0eQSHQRGimGDKo.jpg",
     "src": "tmdb",
-    "match": "Be Water (2020)"
+    "match": "The Green Hornet (1966)"
   },
   "Sanshiro Sugata": {
     "url": "https://image.tmdb.org/t/p/w780/vmQV7lDO8hCaU6tuKhF3b9gFs4f.jpg",
@@ -98,16 +118,6 @@
     "url": "https://image.tmdb.org/t/p/w780/17pG3CUE1kAgKglQRB4qZYWGNsw.jpg",
     "src": "tmdb",
     "match": "Throw Down (2004)"
-  },
-  "My Annoying Brother": {
-    "url": "https://image.tmdb.org/t/p/w780/7Cxrt3gSH9VAKDvsuk6Tx1IShJy.jpg",
-    "src": "manual",
-    "match": "My Annoying Brother (2016, Korean original)"
-  },
-  "Yawara!": {
-    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30853-kif2buZKAOf0.jpg",
-    "src": "anilist",
-    "match": "Yawara!"
   },
   "Ippon! again": {
     "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx136435-LWGyXLdHE71D.jpg",
@@ -139,16 +149,6 @@
     "src": "tmdb",
     "match": "Karate Bear Fighter (1975)"
   },
-  "The Real Miyagi": {
-    "url": "https://image.tmdb.org/t/p/w780/pHjTftF3uXX941UBhuinhxfjocU.jpg",
-    "src": "tmdb",
-    "match": "The Real Miyagi (2015)"
-  },
-  "More Than Miyagi: The Pat Morita Story": {
-    "url": "https://image.tmdb.org/t/p/w780/redrsZOK1g4TIw9jg7iCGjugpjK.jpg",
-    "src": "tmdb",
-    "match": "More Than Miyagi: The Pat Morita Story (2021)"
-  },
   "Karate Master (Karate Baka Ichidai)": {
     "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx7479-gHjGeIXbHYGS.jpg",
     "src": "anilist",
@@ -174,20 +174,10 @@
     "src": "anilist",
     "match": "Kick no Oni"
   },
-  "K-1": {
-    "url": null,
-    "src": "skip",
-    "match": "promotion/event listing, not a title"
-  },
   "American Kickboxer": {
     "url": "https://image.tmdb.org/t/p/w780/s22Wz0QoLhFMDdnsmWRwMXitLDZ.jpg",
     "src": "tmdb",
     "match": "American Kickboxer (1991)"
-  },
-  "PKA World Championships": {
-    "url": null,
-    "src": "skip",
-    "match": "promotion/event listing, not a title"
   },
   "Ong-Bak": {
     "url": "https://image.tmdb.org/t/p/w780/oagqAwp48dMPoCT94yDJUDOCVPi.jpg",
@@ -224,20 +214,10 @@
     "src": "skip",
     "match": "Russian doc, not in TMDB/AniList catalogues"
   },
-  "Human Weapon: Sambo": {
-    "url": "https://image.tmdb.org/t/p/w780/pqJJRJQZdHqoOZGK41oChzWD7YF.jpg",
-    "src": "tmdb",
-    "match": "Human Weapon (2007)"
-  },
   "Baki the Grappler": {
     "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx41425-h4goOXcXI7yY.png",
     "src": "anilist",
     "match": "Baki the Grappler"
-  },
-  "Merantau": {
-    "url": "https://image.tmdb.org/t/p/w780/60Vd3zovl6XeRH8GQOsM9fwMHRO.jpg",
-    "src": "tmdb",
-    "match": "Merantau (2009)"
   },
   "The Raid": {
     "url": "https://image.tmdb.org/t/p/w780/Abnm1Ws3JH0ReCfEhLMPwPcMcGO.jpg",
@@ -279,11 +259,6 @@
     "src": "tmdb",
     "match": "Officer Black Belt (2024)"
   },
-  "Jade Jones: Fighting for Gold": {
-    "url": null,
-    "src": "skip",
-    "match": "BBC doc, not in TMDB/AniList catalogues"
-  },
   "Ip Man": {
     "url": "https://image.tmdb.org/t/p/w780/9bUIrDKnesNbBL1nAl1nt7gtocE.jpg",
     "src": "tmdb",
@@ -314,29 +289,9 @@
     "src": "tmdb",
     "match": "Ip Man (2013)"
   },
-  "Dangal": {
-    "url": "https://image.tmdb.org/t/p/w780/cJRPOLEexI7qp2DKtFfCh7YaaUG.jpg",
-    "src": "tmdb",
-    "match": "Dangal (2016)"
-  },
   "Foxcatcher": {
     "url": "https://image.tmdb.org/t/p/w780/w6Sl079QtUcQ9dVQ2RP6aN9NBXx.jpg",
     "src": "tmdb",
     "match": "Foxcatcher (2014)"
-  },
-  "The Iron Claw": {
-    "url": "https://image.tmdb.org/t/p/w780/s2VLjcykJfwplJNGT5iEeCA0mRx.jpg",
-    "src": "tmdb",
-    "match": "The Iron Claw (2023)"
-  },
-  "Wrestle": {
-    "url": "https://image.tmdb.org/t/p/w780/soD26W4VOUViWLc1uuRLdFEoWAw.jpg",
-    "src": "tmdb",
-    "match": "Wrestle (2018)"
-  },
-  "Animal 1": {
-    "url": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx139382-X0dGwV3s6sFJ.png",
-    "src": "anilist",
-    "match": "Animal 1"
   }
 }

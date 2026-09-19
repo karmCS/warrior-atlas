@@ -27,7 +27,7 @@ export function CodexView({ records, onSelect, disciplines }: {
       <div className="codex">
         <div className="codex__head">
           <h1 className="codex__title">The Codex</h1>
-          <p className="codex__sub">Every style has a birthplace. {records.length} records, mapped and traced across five regions and a thousand years of lineage.</p>
+          <p className="codex__sub">Learn about the birthplace of every style.</p>
           <div className="codex__tabs">
             {tabs.map((t) => (
               <button key={t.value} className={'codex__tab' + (tab === t.value ? ' on' : '')} onClick={() => setTab(t.value)}>

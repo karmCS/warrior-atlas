@@ -92,6 +92,21 @@ export function DossierPanel({ record, all, onClose, onSelect, onCenter }: {
         <div className="body">
           {record.tagline ? <p className="tagline">{record.tagline}</p> : null}
 
+          <div className="clip cut-1">
+            {record.video ? (
+              <iframe
+                className="clip__frame"
+                src={`https://www.youtube.com/embed/${record.video}${record.videoStart ? `?start=${record.videoStart}` : ''}`}
+                title={`${record.name} — clip`}
+                loading="lazy"
+                allow="accelerometer; encrypted-media; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div className="clip__ph"><Icon name="film" size={18} color="var(--bone-700)" /> No clip catalogued yet</div>
+            )}
+          </div>
+
           <div className="meta">
             <div className="meta__row"><span className="k">Birthplace</span><span className="v">{record.origin}</span></div>
             <div className="meta__row"><span className="k">Coordinates</span><span className="v mono">{fmtCoord(record.lat, record.lng)}</span></div>

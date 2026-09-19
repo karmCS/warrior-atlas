@@ -7,14 +7,16 @@ founded: 1973
 lineage: [[karate]], [[taekkyeon]]
 influenced: [[taekwondo-itf]]
 notable_media:
-  - title: Jade Jones: Fighting for Gold
-    type: tv
-    origin_country: United Kingdom
   - title: Best of the Best
     type: film
     origin_country: United States
+  - title: The Furious (2026)
+    type: film
+    origin_country: Hong Kong
 ---
 
-Choi Hong-hi broke from the Korea Taekwondo Association in 1966 to found the International Taekwon-Do Federation, leaving the WT/Kukkiwon branch behind. Both trace to 1955, when kwan leaders debated a unified name for Korea's postwar kwans and Choi's own proposal, "Taekwondo," beat out rivals like Tang Soo Do. The Korea Tae Soo Do Association, soon renamed the Korea Taekwondo Association, formed in 1959 to carry that through. Because the 1966 split came after that shared founding, WT/Kukkiwon and ITF are siblings from one unification, not parent and child.
+WT Taekwondo and Taekwondo itself in the martial arts world is considered to contain the peak of kicking techniques, displaying levels of flexibility and expanded kicking potential beyond the likes of Muay Thai or Karate. Its spinning kicks, heavy axe kicks, and hook kicks make a Taekwondo fighter extremely difficult to fight from long-range.
 
-After Choi's departure, the KTA built a new central dojang in Seoul's Gangnam district, officially named Kukkiwon in February 1973 as the new training and dan-certification hub. The World Taekwondo Federation followed in May 1973, founded at Kukkiwon by 35 delegates to govern the sport. Its ruleset scores full-contact kicks to the trunk and head, and since the early 2010s much of that scoring runs through sensors built into the hogu and headgear rather than a referee's eye, unlike ITF's more continuous, hand-inclusive sparring. The IOC recognized the WTF in 1980, taekwondo debuted as a demonstration sport in 1988, and it became a full medal event at Sydney in 2000. Unlike ITF, which relocated its headquarters abroad after Choi went into exile in 1972, WT and Kukkiwon stayed in Seoul, matching taekwondo's origin. Historians still dispute how much the pre-split art owed to Japanese karate versus the older Korean kicking game taekkyeon, a debate that predates and applies equally to both branches.
+Formerly branded "World Taekwondo Federation" or WTF Taekwondo, WT Taekwondo formed after the Japanese occupation of Korea ended in 1945. Korean martial arts masters merged the techniques of kick-heavy traditional Taekkyeon with the foundations of Shotokan Karate, unifying the arts under "kwans" or martial arts schools. General Choi Hong Hi formed the International Taekwondo Federation as one governed style, though the political rift between the north and south led to the WTF and both schools drifting stylistically.
+
+The sport's introduction to the Olympics, combined with the migration from human judging to electronic sensors for scoring, is what many believe to be a sort of "degradation" of the sport. With electronic sensors requiring only an exact impact threshold to register points, the physical "meta" of sparring competition turned from its traditional raw power and heavy kicking fights (resulting often in knockouts to end competition), to lighter "fencing" like matches with fighters simply tapping their foot to make contact and score a point. Its Poomsae, the competition of choreographed routines, are still an amazing spectacle to see regardless of cultist opinions on the art itself, featuring wild acts of board breaking and displays of strength and creativity beyond its sparring potential.

@@ -7,20 +7,18 @@ founded: 1967
 lineage: [[wing-chun]], [[boxing]], [[judo]], [[wrestling]], [[taekwondo-itf]], [[taekwondo-wtf]], [[fencing]], [[jujutsu]], [[savate]], [[arnis]], [[tai-chi]]
 influenced: unknown
 notable_media:
-  - title: The Green Hornet
-    type: tv
-    origin_country: United States
   - title: Enter the Dragon
     type: film
     origin_country: United States, Hong Kong
   - title: Game of Death
     type: film
     origin_country: Hong Kong
-  - title: Be Water
-    type: film
+  - title: Cowboy Bebop
+    type: anime
+    origin_country: Japan
+  - title: The Green Hornet
+    type: tv
     origin_country: United States
 ---
 
-Jeet Kune Do is Bruce Lee's hybrid fighting philosophy, and its country of origin is still contested. Lee grew up in Hong Kong and trained in Wing Chun under Ip Man there, but he built and named Jeet Kune Do after moving to the United States. Wikidata's entry for the art (Q188923) has no country-of-origin property filled in, and Wikipedia's infobox lists "Seattle, Washington" in that field, though Seattle is only where Lee opened his first school in 1959, not where he coined the name.
-
-That first school, the Jun Fan Gung Fu Institute, taught an evolving but still Wing-Chun-rooted system. Lee opened a second branch in Oakland with James Yimm Lee in 1964 and fought a private match that year against Wong Jack-man. Lee later said the fight, and how long it took him to end it, convinced him rigid, single-style training was too slow for real combat. He began layering in boxing footwork, fencing timing, and grappling drawn from judo and wrestling onto his Wing Chun base, sketched the ideas out in a 1965 Black Belt magazine interview, and settled on the name Jeet Kune Do in 1967 at a third school, at 628 College Street in Los Angeles's Chinatown. He closed that school around 1970, arguing a fixed curriculum would harden into the dead pattern he had rejected. Lee died in 1973. No martial art in Wikidata lists Jeet Kune Do as an ancestor, so influence is marked unknown here rather than guessed.
+Founded by the legend Bruce Lee himself, Jeet Kune Do originated in Los Angeles, California during his stay in Chinatown in the mid-1960s. Authored as more of a philosophy rather than a fighting system, Lee began the "way of the intercepting fist" after a match against fellow martial artist Wong Jack Man. Even though Lee won, he felt critical of his performance due to his noticeable physical fatigue, stating that his studied classical Wing Chun taught under Grandmaster Ip Man was too rigid in stance and fighting range compared to a more modern and mobile fighter, thus prompting him to begin expanding his knowledge beyond traditional Chinese martial arts. He began to combine techniques from both his foundation of Wing Chun, western fencing (with his iconic bladed footwork and stance), as well as the biomechanics and rotational power of modern-day boxing. His philosophy was engraved in the signature motto of Jeet Kune Do, "using no way as a way, having no limitation as limitation". To learn techniques from martial arts around the world and combine them into one fluid style is hence why it is considered a philosophy rather than a martial art itself, one that is akin to modern day MMA.

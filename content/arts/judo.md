@@ -13,15 +13,14 @@ notable_media:
   - title: Throw Down
     type: film
     origin_country: Hong Kong
-  - title: My Annoying Brother
+  - title: The Furious (2026)
     type: film
-    origin_country: South Korea
-  - title: Yawara!
-    type: anime
-    origin_country: Japan
+    origin_country: Hong Kong
   - title: Ippon! again
     type: anime
     origin_country: Japan
 ---
 
-Jigoro Kano founded judo in 1882, opening a school with twelve mats at the Eisho-ji temple in Tokyo's Ueno district. Kano had trained in several jujutsu lines, including Tenjin Shin'yo-ryu under Fukuda Hachinosuke and Kito-ryu under Iikubo Tsunetoshi, and built judo from that base by dropping striking and weapons work and putting free sparring, or randori, at the center of practice. He framed the system around two ideas: seiryoku zenyo, the efficient use of energy, and jita kyoei, mutual welfare and benefit. The school became known as the Kodokan; its current headquarters is in Bunkyo, Tokyo, some distance from the original Ueno site, whose exact address isn't recorded in the sources checked here. Judo's reputation grew through tournaments against rival jujutsu schools organized by the Tokyo Metropolitan Police in the 1880s, and Kano chaired the committee that set formal contest rules in 1899. Judo entered the Olympics for men in 1964 in Tokyo, added a women's event in 1992, and has been part of the Paralympics since 1988. Its reach extended beyond Japan early on: Mitsuyo Maeda, a Kodokan black belt, began teaching judo in Brazil around 1914; sources differ on whether Carlos Gracie learned directly from Maeda or from Maeda's student Jacyntho Ferro, but Carlos passed the art to his brothers, and Helio Gracie's ground-fighting adaptation became Brazilian jiu-jitsu. Around the same time, Vasili Oshchepkov trained under Kano in Japan, earned a nidan black belt, and later combined judo with wrestling to help build sambo in the Soviet Union.
+Judo is the art of fighting with gravity instead of against it, and unlike almost every other art on this map, nothing in it is struck. The work is to break the opponent's balance first, kuzushi, so that their weight is already falling before the throw starts, and then to steer that fall rather than lift the body, which is how a smaller judoka throws a much larger one. One clean throw ends the match outright, ippon. The jacket is part of the mechanism rather than a costume; it gives both fighters the handles the whole system is built on.
+
+Jigoro Kano founded it in 1882 with twelve mats at the Eisho-ji temple in Tokyo, building it out of several jujutsu lines by removing the striking and the weapons and putting free sparring, randori, at the centre. Its reputation was won in the 1880s against rival jujutsu schools in police tournaments, and it entered the Olympics in 1964. Its exports outgrew it. Mitsuyo Maeda was teaching in Brazil by around 1914, which is where Brazilian Jiu-Jitsu comes from, and Vasili Oshchepkov took a Kodokan black belt home to Russia and folded judo into what became Sambo.

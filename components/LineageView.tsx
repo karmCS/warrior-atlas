@@ -19,7 +19,7 @@ export function LineageView({ records, onSelect }: {
       <div className="codex">
         <div className="codex__head">
           <h1 className="codex__title">The Lineage</h1>
-          <p className="codex__sub">Follow the lineage. {edgeCount} documented descents between the styles in view — who taught whom, who split from whom, who carried the art across an ocean.</p>
+          <p className="codex__sub">Follow the lineage and learn how each martial art influences others</p>
         </div>
 
         {sources.length === 0 ? (

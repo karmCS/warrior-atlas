@@ -1,25 +1,32 @@
 ---
-name: Silat (Indonesia)
+name: Silat
 country: Indonesia
 lat: -2.9972
 lng: 104.7256
 founded: unknown (Minangkabau tradition traces origins to the 6th century)
 lineage: unknown
-influenced: [[silat-malaysia]]
+influenced: unknown
 notable_media:
-  - title: Merantau
-    type: film
-    origin_country: Indonesia
   - title: The Raid
     type: film
     origin_country: Indonesia
   - title: The Night Comes for Us
     type: film
     origin_country: Indonesia
+  - title: The Furious (2026)
+    type: film
+    origin_country: Hong Kong
+  - title: Puteri Gunung Ledang
+    type: film
+    origin_country: Malaysia
+  - title: Wira
+    type: film
+    origin_country: Malaysia
+  - title: Geran (Silat Warriors: Deed of Death)
+    type: film
+    origin_country: Malaysia
 ---
 
-Pencak silat has no single founder or founding date. Its early development passed down orally across Sumatra and Java, and Indonesian tradition places its beginnings among the Minangkabau of West Sumatra, where hulubalang bodyguards practiced structured fighting by the 6th century. A parallel legend ties the art's origins to the Srivijaya-era kingdom centered on Bukit Siguntang, a hill near Palembang tied in the Malay Annals to the ancestor-king Sang Sapurba. Wikidata records Indonesia as pencak silat's country of origin but lists no earlier parent art, so its lineage before these accounts is unknown.
+Silat is a family of arts rather than a single one, spread across Indonesia and Malaysia in versions that share a logic without sharing a confirmed lineage — this entry follows the Indonesian branch, though credible tradition also places roots on the Malay side. Pencak silat, is a blade art that trains empty-handed. The kris, the golok, and the hooked karambit sit behind the syllabus even when there is nothing in the hand, which is why so much of it goes after limbs and joints rather than the head, and why the footwork drops so low. The langkah step patterns move along triangles and squares marked on the floor, cutting angles to get outside an attack rather than retreating from it.
 
-Regional variation produced dozens of named styles: Cimande, a close-quarters system from West Java first taught publicly around 1760; Silek Harimau, a tiger style IPSI ranks among the oldest still practiced; and Merpati Putih, developed in 17th-century royal courts and now the standard unarmed system of Indonesia's armed forces. IPSI, the Ikatan Pencak Silat Indonesia founded in 1948, unified these traditions and is the oldest national silat organization in the world.
-
-On December 12, 2019, UNESCO added Indonesia's "Traditions of Pencak Silat" to its list of intangible cultural heritage, the same day it inscribed Malaysia's "Silat" nomination. Which country the art originated in is genuinely contested: the two nations' fighting traditions share deep, overlapping roots rather than one descending from the other. That is why this entry cross-links to [[silat-malaysia]] as a sibling tradition, not a technical derivation. Indonesian silat reached international audiences through Merantau, The Raid, and The Night Comes for Us.
+There is no founder and no founding date, and the early history moved by mouth across Sumatra and Java. Tradition places the beginning among the Minangkabau of West Sumatra, whose hulubalang bodyguards were said to be training in structured fighting by the 6th century. What is documented is the variety: Cimande, a close-quarters West Java system, was taught publicly by around 1760, and Merpati Putih came out of 17th-century royal courts and is now the armed forces' standard unarmed system. IPSI, founded in 1948, is the oldest national silat body in the world.

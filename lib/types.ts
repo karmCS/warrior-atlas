@@ -22,6 +22,8 @@ export interface ArtRecord {
   eraLabel: string; // short uppercase display label
   era: string; // filter bucket
   tagline: string;
+  video: string; // YouTube video id for the clip embed, '' if uncurated
+  videoStart: number; // clip start offset in seconds, 0 if unset
   history: string; // full prose body
   lineageTo: string[]; // ids this art influenced (directed edge out)
   lineageFrom: string[]; // ids that influenced this art (directed edge in)
