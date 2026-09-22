@@ -88,7 +88,8 @@ function readRaw(): RawArt[] {
   const files = fs.readdirSync(ARTS_DIR).filter((f) => f.endsWith('.md')).sort();
   return files.map((file) => {
     const id = file.replace(/\.md$/, '');
-    const src = fs.readFileSync(path.join(ARTS_DIR, file), 'utf8');
+    // CRLF checkouts (Windows autocrlf) would otherwise break the line-anchored frontmatter regexes.
+    const src = fs.readFileSync(path.join(ARTS_DIR, file), 'utf8').replace(/\r\n?/g, '\n');
     const { data, content } = matter(normalizeSource(src));
     const media: Media[] = Array.isArray(data.notable_media)
       ? data.notable_media
