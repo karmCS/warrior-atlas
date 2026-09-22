@@ -93,7 +93,7 @@ a:hover { color: var(--gold-300); }
 .mono { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--bone-500); }
 
 .tag { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-condensed); font-weight: 600; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--bone-300); background: var(--surface-raised); border: 1px solid var(--border-1); padding: 3px 9px; border-radius: 999px; }
-.badge-verified, .badge-disputed, .badge-extinct { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-condensed); font-weight: 600; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 9px; }
+.badge-verified, .badge-disputed, .badge-extinct { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-condensed); font-weight: 600; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 9px; white-space: nowrap; }
 .badge-verified { color: var(--status-ok); background: rgba(63,155,108,.1); border: 1px solid rgba(63,155,108,.4); }
 .badge-disputed { color: var(--status-warn); background: rgba(214,138,43,.1); border: 1px solid rgba(214,138,43,.4); }
 .badge-extinct { color: var(--red-300); background: rgba(226,74,58,.1); border: 1px solid var(--border-red); }
@@ -202,14 +202,23 @@ a:hover { color: var(--gold-300); }
 
 /* multi-style country popover (positioned imperatively via view.toScreen) */
 /* Scales out of the marker it belongs to, not out of its own middle — and from
-   .96 rather than 0, so it reads as arriving instead of materialising. */
-.gpop { position: absolute; z-index: 40; width: 210px; transform: translate(-50%, calc(-100% - 18px)); transform-origin: 50% calc(100% + 18px); background: var(--ink-900); border: 1px solid var(--border-2); box-shadow: var(--shadow-2); display: flex; flex-direction: column; animation: gpopIn 160ms var(--ease-blade); }
-@keyframes gpopIn { from { opacity: 0; transform: translate(-50%, calc(-100% - 18px)) scale(.96); } }
+   .96 rather than 0, so it reads as arriving instead of materialising. The
+   `scale` property composes after `transform`, so origin 0 0 (the left/top
+   anchor, i.e. the node) holds whichever side of the node the box sits on, and
+   flipping sides while open doesn't swap keyframes and replay the entrance. */
+.gpop { position: absolute; z-index: 40; width: 210px; transform: translate(-50%, calc(-100% - 18px)); transform-origin: 0 0; background: var(--ink-900); border: 1px solid var(--border-2); box-shadow: var(--shadow-2); display: flex; flex-direction: column; animation: gpopIn 160ms var(--ease-blade); }
+@keyframes gpopIn { from { opacity: 0; scale: .96; } }
+/* Flipped under the node when it sits too near the top of the map (see placePopover). */
+.gpop.is-below { transform: translate(-50%, 18px); }
 @media (prefers-reduced-motion: reduce) { .gpop { animation: none; } }
+/* max-height is set inline to the room on the popover's side; the list scrolls, the header stays. */
+.gpop__list { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .gpop__h { font-family: var(--font-condensed); font-weight: 600; font-size: 10px; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--bone-600); padding: 9px 12px; border-bottom: 1px solid var(--border-1); }
 .gpop__i { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; background: transparent; border: 0; border-bottom: 1px solid var(--border-1); cursor: pointer; text-align: left; }
 .gpop__i:last-child { border-bottom: 0; }
-.gpop__i:hover { background: var(--surface-raised); }
+.gpop__i:hover, .gpop__i:focus-visible { background: var(--surface-raised); }
+/* inset: the scrolling list clips anything drawn outside its rows */
+.gpop__i:focus-visible { outline-offset: -2px; }
 .gpop__i .nm { font-family: var(--font-condensed); font-weight: 600; font-size: 13px; text-transform: uppercase; color: var(--bone-200); }
 .gpop__i .dc { font-family: var(--font-mono); font-size: 10px; color: var(--bone-600); text-transform: capitalize; }
 
@@ -338,7 +347,8 @@ a:hover { color: var(--gold-300); }
 .cxcard:hover { border-color: var(--border-gold); background: var(--surface-raised); }
 .cxcard:active { transform: translateY(1px); }
 .cxcard__rail { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--red-500); }
-.cxcard__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 3px; }
+/* 12px (it collapses with the name's 4px top margin) keeps the badge off wide, centred titles. */
+.cxcard__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
 .cxcard__region { font-family: var(--font-condensed); font-weight: 600; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--red-400); }
 .cxcard__name { font-family: var(--font-display); font-size: 30px; line-height: 1; text-transform: uppercase; color: var(--text-display); margin: 4px 0 8px; }
 .cxcard__tag { font-size: 13.5px; line-height: 1.5; color: var(--text-muted); min-height: 40px; }
