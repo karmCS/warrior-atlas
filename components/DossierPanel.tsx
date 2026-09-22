@@ -162,7 +162,7 @@ export function DossierPanel({ record, all, onClose, onSelect, onCenter }: {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
-            <button className="btn btn--primary btn--full" onClick={() => onCenter(record)}><Icon name="crosshair" size={16} /> Center on globe</button>
+            <button className="btn btn--primary btn--full panel__center" onClick={() => onCenter(record)}><Icon name="crosshair" size={16} /> Center on globe</button>
             <button className="btn btn--secondary btn--full" onClick={() => document.getElementById('wa-lineage-sec')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}><Icon name="route" size={16} /> Trace lineage</button>
           </div>
         </div>

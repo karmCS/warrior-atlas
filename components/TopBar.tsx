@@ -6,7 +6,7 @@ import { Mark } from './Mark';
 const VIEWS = ['atlas', 'codex', 'lineage'] as const;
 export type View = (typeof VIEWS)[number];
 
-export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuffle, canShuffle }: {
+export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuffle, canShuffle, filtersOpen, onFilters }: {
   view: View;
   onView: (v: View) => void;
   query: string;
@@ -15,6 +15,8 @@ export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuff
   searchRef: RefObject<HTMLInputElement | null>;
   onShuffle: () => void;
   canShuffle: boolean;
+  filtersOpen: boolean;
+  onFilters: () => void;
 }) {
   return (
     <header className="topbar">
@@ -40,6 +42,15 @@ export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuff
             <button className="iconbtn" style={{ width: 20, height: 20, border: 0 }} onClick={() => onQuery('')} aria-label="Clear search"><Icon name="x" size={13} /></button>
           ) : <kbd>/</kbd>}
         </div>
+        {/* Only shown once the rail collapses into a drawer (<= 900px). */}
+        <button
+          className="iconbtn topbar__filters"
+          title="Filters"
+          aria-label="Filters"
+          aria-controls="wa-rail"
+          aria-expanded={filtersOpen}
+          onClick={onFilters}
+        ><Icon name="sliders-horizontal" size={16} /></button>
         <button
           className="iconbtn"
           title={canShuffle ? 'Random style' : 'No other style to jump to'}
@@ -47,7 +58,7 @@ export function TopBar({ view, onView, query, onQuery, count, searchRef, onShuff
           onClick={onShuffle}
           disabled={!canShuffle}
         ><Icon name="shuffle" size={16} /></button>
-        <button className="iconbtn" title="About" aria-label="About"><Icon name="info" size={16} /></button>
+        <button className="iconbtn topbar__info" title="About" aria-label="About"><Icon name="info" size={16} /></button>
       </div>
     </header>
   );

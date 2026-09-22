@@ -3,7 +3,7 @@
 import {
   Search, Shuffle, Info, X, ChevronDown, Check, Plus, Minus, Compass, Crosshair,
   CornerLeftUp, ArrowRight, Route, Film, Tv, BookOpen, Clapperboard, Gamepad2,
-  TriangleAlert, Map as MapIcon, ScrollText, GitBranch, MapPin, Pause, Play,
+  SlidersHorizontal, Map as MapIcon, ScrollText, GitBranch, MapPin, Pause, Play,
   type LucideProps,
 } from 'lucide-react';
 
@@ -12,7 +12,7 @@ const GLYPHS: Record<string, React.ComponentType<LucideProps>> = {
   check: Check, plus: Plus, minus: Minus, compass: Compass, crosshair: Crosshair,
   'corner-left-up': CornerLeftUp, 'arrow-right': ArrowRight, route: Route,
   film: Film, tv: Tv, 'book-open': BookOpen, clapperboard: Clapperboard,
-  'gamepad-2': Gamepad2, 'triangle-alert': TriangleAlert, map: MapIcon,
+  'gamepad-2': Gamepad2, 'sliders-horizontal': SlidersHorizontal, map: MapIcon,
   'scroll-text': ScrollText, 'git-branch': GitBranch, 'map-pin': MapPin,
   pause: Pause, play: Play,
 };

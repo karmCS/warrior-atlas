@@ -1,9 +1,11 @@
 'use client';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { Icon } from './Icon';
 import type { Filters } from './AtlasApp';
 
-export function FilterRail({ filters, setFilters, shown, total, onClear, regions, disciplines, eras }: {
+// Desktop: a fixed left rail. <= 900px: an off-canvas drawer, and `open`/`onClose`
+// drive it (see the .rail rules in globals.css).
+export function FilterRail({ filters, setFilters, shown, total, onClear, regions, disciplines, eras, open, onClose }: {
   filters: Filters;
   setFilters: Dispatch<SetStateAction<Filters>>;
   shown: number;
@@ -12,7 +14,18 @@ export function FilterRail({ filters, setFilters, shown, total, onClear, regions
   regions: string[];
   disciplines: { value: string; label: string }[];
   eras: { value: string; label: string }[];
+  open: boolean;
+  onClose: () => void;
 }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  // Same move as the dossier: focus into the drawer on open, back to the trigger on close.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus({ preventScroll: true });
+    return () => prev?.focus?.({ preventScroll: true });
+  }, [open]);
+
   function toggleArr(key: 'regions' | 'disciplines', v: string) {
     setFilters((f) => {
       const has = f[key].includes(v);
@@ -24,7 +37,11 @@ export function FilterRail({ filters, setFilters, shown, total, onClear, regions
   }
 
   return (
-    <aside className="rail">
+    <aside className={'rail' + (open ? ' is-open' : '')} id="wa-rail" aria-label="Filters">
+      <div className="rail__head">
+        <span className="label">Filters</span>
+        <button className="iconbtn" ref={closeRef} onClick={onClose} aria-label="Close filters"><Icon name="x" size={16} /></button>
+      </div>
       <div className="rail__grp">
         <span className="label">Region</span>
         <div className="chips">
