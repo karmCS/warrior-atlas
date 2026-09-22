@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import esriConfig from '@arcgis/core/config';
 import { version as arcgisVersion } from '@arcgis/core/kernel';
 import EsriMap from '@arcgis/core/Map';
@@ -50,6 +50,10 @@ const SPIN_DEG_PER_SEC = 7.2; // was 0.12°/frame @60fps; now frame-rate indepen
 const SPIN_RAMP = 6;          // 1/s — how fast the spin eases up to / down from speed
 const USER_IDLE_MS = 1400;    // how long the globe holds still after a zoom/drag
 const PANEL_W = 424;          // keep in sync with `.panel` width in globals.css
+const POP_W = 210;            // keep in sync with `.gpop` width in globals.css
+const POP_GAP = 18;           // node → popover offset; keep in sync with `.gpop` transforms
+const POP_EDGE = 12;          // minimum clearance between the popover and the map edge
+const POP_MAX_H = 320;        // longer style lists (Japan) scroll rather than grow past this
 
 // ── great-circle math (geodesic arc geometry, spec: elevated-vertex polylines) ──
 const RAD = Math.PI / 180;
@@ -158,6 +162,9 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
   const [ready, setReady] = useState(false);
   const [pop, setPop] = useState<{ cluster: Cluster; x: number; y: number } | null>(null);
   const popRef = useRef<Cluster | null>(null);
+  const popBoxRef = useRef<HTMLDivElement>(null);
+  const popListRef = useRef<HTMLDivElement>(null);
+  const [popNeed, setPopNeed] = useState(POP_MAX_H);
   const clusters = useMemo(() => clusterByCountry(records), [records]);
   const selectedCountry = useMemo(
     () => (selectedId ? records.find((r) => r.id === selectedId)?.country ?? null : null),
@@ -349,9 +356,11 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       function repositionPopover() {
         const c = popRef.current;
         if (!c) return;
-        if (!frontFacing(view, c.lng, c.lat)) { setPop(null); popRef.current = null; return; }
-        const sp = view.toScreen(new Point({ longitude: c.lng, latitude: c.lat }));
-        if (sp) setPop({ cluster: c, x: sp.x, y: sp.y });
+        const sp = frontFacing(view, c.lng, c.lat) ? view.toScreen(new Point({ longitude: c.lng, latitude: c.lat })) : null;
+        // Close once the node is behind the globe or zoomed off the map, rather
+        // than leave a popover clamped to the edge pointing at nothing.
+        if (!sp || sp.x < 0 || sp.y < 0 || sp.x > view.width || sp.y > view.height) { setPop(null); popRef.current = null; return; }
+        setPop({ cluster: c, x: sp.x, y: sp.y });
       }
 
       teardown = () => {
@@ -371,6 +380,14 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
 
   // keep spin paused state synced to props / popover
   useEffect(() => { spin.current.paused = paused || !autorotate || !!pop; }, [paused, autorotate, pop]);
+
+  // How tall the open popover wants to be, uncapped: its box minus the list's
+  // visible height plus the list's full height. Measured before paint so a short
+  // list never flashes on the wrong side of its node.
+  useLayoutEffect(() => {
+    const box = popBoxRef.current, list = popListRef.current;
+    if (box && list) setPopNeed(Math.min(POP_MAX_H, box.offsetHeight - list.clientHeight + list.scrollHeight));
+  }, [pop?.cluster]);
 
   // keep the click-handler's cluster lookup and the label anchors current
   useEffect(() => {
@@ -495,6 +512,8 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       .catch(() => {}).finally(() => { spin.current.animating = false; });
   }
 
+  const popAt = pop && viewRef.current ? placePopover(pop.x, pop.y, popNeed, viewRef.current.width, viewRef.current.height) : null;
+
   return (
     <div className="map">
       <div className="map__view" ref={boxRef} />
@@ -528,15 +547,23 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       {!ready ? <div className="map-loading"><Icon name="compass" size={26} color="var(--bone-700)" /> Summoning the globe…</div> : null}
       {ready && records.length === 0 ? <div className="map-empty"><Icon name="compass" size={26} color="var(--bone-700)" /> No records match — the trail goes cold.</div> : null}
 
-      {pop ? (
-        <div className="gpop" style={{ left: pop.x, top: pop.y }} onPointerDown={(e) => e.stopPropagation()}>
+      {pop && popAt ? (
+        <div
+          key={pop.cluster.country}
+          ref={popBoxRef}
+          className={'gpop' + (popAt.below ? ' is-below' : '')}
+          style={{ left: popAt.left, top: pop.y, maxHeight: popAt.maxHeight }}
+          onPointerDown={(e) => e.stopPropagation()}
+        >
           <div className="gpop__h">{pop.cluster.country} · {pop.cluster.styles.length} styles</div>
-          {pop.cluster.styles.map((s) => (
-            <button key={s.id} className="gpop__i" onClick={() => { handlers.current.onSelect(s.id); setPop(null); popRef.current = null; }}>
-              <span className="nm">{s.name}</span>
-              <span className="dc">{s.discipline}</span>
-            </button>
-          ))}
+          <div className="gpop__list" ref={popListRef}>
+            {pop.cluster.styles.map((s) => (
+              <button key={s.id} className="gpop__i" onClick={() => { handlers.current.onSelect(s.id); setPop(null); popRef.current = null; }}>
+                <span className="nm">{s.name}</span>
+                <span className="dc">{s.discipline}</span>
+              </button>
+            ))}
+          </div>
         </div>
       ) : null}
 
@@ -548,7 +575,10 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       </div>
 
       <div className="coordread"><Icon name="crosshair" size={12} color="var(--bone-600)" /> <span ref={coordRef}>—</span></div>
-      <div className="hint">Drag to rotate · scroll to zoom · click a country</div>
+      <div className="hint">
+        <span className="hint__mouse">Drag to rotate · scroll to zoom · click a country</span>
+        <span className="hint__touch">Drag · pinch · tap a country</span>
+      </div>
 
       <div className="zoom">
         <button
@@ -579,6 +609,23 @@ function onScreen(view: SceneView, lng: number, lat: number, rightPad: number): 
   if (!sp || !w || !h) return false;
   const mx = w * 0.12, my = h * 0.12;
   return sp.x > mx && sp.x < w - rightPad - mx && sp.y > my && sp.y < h - my;
+}
+
+// Where a country popover anchored at node (x, y) goes inside a w×h map. It opens
+// above the node unless that side is too short for it and below has more room —
+// a node near the top edge used to push Japan's list off the map. Whichever side
+// it lands on caps its height, so a list that still doesn't fit scrolls instead of
+// clipping, and it's nudged in from the left/right edges for the same reason.
+function placePopover(x: number, y: number, need: number, w: number, h: number) {
+  const roomAbove = y - POP_GAP - POP_EDGE;
+  const roomBelow = h - y - POP_GAP - POP_EDGE;
+  const below = roomAbove < need && roomBelow > roomAbove;
+  const half = POP_W / 2 + POP_EDGE;
+  return {
+    below,
+    left: w > 2 * half ? Math.min(Math.max(x, half), w - half) : x,
+    maxHeight: Math.max(0, Math.min(POP_MAX_H, below ? roomBelow : roomAbove)),
+  };
 }
 
 // Whether a lng/lat sits on the camera-facing hemisphere (for popover culling).

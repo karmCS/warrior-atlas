@@ -41,6 +41,7 @@ export function AtlasApp({ graph }: { graph: Graph }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
   const [centerSignal, setCenterSignal] = useState(0);
+  const [railOpen, setRailOpen] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const filtered = useMemo(() => {
@@ -91,7 +92,7 @@ export function AtlasApp({ graph }: { graph: Graph }) {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === '/' && document.activeElement !== searchRef.current) { e.preventDefault(); searchRef.current?.focus(); }
-      if (e.key === 'Escape') setSelectedId(null);
+      if (e.key === 'Escape') { setSelectedId(null); setRailOpen(false); }
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -99,13 +100,15 @@ export function AtlasApp({ graph }: { graph: Graph }) {
 
   return (
     <div className="wa-app">
-      <TopBar view={view} onView={setView} query={query} onQuery={setQuery} count={all.length} searchRef={searchRef} onShuffle={shuffle} canShuffle={shufflePool.length > 0} />
+      <TopBar view={view} onView={setView} query={query} onQuery={setQuery} count={all.length} searchRef={searchRef} onShuffle={shuffle} canShuffle={shufflePool.length > 0} filtersOpen={railOpen} onFilters={() => setRailOpen(true)} />
       <div className="stage">
         <FilterRail
           filters={filters} setFilters={setFilters}
           shown={filtered.length} total={all.length} onClear={clearFilters}
           regions={graph.regions} disciplines={graph.disciplines} eras={graph.eras}
+          open={railOpen} onClose={() => setRailOpen(false)}
         />
+        {railOpen ? <div className="scrim" aria-hidden="true" onClick={() => setRailOpen(false)} /> : null}
         <div className="stage__main">
           <Globe
             records={filtered}
@@ -125,7 +128,6 @@ export function AtlasApp({ graph }: { graph: Graph }) {
           ) : null}
         </div>
       </div>
-      <div className="mobile-warn"><Icon name="triangle-alert" size={15} color="var(--gold-500)" /> Built for desktop — the globe, rail, and panel need width to breathe.</div>
     </div>
   );
 }
