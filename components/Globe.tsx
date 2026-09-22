@@ -529,7 +529,14 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       {ready && records.length === 0 ? <div className="map-empty"><Icon name="compass" size={26} color="var(--bone-700)" /> No records match — the trail goes cold.</div> : null}
 
       {pop ? (
-        <div className="gpop" style={{ left: pop.x, top: pop.y }} onPointerDown={(e) => e.stopPropagation()}>
+        <div
+          // Clamped off the side edges (half of .gpop's 210px + 8px), and flipped under
+          // the marker when it would run off the top — both common on a phone.
+          // ponytail: height is estimated from the 44px coarse-pointer row, not measured.
+          className={'gpop' + (pop.y < 62 + 44 * pop.cluster.styles.length ? ' gpop--below' : '')}
+          style={{ left: `clamp(113px, ${pop.x}px, calc(100% - 113px))`, top: pop.y }}
+          onPointerDown={(e) => e.stopPropagation()}
+        >
           <div className="gpop__h">{pop.cluster.country} · {pop.cluster.styles.length} styles</div>
           {pop.cluster.styles.map((s) => (
             <button key={s.id} className="gpop__i" onClick={() => { handlers.current.onSelect(s.id); setPop(null); popRef.current = null; }}>
@@ -548,7 +555,10 @@ export function Globe({ records, selectedId, onSelect, routes, labels, autorotat
       </div>
 
       <div className="coordread"><Icon name="crosshair" size={12} color="var(--bone-600)" /> <span ref={coordRef}>—</span></div>
-      <div className="hint">Drag to rotate · scroll to zoom · click a country</div>
+      <div className="hint">
+        <span className="hint__mouse">Drag to rotate · scroll to zoom · click a country</span>
+        <span className="hint__touch">Drag · pinch · tap a country</span>
+      </div>
 
       <div className="zoom">
         <button
