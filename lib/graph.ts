@@ -16,6 +16,8 @@ import {
 } from './meta';
 
 const ARTS_DIR = path.join(process.cwd(), 'content', 'arts');
+// ponytail: stashed arts live here, unpublished; move a file back to arts/ to restore it.
+const STASH_DIR = path.join(process.cwd(), 'content', '_stashed');
 const COVERS_FILE = path.join(process.cwd(), 'content', 'covers.json');
 const REGION_ORDER = ['East Asia', 'SE Asia', 'S Asia', 'Europe', 'N America', 'S America', 'Africa', 'Oceania', 'Unknown'];
 
@@ -125,6 +127,10 @@ export function buildGraph(): Graph {
     return ok;
   });
   const realIds = new Set(raw.map((r) => r.id));
+  // Links to stashed arts must not surface as ghost nodes.
+  const stashed = new Set(fs.existsSync(STASH_DIR)
+    ? fs.readdirSync(STASH_DIR).filter((f) => f.endsWith('.md')).map((f) => f.replace(/\.md$/, ''))
+    : []);
 
   // Directed edges: a -> b means "a influenced b".
   const edges = new Set<string>();
@@ -157,8 +163,8 @@ export function buildGraph(): Graph {
       history: r.history,
       lineageTo,
       lineageFrom,
-      ghostFrom: r.lineage.filter((s) => !realIds.has(s)),
-      ghostTo: r.influenced.filter((s) => !realIds.has(s)),
+      ghostFrom: r.lineage.filter((s) => !realIds.has(s) && !stashed.has(s)),
+      ghostTo: r.influenced.filter((s) => !realIds.has(s) && !stashed.has(s)),
       media: r.media,
     };
   });

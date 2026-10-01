@@ -382,47 +382,6 @@
       ]
     },
     {
-      "id": "karate-goju-ryu",
-      "name": "Karate (Goju-ryu)",
-      "country": "Japan",
-      "code": "JP",
-      "region": "East Asia",
-      "discipline": "striking",
-      "status": "verified",
-      "origin": "Naha, Okinawa",
-      "lat": 26.2122,
-      "lng": 127.6792,
-      "founded": "1929",
-      "eraLabel": "EST. 1929",
-      "era": "1900s",
-      "tagline": "Hard and soft — Naha-te breathing made into a school.",
-      "video": "hr_vrHsnemg",
-      "videoStart": 0,
-      "history": "Goju-ryu means hard-soft, and both halves are literal. The hard is straight closed-fist striking, and the soft is circular open-hand work that takes an incoming arm off its line instead of stopping it. It is fought close, inside the other person's reach, where the circles are small and there is nowhere to retreat to, so the answer to pressure is to redirect it rather than back away. All of it is organized around Sanchin, a short kata performed slowly under muscular tension with audible controlled breathing, which is the style's conditioning method and its signature at once.\n\nChōjun Miyagi built it out of Naha-te, which he began learning at fourteen under Kanryō Higaonna, and he made his own training trips to Fujian in 1915 and 1917. The name arrived almost by accident. In 1929 his student Jin'an Shinzato was asked at a demonstration what the art was called and had no answer, because Naha-te had never been a school name, so Miyagi took Goju from a line in the Bubishi about inhaling and exhaling. Mas Oyama trained under his senior student So Nei Chu before founding Kyokushin.",
-      "lineageTo": [
-        "karate-kyokushin"
-      ],
-      "lineageFrom": [
-        "karate"
-      ],
-      "ghostFrom": [],
-      "ghostTo": [],
-      "media": [
-        {
-          "title": "The Karate Kid",
-          "type": "Film",
-          "country": "US",
-          "cover": "https://image.tmdb.org/t/p/w780/1mp4ViklKvA0WXXsNvNx0RBuiit.jpg"
-        },
-        {
-          "title": "Cobra Kai",
-          "type": "Series",
-          "country": "US",
-          "cover": "https://image.tmdb.org/t/p/w780/6GDW4EsgsXlYrL1ASb5eCHQK4er.jpg"
-        }
-      ]
-    },
-    {
       "id": "karate-kyokushin",
       "name": "Karate (Kyokushin)",
       "country": "Japan",
@@ -445,7 +404,6 @@
         "kickboxing-japan"
       ],
       "lineageFrom": [
-        "karate-goju-ryu",
         "karate-shotokan",
         "karate"
       ],
@@ -473,32 +431,6 @@
       ]
     },
     {
-      "id": "karate-shito-ryu",
-      "name": "Karate (Shito-ryu)",
-      "country": "Japan",
-      "code": "JP",
-      "region": "East Asia",
-      "discipline": "striking",
-      "status": "verified",
-      "origin": "Osaka",
-      "lat": 34.6937,
-      "lng": 135.5021,
-      "founded": "1931",
-      "eraLabel": "EST. 1931",
-      "era": "1900s",
-      "tagline": "Shuri speed and Naha power, kept in one syllabus.",
-      "video": "zWDwx7Mbjl8",
-      "videoStart": 0,
-      "history": "Shito-ryu is the karate style that refused to choose. Shuri-te is direct and driving, worked at arm's length, while Naha-te is tighter, more circular, and fought close, with breathing and tension work Shuri-te has no use for. Most Okinawan karateka of that generation picked one and stayed inside it. Kenwa Mabuni kept both, which is why a Shito-ryu student learns long-range lines and short-range circles side by side, and why the style carries an unusually long kata list, somewhere between fifty and ninety depending on the branch.\n\nMabuni started under Ankō Itosu in Shuri at about thirteen, and his friend Chōjun Miyagi later introduced him to Kanryō Higaonna, so he took up Naha-te seriously as well. He moved to Osaka in 1929 to teach on the mainland and first called his approach Hanko-ryu, half-hard style, before settling on Shitō-ryū around 1931, assembled from the readings of the first characters in his two teachers' names: Shi from Itosu, Tō from Higaonna. It is one of the four styles recognized by the World Karate Federation.",
-      "lineageTo": [],
-      "lineageFrom": [
-        "karate"
-      ],
-      "ghostFrom": [],
-      "ghostTo": [],
-      "media": []
-    },
-    {
       "id": "karate-shotokan",
       "name": "Karate (Shotokan)",
       "country": "Japan",
@@ -517,8 +449,7 @@
       "videoStart": 0,
       "history": "Shotokan is the long-range end of karate. The stances are deep and the techniques are big, which parks a fighter further out than most styles are comfortable with and then crosses that gap in one committed movement. Nothing about it is subtle, and that is deliberate; the deep stances are a training load before they are a fighting position, building the legs at a cost in mobility the style accepts on purpose. It is also the version most beginners meet, because large techniques performed in unison are the easiest thing in karate to teach to a full room.\n\nGichin Funakoshi trained in Shuri under Ankō Itosu, and in 1922 the Ministry of Education invited him to Tokyo to demonstrate at Japan's first national athletic exhibition. It went well enough that Jigoro Kano asked for a second performance at the Kodokan, after which Funakoshi simply stayed. The style owes as much to his son Yoshitaka, who pushed the kata toward those long, low stances. Students built him a dojo in Mejiro in 1936 and hung a sign reading Shoto-kan, his pen name joined to hall, a name he did not choose himself.",
       "lineageTo": [
-        "karate-kyokushin",
-        "karate-wado-ryu"
+        "karate-kyokushin"
       ],
       "lineageFrom": [
         "karate"
@@ -541,35 +472,6 @@
       ]
     },
     {
-      "id": "karate-wado-ryu",
-      "name": "Karate (Wado-ryu)",
-      "country": "Japan",
-      "code": "JP",
-      "region": "East Asia",
-      "discipline": "striking",
-      "status": "verified",
-      "origin": "Tokyo",
-      "lat": 35.6894,
-      "lng": 139.6917,
-      "founded": "1934",
-      "eraLabel": "EST. 1934",
-      "era": "1900s",
-      "tagline": "Karate softened by jujutsu evasion — the way of harmony.",
-      "video": "AZn0yEnFVPI",
-      "videoStart": 0,
-      "history": "Wado-ryu does not meet force with force. Where most karate stops an incoming strike with a hard block, Wado-ryu moves the whole body off the line the strike is travelling on, a shift called tai sabaki that evades and loads the counter in the same motion. That idea belongs to jujutsu rather than Okinawa, and it brings the rest of jujutsu with it; joint locks and throws sit in the syllabus beside the striking, and a practitioner is expected to end up behind an attacker rather than in front of one. The name translates to the way of harmony, which for once is a description.\n\nHironori Otsuka came to karate already a master of something else. He started Shindo Yoshin-ryu jujutsu at thirteen and by June 1921 held menkyo kaiden, full mastery and a licence to teach. He did not meet Gichin Funakoshi until the following year, and was among the first students Funakoshi promoted to black belt in 1924, though he also trained with Kenwa Mabuni and Choki Motobu, who had things to say about free sparring that a kata-centred syllabus did not cover. His own school opened in 1934.",
-      "lineageTo": [],
-      "lineageFrom": [
-        "karate-shotokan",
-        "karate"
-      ],
-      "ghostFrom": [
-        "jujutsu"
-      ],
-      "ghostTo": [],
-      "media": []
-    },
-    {
       "id": "karate",
       "name": "Karate",
       "country": "Japan",
@@ -588,10 +490,7 @@
       "videoStart": 0,
       "history": "Karate is built around a single decisive strike, which is what separates it from the volume striking of boxing or Muay Thai. Power comes from the hips and the floor rather than the arm, travels in a straight line, and is pulled back as fast as it was sent, so the same limb is a threat again immediately. Even the blocks are strikes, aimed at the attacking arm rather than at absorbing the blow. Most of the material lives in kata, solo sequences run against imagined opponents, which is how an art with almost nothing written down survived several centuries intact.\n\nIt grew on Okinawa, then the independent Ryukyu Kingdom, out of a native practice called te crossed with Chinese methods carried back from Fujian, taking different shapes in Shuri, Naha, and Tomari. Anko Itosu put it into Shuri's school PE classes in 1901, and his student Gichin Funakoshi carried it to mainland Japan in the 1920s, borrowing judo's uniform and coloured belts along the way. In 1933 the character for kara was swapped from the one meaning China to a homophone meaning empty. Every major style below descends from it, and so do both branches of Taekwondo and Japanese kickboxing.",
       "lineageTo": [
-        "karate-goju-ryu",
-        "karate-shito-ryu",
         "karate-shotokan",
-        "karate-wado-ryu",
         "karate-kyokushin",
         "taekwondo-itf",
         "taekwondo-wtf",
