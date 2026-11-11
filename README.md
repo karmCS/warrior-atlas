@@ -1,95 +1,44 @@
 # The Warrior Atlas
 
-Interactive 3D globe mapping the birthplaces and lineage of the world's martial
-arts, built on Esri's **ArcGIS Maps SDK for JavaScript**. A portfolio piece
-targeting Esri: build *on* their SDK, with a markdown-driven content pipeline
-(structured frontmatter → wikilink graph → globe) behind it.
+A 3D globe that maps where the world's martial arts were born and how they influenced each other. Built on Esri's ArcGIS Maps SDK for JavaScript.
 
-**Status:** built — Next.js app with an interactive ArcGIS globe, a searchable
-codex, and a lineage ledger, driven by 22 hand-authored martial-arts records.
+**Live:** [projectwarrioratlas.com](https://projectwarrioratlas.com)
 
-## Concept
+![The Warrior Atlas landing page](docs/images/hero.jpg)
 
-Spin the globe. Each country surfaces a blade-marked node for the styles born
-there (Japan clusters nine — karate and its schools, judo, kudo, kickboxing).
-Click a node → a **dossier** slides in with the style's history, birthplace,
-lineage links, and an *In Media* strip. Great-circle arcs trace the descents
-between styles across the globe (muay thai → kickboxing → boxing; judo → BJJ).
-It's an Obsidian-style lineage graph, pinned to real geography.
+I grew up fascinated by martial arts, both the fighting and the history behind it. I always liked tracing how one style came out of another: judo feeding into Brazilian jiu-jitsu, muay thai into kickboxing, karate splitting into a handful of schools. This project puts that family tree on a real globe.
 
-Three views: **Atlas** (the globe), **Codex** (a filterable record grid), and
-**Lineage** (the directed descent graph as a ledger).
+## What it does
 
-## Run
+Spin the globe and every country with a native style gets a marker. Dashed arcs connect each style to the ones it influenced.
 
-```bash
-npm install
-cp .env.example .env.local     # then paste your ArcGIS API key into it
-npm run dev                    # http://localhost:3000
-# or
-npm run build && npm start
+![The globe with lineage arcs](docs/images/globe.jpg)
+
+Click a country to open a dossier: where the style started, when, what it grew out of, a short history, and a strip of films and anime that feature it.
+
+![Sambo's dossier open next to the globe](docs/images/dossier.jpg)
+
+There are two other views. The **Codex** is a filterable grid of all 20 styles, and the **Lineage** view lays the influence graph out as a list.
+
+| Codex | Lineage |
+|---|---|
+| ![Codex view](docs/images/codex.jpg) | ![Lineage view](docs/images/lineage.jpg) |
+
+## How it's built
+
+Each martial art is a markdown file in `content/arts/`. The frontmatter holds the facts (country, coordinates, founding year) and links to other styles with `[[wikilinks]]`. At build time a parser turns those files into a graph, and the globe draws it.
+
+```mermaid
+flowchart LR
+    A["content/arts/*.md<br/>frontmatter + history"] --> B["lib/graph.ts<br/>parse + resolve [[links]]"]
+    C["content/covers.json<br/>cached poster URLs"] --> B
+    B --> D["Lineage graph<br/>nodes + edges"]
+    D --> E["Globe<br/>ArcGIS SceneView"]
+    D --> F["Codex"]
+    D --> G["Lineage"]
 ```
 
-`npm run build` first runs `npm run graph`, which parses the content and writes
-`public/graph.json` (plus a health summary: node/edge/ghost counts). The app
-itself doesn't read that file — the same parser runs in the server component at
-build — but it's a useful artifact for inspecting the graph.
-
-### The API key
-
-The globe's default basemap is a **real Esri vector-tile basemap service**, so it
-needs a free **ArcGIS Location Platform API key** with the basemaps privilege
-(get one at [location.arcgis.com](https://location.arcgis.com)). Put it in
-`.env.local` as `NEXT_PUBLIC_ARCGIS_API_KEY` — see `.env.example`.
-
-Because the variable is `NEXT_PUBLIC_*`, Next inlines it into the client bundle
-**at build time**: the key ships to every visitor, so restrict it by HTTP
-referrer, and set it at build time on your host (Vercel etc.), not at runtime. A
-build with no key succeeds silently — it just produces the keyless globe.
-
-#### Diagnosing a rejected key
-
-Verify the key with:
-
-```bash
-npm run check:basemap                      # is the key accepted by the v2 service?
-node scripts/check-basemap.mjs --runtime   # ...and did the running app actually use it?
-```
-
-This check exists because the failure is **invisible**. Both style sources
-describe the same Dark Gray Canvas tiles and the app recolors whichever one it
-gets, so a rejected key produces a globe that looks perfect while quietly running
-on the public legacy style item. Only the network shows the difference.
-
-When it fails, read the Esri error **code**, not the HTTP status. Esri answers all
-three of these with `401`, but they are different problems with different fixes:
-
-| Esri code | Meaning | Fix |
-|---|---|---|
-| `499` Token Required | nothing was sent | set `NEXT_PUBLIC_ARCGIS_API_KEY` |
-| `498` Token Invalid | sent, but not recognised — wrong, revoked or expired | generate a fresh key |
-| `403` | recognised, but not entitled to this service | enable **Basemap styles** on the key |
-
-`check:basemap` derives which one it is rather than guessing, by comparing your
-key against a deliberately fake one: if both come back `498` while sending nothing
-comes back `499`, ArcGIS does not recognise your key at all.
-
-**Do not try to infer key validity from a `200` on `basemaps.arcgis.com`.** That
-tile service is anonymously readable and returns `200` with no token whatsoever,
-so a success there is not evidence the key works — it cannot tell you anything
-about the key either way.
-
-**No key? The globe still works.** With the variable absent or empty — a fork, a
-CI build, an open-source clone — it falls back to the original keyless path: a
-dark ember sphere draped with public-domain Natural Earth country outlines
-(world-atlas topojson, fetched from a CDN). Fully offline, the land quietly drops
-and the ember sphere still renders.
-
-## Content pipeline
-
-Each martial art is one markdown file under `content/arts/` with Obsidian-style
-frontmatter — the exact convention Mark's wiki uses. See
-[`docs/ADDING-ARTS.md`](docs/ADDING-ARTS.md) for the full step-by-step process.
+A record looks like this:
 
 ```yaml
 ---
@@ -103,167 +52,31 @@ influenced: [[sambo]], [[bjj]], [[kudo]]
 notable_media:
   - title: Sanshiro Sugata
     type: film
-    origin_country: Japan
 ---
-Prose history in the body…
 ```
 
-At build, `lib/graph.ts`:
+Links to styles that don't have their own file yet (like `[[jujutsu]]`) still show up in the dossier as text, but no arc gets drawn for them.
 
-1. **Normalizes** the frontmatter — `[[wikilinks]]` aren't valid YAML, and some
-   titles carry an unquoted inner colon (`title: More Than Miyagi: The Pat Morita
-   Story`), so the frontmatter block is rewritten to real string arrays and
-   quoted scalars before parsing (body prose is untouched).
-2. **Builds a directed lineage graph.** `A influenced B` is one edge; it comes
-   from both `B.lineage` (ancestors) and `A.influenced` (descendants), deduped.
-   Only edges between two file-backed nodes are drawn as arcs.
-3. **Resolves ghosts.** Wikilinks with no file of their own (`[[jujutsu]]`,
-   `[[okinawan-te]]`, …) are kept as text in the dossier ("descends from Jujutsu
-   · unmapped") but not drawn — the same idea as an Obsidian orphan link.
-4. **Merges display metadata** from `lib/meta.ts` — region, discipline, status,
-   birthplace city, ISO code, a compact era label, and a curated one-line
-   tagline, keyed by file id. Add an art → drop a `.md` in `content/arts/` and a
-   matching row in `ART_META`.
-5. **Attaches cover art** for each `notable_media` entry from `content/covers.json`
-   (see below). Missing or `null` → the card keeps its engraved `POSTER` placeholder.
+I wrote the history for each style myself, then ran a retrieval-augmented agent workflow: agents queried the Wikidata API to ground each style's origins and influences in sourced data, and pulled poster art from AniList, TMDB and iTunes. The poster URLs are cached in `content/covers.json`, so the build never calls an outside API. [`docs/ADDING-ARTS.md`](docs/ADDING-ARTS.md) covers how to add a new style.
 
-### Cover art
+## Stack
 
-`npm run covers` resolves one poster URL per media title and caches it in
-`content/covers.json`, which is **committed**. The build never calls a network API;
-it only reads that file, so `graph.json` is reproducible offline.
-
-| Media type | Source | Key |
-|---|---|---|
-| Anime, Manga | AniList GraphQL (`coverImage.extraLarge`) | none |
-| Film, Series, Documentary | TMDB `/search` → `image.tmdb.org/t/p/w780` | free `TMDB_API_KEY` in `.env.local` |
-| fallback | iTunes Search (`800x1200bb`) | none, heavily rate-limited |
-
-Images are hotlinked from the provider CDNs (no binaries in the repo) and are
-served at 780 px — roughly 3× the 116 px card, so they stay crisp on retina.
-
-The cache file is also the **manual override surface**: the script only fills
-titles that are missing, so a URL you hand-edit sticks. Each entry records the
-title the provider actually matched, which is how you spot a wrong hit
-(`Choke` the 1999 BJJ documentary vs. `Choke` the 2008 comedy). To re-resolve one
-title, delete its key and re-run; `--force` re-resolves everything. `"url": null`
-means *deliberately uncovered* — `K-1` and `PKA World Championships` are
-promotions, not titles, and keep the placeholder forever.
-
-Cover art via TMDB and AniList. This product uses the TMDB API but is not
-endorsed or certified by TMDB.
-
-## Architecture
-
-```
-app/            Next.js App Router — layout, globals.css (design tokens), page (RSC)
-components/     AtlasApp (state) · Globe (ArcGIS SceneView) · FilterRail
-                DossierPanel · CodexView · LineageView · TopBar · Icon · Flag · Mark
-lib/            graph.ts (parser) · meta.ts (curation) · flags.ts · types.ts
-content/arts/   22 martial-arts markdown records
-scripts/        build-graph.ts — emits public/graph.json + health summary
-```
-
-The globe (`components/Globe.tsx`) is a client-only component loaded via
-`next/dynamic({ ssr: false })` — `@arcgis/core` touches `window`. It renders a
-global `SceneView` over an Esri vector-tile basemap recolored to the ember
-palette (Natural Earth polygons when keyless), places one blade node per country
-cluster (multi-style countries open a popover), draws elevated great-circle arc
-polylines for lineage edges, and flies the camera (`view.goTo`) to the selected
-style.
-
-### Basemap styling
-
-A stock Esri basemap would be neutral grey and would gut the design system, so
-the globe doesn't use one as-is. It fetches the **Dark Gray Canvas** style JSON —
-the closest stock Esri basemap to the palette — rewrites every paint color into
-the ember palette (lacquer-black ocean, warm-brown land, lantern-gold borders,
-bone labels), drops the road/rail/building layers a world atlas doesn't need, and
-hands the finished style to a `VectorTileLayer` at construction. The tiles are
-genuinely Esri's; only the paint is ours.
-
-The style is fetched from two sources, best first: the keyed **Basemap Styles v2**
-service, then the public Dark Gray Canvas style item as a fallback. The fallback
-is fetched and rendered **with no key at all** — deliberately. That item, its
-tiles and its sprite sheet are all anonymously readable, and staying anonymous
-there means the fallback still works in precisely the situation that sent us to
-it: a broken key. An *invalid* token does not degrade to anonymous access, it
-fails the request outright with `498`, so a fallback that forwarded the key would
-break exactly when it was needed. For the same reason the key is never assigned to
-the global `esriConfig.apiKey` — that appends `?token=` to every arcgis.com
-request, including the ones on the keyless path. Whichever source wins sets the
-key, or doesn't, for itself.
-
-Note the two styles are *equivalent*: 121 layers, identical layer ids, the same
-underlying `World_Basemap_v2` tile service and the same sprite sheet. Once
-recolored they render identically — which is why a failed key is invisible on
-screen and has to be caught on the network.
-
-Recoloring up front is deliberate: `VectorTileLayer`'s live restyling setters
-(`setPaintProperties`, `deleteStyleLayer`, `setLayoutProperties`) are documented
-against 2D `MapView`, and this is a 3D `SceneView`. Materializing the style
-before the layer exists sidesteps that question entirely — and avoids the grey
-flash you'd get repainting a live basemap.
-
-The ground carries **no elevation layer** on purpose: lineage arcs are drawn at
-`absolute-height` while node markers have no z, so a terrain surface would
-visibly detach the arcs from their endpoints.
-
-## Tech stack
-
-| Layer | Choice |
+| | |
 |---|---|
-| Framework | Next.js (App Router), React 19 |
-| Globe | ArcGIS Maps SDK for JavaScript (`@arcgis/core`, `SceneView`, global mode) |
-| Basemap | Esri **Dark Gray Canvas** vector tiles, style JSON recolored to the ember palette — needs `NEXT_PUBLIC_ARCGIS_API_KEY` |
-| Keyless fallback | Natural Earth `world-atlas` topojson (public domain, CDN) via `topojson-client` |
-| Chrome | Bespoke *Warrior Atlas* design system (tokens + components, ported from the Claude Design project) |
-| Content | markdown + frontmatter, parsed at build with `gray-matter` |
-| Icons | `lucide-react` |
+| Framework | Next.js 15, React 19, TypeScript |
+| Globe | ArcGIS Maps SDK for JavaScript 4.31 (`SceneView`, global mode) |
+| Basemap | Esri Dark Gray Canvas vector tiles, recolored in code |
+| Content | Markdown + frontmatter, parsed with `gray-matter` |
+| Hosting | Vercel |
 
-## Design ↔ spec reconciliation
+## Things that were harder than expected
 
-The design source (Claude Design "Warrior Atlas") shipped a beautiful custom
-*canvas* globe and 12 placeholder records; the wiki spec calls for ArcGIS and a
-markdown pipeline. Where they conflicted, the spec won:
+**Making Esri's basemap match the design.** The stock dark basemap is neutral grey, which clashed with the warm palette. Instead of restyling the layer after it loads, the app fetches the style JSON, rewrites every paint color, drops the road and building layers, and hands the finished style to the layer. The tiles are Esri's. The colors are mine.
 
-- **Globe:** rebuilt on ArcGIS `SceneView` (the Esri signal), not the canvas
-  globe — a real Esri basemap service, recolored to ember rather than left as
-  stock grey or swapped for satellite tiles.
-- **Data:** the 22 `content/arts/*.md` records, parsed at build — not the
-  design's hardcoded array.
-- **Co-located arts:** solved by clustering per country + a pick-a-style popover
-  (Japan's nine) rather than a literal d3-force jitter; same "don't stack" goal.
-- **Chrome:** the project's own bespoke design system (more on-brand than
-  Calcite, which the spec only *considered*).
-- **RAG chat:** deferred — the spec lists it as an open v1 question / stretch.
+**Arcs that lift off the surface.** The geodesic helpers I tried draw lines flat on the ground. I wrote my own great-circle math so each lineage route arches above the globe.
 
-## Known limitations
+**Labels that flickered.** Country names drawn as map text re-sorted against the land every frame while the globe turned, so they flickered. They're now HTML laid over the canvas.
 
-- Auto-rotate uses `requestAnimationFrame`; browsers pause it in background tabs
-  (spin resumes when the tab is focused).
-- Desktop-first — the globe, rail, and dossier need width; a notice shows on
-  narrow screens.
-- `region` / `discipline` / `status` / birthplace city are curated in
-  `lib/meta.ts`, not derived from the frontmatter facts.
-- An invalid or unprivileged ArcGIS key still degrades to a fallback rather than
-  failing, but no longer *silently*: the app warns in the console naming the
-  source and the likely privilege, and `npm run check:basemap` fails on it.
+**A globe that was half as tall as it should be.** The SDK ships no CSS by default, so its canvas fell back to the browser's default 300×150 aspect ratio and left a dead band under the globe at every screen size. I copied the four layout rules it needs from the SDK source rather than import a 340 kB theme for widgets the app never uses. `scripts/check-globe-fit.mjs` catches it if an SDK upgrade breaks those rules.
 
-### The SDK ships no CSS
-
-`@arcgis/core` provides no stylesheet by default; its themes are a separate
-import. Without one, `.esri-view-root` and `.esri-view-surface` get no height,
-the WebGL `<canvas>`'s `height: 100%` has nothing to resolve against, and it
-falls back to a canvas element's intrinsic `300×150` — so the globe renders at
-exactly **half its container's width in height**, leaving a dead band beneath it
-at every viewport size. It still tracks window resizes; it is simply wrong at all
-of them, which is why it survived unnoticed.
-
-`app/globals.css` carries the four view box-model rules verbatim from the SDK's
-own `themes/base/_View.scss` instead of importing a theme, because
-`themes/dark/main.css` is 340 kB (48 kB gzipped) of skins for widgets this app
-never mounts — it draws all its own chrome. That would have consumed the whole
-CSS budget for nothing. The trade is a dependency on Esri-internal class names,
-so `scripts/check-globe-fit.mjs` asserts the canvas still fills its container at
-three viewport sizes and fails loudly if an SDK upgrade renames them.
+**An API key failure you can't see.** If the ArcGIS key is rejected, the app falls back to a public copy of the same basemap, and after recoloring the two look identical. `npm run check:basemap` reads Esri's error codes so a bad key shows up as a failure instead of passing quietly.
